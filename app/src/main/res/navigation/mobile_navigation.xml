@@ -22,4 +22,10 @@
         android:name="com.example.dalportal.ui.slideshow.EventsFragment"
         android:label="@string/menu_events"
         tools:layout="@layout/fragment_events" />
+
+    <fragment
+        android:id="@+id/nav_assignment"
+        android:name="com.example.dalportal.ui.assignments.AssignmentFragment"
+        android:label="@string/menu_assignments"
+        tools:layout="@layout/fragment_assignment" />
 </navigation>
