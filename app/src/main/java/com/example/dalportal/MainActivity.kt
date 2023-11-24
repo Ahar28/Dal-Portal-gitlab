@@ -1,5 +1,6 @@
 package com.example.dalportal
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
 import com.google.android.material.snackbar.Snackbar
@@ -12,6 +13,7 @@ import androidx.navigation.ui.setupWithNavController
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.appcompat.app.AppCompatActivity
 import com.example.dalportal.databinding.ActivityMainBinding
+import com.example.dalportal.ui.DiscussionForm.PostListActivity
 import com.google.firebase.FirebaseApp
 
 class MainActivity : AppCompatActivity() {
@@ -39,11 +41,24 @@ class MainActivity : AppCompatActivity() {
         // menu should be considered as top level destinations.
         appBarConfiguration = AppBarConfiguration(
             setOf(
-                R.id.nav_home, R.id.nav_gallery, R.id.nav_slideshow
+                R.id.nav_home, R.id.nav_gallery, R.id.nav_slideshow, R.id.nav_availability_calendar
             ), drawerLayout
         )
         setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
+//        navView.setNavigationItemSelectedListener { menuItem ->
+//            when (menuItem.itemId) {
+//                R.id.nav_discussion -> {
+//                    // Open the PostListActivity where all posts are listed
+//                    val intent = Intent(this, PostListActivity::class.java)
+//                    startActivity(intent)
+//                    drawerLayout.closeDrawers()
+//                    true
+//                }
+//                // Handle other menu items if necessary...
+//                else -> false
+//            }
+//        }
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {

@@ -69,7 +69,7 @@ class AssignmentDetailFragment : Fragment() {
             startActivityForResult(intent, FILE_PICKER_REQUEST_CODE)
         }
 
-        // Button to submit the file
+// Button to submit the file
         val submitButton: Button = binding.submitButton
         submitButton.setOnClickListener {
             // Check if a file is selected
@@ -100,10 +100,10 @@ class AssignmentDetailFragment : Fragment() {
                             // Handle unsuccessful uploads
                             showErrorAlert(exception.message)
                         }
-                } else {
-                    // No file selected
-                    showNoFileSelectedError()
                 }
+            } else {
+                // No file selected, show error message
+                showNoFileSelectedError()
             }
         }
 
