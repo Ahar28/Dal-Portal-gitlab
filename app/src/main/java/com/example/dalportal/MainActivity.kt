@@ -13,7 +13,6 @@ import androidx.navigation.ui.setupWithNavController
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.appcompat.app.AppCompatActivity
 import com.example.dalportal.databinding.ActivityMainBinding
-import com.example.dalportal.ui.Admin.AdminPortalActivity
 import com.example.dalportal.ui.DiscussionForm.PostListActivity
 import com.google.firebase.FirebaseApp
 
@@ -38,12 +37,6 @@ class MainActivity : AppCompatActivity() {
         val drawerLayout: DrawerLayout = binding.drawerLayout
         val navView: NavigationView = binding.navView
         val navController = findNavController(R.id.nav_host_fragment_content_main)
-        val isLoggedIn = true // Replace with actual authentication check
-        val isAdmin = true // Replace with actual admin status check
-
-        // Find the Admin Portal menu item and set its visibility based on the user's admin status
-        val adminPortalMenuItem = navView.menu.findItem(R.id.nav_admin_portal)
-        adminPortalMenuItem.isVisible = isLoggedIn && isAdmin
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
         appBarConfiguration = AppBarConfiguration(
@@ -62,12 +55,7 @@ class MainActivity : AppCompatActivity() {
                     drawerLayout.closeDrawers()
                     true
                 }
-                R.id.nav_admin_portal -> {
-                    // Start the AdminPortalActivity when the admin portal item is clicked
-                    startActivity(Intent(this, AdminPortalActivity::class.java))
-                    drawerLayout.closeDrawers()
-                    true
-                }
+                // Handle other menu items if necessary...
                 else -> false
             }
         }
