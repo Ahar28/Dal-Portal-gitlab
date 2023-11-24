@@ -11,7 +11,8 @@ data class Post(
     @PropertyName("content") var content: String = "",
     @PropertyName("timestamp") var timestamp: Long = System.currentTimeMillis(),
     @PropertyName("likes") var likes: Int = 0,
-    @PropertyName("comments") var comments: Int = 0
+    @PropertyName("comments") var comments: Int = 0,
+    var reply: String? = null
 ) {
     // Empty constructor for Firestore
     constructor() : this("", "", "", 0L, 0, 0)

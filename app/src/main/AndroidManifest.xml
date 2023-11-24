@@ -52,6 +52,10 @@
 
             <!-- Any intent filters if necessary -->
         </activity>
+        <activity android:name=".ui.Admin.AdminPortalActivity">
+            <!-- You can also add an intent-filter here if this activity is an entry point for some action -->
+        </activity>
+
     </application>
 
 </manifest>
