@@ -4,5 +4,7 @@ data class Assignment(
     val name: String = "",
     val deadline: String = "",
     var completionStatus: String = "",
-    var score: Int = 0
+    var score: String = "",
+    var fileUrl: String = "",
+    var studentId: String = ""
 )
