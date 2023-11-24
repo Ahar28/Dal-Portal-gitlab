@@ -12,4 +12,5 @@
     <string name="menu_events">Events</string>
     <string name="menu_assignments">Assignments</string>
     <string name="menu_assignments_review">Assignments Review</string>
+    <string name="menu_content">Content</string>
 </resources>

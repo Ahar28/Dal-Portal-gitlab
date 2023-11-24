@@ -24,5 +24,9 @@
             android:id="@+id/nav_assignment_review"
             android:icon="@drawable/ic_menu_assignments_review"
             android:title="@string/menu_assignments_review" />
+        <item
+            android:id="@+id/nav_content"
+            android:icon="@drawable/ic_menu_content"
+            android:title="@string/menu_content" />
     </group>
 </menu>
