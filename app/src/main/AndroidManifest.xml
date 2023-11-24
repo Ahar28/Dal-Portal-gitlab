@@ -26,6 +26,12 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".ui.DiscussionForm.PostListActivity">
+            <!-- Any intent filters if necessary -->
+        </activity>
+        <activity android:name=".ui.DiscussionForm.CreatePostActivity">
+            <!-- Any intent filters if necessary -->
+        </activity>
     </application>
 
 </manifest>

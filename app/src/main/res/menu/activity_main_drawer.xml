@@ -27,5 +27,9 @@
             android:id="@+id/nav_assignment"
             android:icon="@drawable/ic_menu_assignments"
             android:title="@string/menu_assignments" />
+        <item
+            android:id="@+id/nav_discussion"
+            android:icon="@drawable/ic_menu_assignments"
+            android:title="Discussion Form" />
     </group>
 </menu>
