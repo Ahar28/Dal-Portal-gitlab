@@ -11,4 +11,7 @@
     <string name="menu_ta_portal">TA Portal</string>
     <string name="menu_events">Events</string>
     <string name="menu_assignments">Assignments</string>
+    <string name="post_hint">Enter your post here...</string>
+    <string name="submit_post">Submit Post</string>
+    <string name="create_new_post">Create New Post</string>
 </resources>
