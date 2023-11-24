@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="16dp">
+
+    <!-- TextView for displaying the content of the post -->
+    <TextView
+    android:id="@+id/postContent"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_alignParentTop="true"
+    android:layout_marginBottom="16dp"
+    android:text="Post Content" />
+
+    <!-- ImageView for the like button -->
+    <ImageView
+    android:id="@+id/likeButton"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_below="@id/postContent"
+    android:src="@drawable/ic_like" />
+
+    <!-- TextView for displaying the like count -->
+    <TextView
+    android:id="@+id/likeCount"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_toEndOf="@id/likeButton"
+    android:layout_marginStart="8dp"
+    android:layout_alignBottom="@id/likeButton"
+    android:text="0" />
+
+        <!-- ImageView for the comment button -->
+    <ImageView
+    android:id="@+id/commentButton"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_toEndOf="@id/likeCount"
+    android:layout_marginStart="16dp"
+    android:layout_alignTop="@id/likeButton"
+    android:src="@drawable/ic_comment" /> <!-- Replace with your comment icon resource -->
+
+        <!-- TextView for displaying the comment count -->
+    <TextView
+    android:id="@+id/commentCount"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_toEndOf="@id/commentButton"
+    android:layout_marginStart="8dp"
+    android:layout_alignBottom="@id/commentButton"
+    android:text="0" />
+
+    </RelativeLayout>
