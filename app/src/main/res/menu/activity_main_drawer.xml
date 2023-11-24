@@ -22,7 +22,6 @@
             android:icon="@drawable/ic_menu_slideshow"
             android:title="@string/Availability" />
 
-
         <item
             android:id="@+id/nav_assignment"
             android:icon="@drawable/ic_menu_assignments"

@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.Lifecycle
 import androidx.viewpager2.adapter.FragmentStateAdapter
+import com.example.dalportal.ui.availability.prof.AvailabilityProfFragment
 import com.example.dalportal.ui.availability.ta.AvailabilityTaAddFragment
 import com.example.dalportal.ui.availability.ta.AvailabilityTaTimeOffFragment
 import com.example.dalportal.ui.availability.ta.AvailabilityTaViewFragment
@@ -32,7 +33,7 @@ class TabViewAdapter(fragment: Fragment) : FragmentStateAdapter(fragment) {
             }
             2 -> {
                 // Creating and returning City3Fragment for position 2
-                return AvailabilityTaTimeOffFragment()
+                return AvailabilityProfFragment()
             }
         }
 

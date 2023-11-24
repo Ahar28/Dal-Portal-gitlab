@@ -466,7 +466,7 @@ class AvailabilityTaAddFragment : Fragment() {
                     val dateStart = sdf.parse(startTime)
                     val dateEnd = sdf.parse(endTime)
 
-                    if (dateStart != null && dateEnd != null && dateStart.after(dateEnd)) {
+                    if (dateStart != null && dateEnd != null && dateEnd.after(dateStart)) {
                         // Do nothing
                     }
                     else {

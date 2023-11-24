@@ -1,6 +1,5 @@
-package com.example.dalportal.ui.availability.ta
+package com.example.dalportal.ui.availability.prof
 
-import android.annotation.SuppressLint
 import android.app.ActionBar.LayoutParams
 import android.app.DatePickerDialog
 import android.app.TimePickerDialog
@@ -29,17 +28,17 @@ import com.google.firebase.Firebase
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.database
 import com.google.firebase.firestore.FirebaseFirestore
-import org.w3c.dom.Text
 import java.text.ParseException
 import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Locale
 
-class AvailabilityTaViewFragment : Fragment() {
+class AvailabilityProfFragment : Fragment() {
 
-    private lateinit var btnSelectDate1: TextView
-    private lateinit var btnSelectDate2: TextView
+    private lateinit var btnSelectDate1: Button
+    private lateinit var btnSelectDate2: Button
     private lateinit var radioGroupDays: RadioGroup
+    private lateinit var etComment: EditText
     private lateinit var btnAddRangeSet: Button
     private lateinit var linearLayoutInnerTimeRanges: LinearLayout
     private lateinit var spinnerDays: Spinner
@@ -52,6 +51,7 @@ class AvailabilityTaViewFragment : Fragment() {
 
     private var selectedStartDate = getCurrentDate()
     private var selectedEndDate = getCurrentDate()
+    private var comment: String = ""
 
     private fun initializeTimeRangeButtonsMap() {
         val daysOfWeek = arrayOf("Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat")
@@ -68,13 +68,12 @@ class AvailabilityTaViewFragment : Fragment() {
         loadDataFromFirestore(db, userId.toString())
     }
 
-    @SuppressLint("MissingInflatedId")
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        val view = inflater.inflate(R.layout.fragment_availability_ta_view, container, false)
+        val view = inflater.inflate(R.layout.fragment_availability_prof, container, false)
         // Initialize Firebase
         // Initialize Firebase storage
         databaseReference = Firebase.database.reference
@@ -85,9 +84,17 @@ class AvailabilityTaViewFragment : Fragment() {
         // Section 1
         btnSelectDate1 = view.findViewById(R.id.btnSelectDate1)
         btnSelectDate2 = view.findViewById(R.id.btnSelectDate2)
+
         btnSelectDate1.text = selectedStartDate
         btnSelectDate2.text = selectedEndDate
 
+        btnSelectDate1.setOnClickListener {
+            showDatePickerDialog(btnSelectDate1)
+        }
+
+        btnSelectDate2.setOnClickListener {
+            showDatePickerDialog(btnSelectDate2)
+        }
 
         // Initialize views
         spinnerDays = view.findViewById(R.id.spinnerDays)
@@ -104,6 +111,40 @@ class AvailabilityTaViewFragment : Fragment() {
         // Apply the adapter to the spinner
         spinnerDays.adapter = spinnerAdapter
 
+
+        // Initialize views
+        var spinnerUser: Spinner = view.findViewById(R.id.spinnerUser)
+
+        // Dummy data for the spinner
+        val userArray = arrayOf("User 1", "User 2")
+
+        // Create an ArrayAdapter using the string array and a default spinner layout
+        var spinnerUserAdapter =
+            ArrayAdapter(requireContext(), android.R.layout.simple_spinner_item, userArray)
+
+        // Specify the layout to use when the list of choices appears
+        spinnerUserAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+
+        // Apply the adapter to the spinner
+        spinnerUser.adapter = spinnerUserAdapter
+
+        // Set a listener to handle item selection
+        spinnerUser.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onItemSelected(
+                parentView: AdapterView<*>?,
+                selectedItemView: View?,
+                position: Int,
+                id: Long
+            ) {
+                val selectedUser = spinnerAdapter.getItem(position)
+                Toast.makeText(requireContext(), "Selected User: $selectedUser", Toast.LENGTH_SHORT)
+                    .show()
+            }
+
+            override fun onNothingSelected(parent: AdapterView<*>?) {
+                TODO("Not yet implemented")
+            }
+        }
 
         // Set a listener to handle item selection
         spinnerDays.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
@@ -155,7 +196,13 @@ class AvailabilityTaViewFragment : Fragment() {
 
 
         // Section 4
+        etComment = view.findViewById(R.id.etComment)
 
+        val updateButton: Button = view.findViewById(R.id.btnSubmitAvability)
+
+        updateButton.setOnClickListener(){
+            saveDataToFirebase(db)
+        }
 
         return view
     }
@@ -171,6 +218,7 @@ class AvailabilityTaViewFragment : Fragment() {
             convertedTimeRangeButtonsMap,
             selectedStartDate,
             selectedEndDate,
+            etComment.text.toString()
         )
 
         db.collection("shifts")
@@ -186,7 +234,7 @@ class AvailabilityTaViewFragment : Fragment() {
     }
 
     private fun loadDataFromFirestore(db: FirebaseFirestore, documentId: String) {
-        val docRef = db.collection("shifts").document(documentId)
+        val docRef = db.collection("availability").document(documentId)
 
         docRef.get()
             .addOnSuccessListener { document ->
@@ -211,6 +259,7 @@ class AvailabilityTaViewFragment : Fragment() {
             selectedStartDate = availabilityData.selectedStartDate
             selectedEndDate = availabilityData.selectedEndDate
             timeRangeButtonsMap = convertStringPairsToButtons(availabilityData.timeRangeButtonsMap)
+            etComment.setText(availabilityData.comment)
 
 
             for (buttonPair in timeRangeButtonsMap["Sun"]!!) {
@@ -268,7 +317,7 @@ class AvailabilityTaViewFragment : Fragment() {
                     LinearLayout.LayoutParams.WRAP_CONTENT,
                     LinearLayout.LayoutParams.WRAP_CONTENT
                 )
-                avTimeStart.text = buttonPair.first.text
+                avTimeStart.text = "Availability: "+buttonPair.first.text
 
                 val avTimeEnd = TextView(requireContext())
                 timeRangeSeparator1.layoutParams = LinearLayout.LayoutParams(
@@ -282,7 +331,12 @@ class AvailabilityTaViewFragment : Fragment() {
                 timeRangeLayout1.addView(timeRangeSeparator1)
                 timeRangeLayout1.addView(avTimeEnd)
 
+                timeRangeLayout2.addView(buttonPair.first)
+                timeRangeLayout2.addView(timeRangeSeparator2)
+                timeRangeLayout2.addView(buttonPair.second)
+
                 availabilityDataLayout.addView(timeRangeLayout1)
+                availabilityDataLayout.addView(timeRangeLayout2)
 
                 // Add the layout to the parent layout
                 linearLayoutInnerTimeRanges.addView(availabilityDataLayout)
@@ -514,4 +568,6 @@ class AvailabilityTaViewFragment : Fragment() {
 
         return true
     }
+
+
 }

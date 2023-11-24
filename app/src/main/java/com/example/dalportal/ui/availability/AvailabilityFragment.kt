@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.example.dalportal.R
+import com.example.dalportal.ui.availability.prof.AvailabilityProfFragment
 import com.example.dalportal.ui.availability.ta.AvailabilityTaFragment
 
 class AvailabilityFragment : Fragment() {
@@ -33,6 +34,7 @@ class AvailabilityFragment : Fragment() {
 
         // Replace FirstFragment with SecondFragment
         val availabilityTaFragment = AvailabilityTaFragment()
+        val availabilityProfFragment = AvailabilityProfFragment()
         val transaction = requireActivity().supportFragmentManager.beginTransaction()
         transaction.replace(R.id.nav_host_fragment_content_main, availabilityTaFragment)
         transaction.addToBackStack(null) // Optional: Add transaction to back stack
