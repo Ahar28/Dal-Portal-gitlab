@@ -16,6 +16,13 @@
             android:id="@+id/nav_slideshow"
             android:icon="@drawable/ic_menu_slideshow"
             android:title="@string/menu_events" />
+
+        <item
+            android:id="@+id/nav_availability_calendar"
+            android:icon="@drawable/ic_menu_slideshow"
+            android:title="@string/Availability" />
+
+
         <item
             android:id="@+id/nav_assignment"
             android:icon="@drawable/ic_menu_assignments"
