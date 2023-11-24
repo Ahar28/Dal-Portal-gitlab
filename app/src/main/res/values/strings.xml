@@ -20,4 +20,6 @@
     <string name="post_hint">Enter your post here...</string>
     <string name="submit_post">Submit Post</string>
     <string name="create_new_post">Create New Post</string>
+    <string name="admin_portal">Admin Portal</string>
+    <string name="stat_icon_desc" />
 </resources>

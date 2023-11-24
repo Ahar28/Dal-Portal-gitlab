@@ -36,5 +36,4 @@
         tools:layout="@layout/fragment_availability" />
 
 
-
 </navigation>

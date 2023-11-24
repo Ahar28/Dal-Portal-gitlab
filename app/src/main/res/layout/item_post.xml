@@ -51,4 +51,41 @@
     android:layout_alignBottom="@id/commentButton"
     android:text="0" />
 
-    </RelativeLayout>
+    <!-- ... existing layout components ... -->
+
+    <TextView
+        android:id="@+id/postReply"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/commentButton"
+        android:layout_marginTop="8dp"
+        android:text="Reply Text"
+        android:textStyle="italic"
+        android:padding="8dp"
+        android:background="#EFEFEF"
+        android:visibility="gone" /> <!-- Initially hidden -->
+
+    <!-- Reply EditText for typing a reply -->
+    <EditText
+        android:id="@+id/replyEditText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/commentButton"
+        android:layout_marginTop="8dp"
+        android:hint="Type your reply here"
+        android:background="@drawable/edittext_background"
+        android:padding="8dp"
+        android:visibility="gone" /> <!-- Initially hidden -->
+
+    <!-- Button for submitting the reply -->
+    <Button
+        android:id="@+id/submitReplyButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_below="@id/replyEditText"
+        android:text="Post"
+        android:visibility="gone" /> <!-- Initially hidden -->
+
+
+</RelativeLayout>
