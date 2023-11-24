@@ -13,6 +13,24 @@
         android:theme="@style/Theme.DalPortal"
         tools:targetApi="31">
         <activity
+            android:name=".RegistrationActivity"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".LoginActivity"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
             android:name=".ui.assignments.AssignmentDetailActivity"
             android:exported="true" />
         <activity
@@ -27,9 +45,11 @@
             </intent-filter>
         </activity>
         <activity android:name=".ui.DiscussionForm.PostListActivity">
+
             <!-- Any intent filters if necessary -->
         </activity>
         <activity android:name=".ui.DiscussionForm.CreatePostActivity">
+
             <!-- Any intent filters if necessary -->
         </activity>
     </application>

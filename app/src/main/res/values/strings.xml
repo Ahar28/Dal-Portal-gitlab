@@ -20,4 +20,13 @@
     <string name="post_hint">Enter your post here...</string>
     <string name="submit_post">Submit Post</string>
     <string name="create_new_post">Create New Post</string>
+    <string name="registration_headline">Registration</string>
+        <string name="name_hint">Name</string>
+        <string name="email_hint">Email</string>
+        <string name="password_hint">Password</string>
+
+
+    <string name="login_headline">Login</string>
+    <string name="email">Email</string>
+    <string name="password">Password</string>
 </resources>
