@@ -6,5 +6,6 @@ data class Assignment(
     var completionStatus: String = "",
     var score: String = "",
     var fileUrl: String = "",
-    var studentId: String = ""
+    var studentId: String = "",
+    var feedback: String = ""
 )
