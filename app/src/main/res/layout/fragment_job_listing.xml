@@ -3,11 +3,18 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.job_listing.JobListingFragment">
+    tools:context=".ui.job_portal.job_listing.JobListingFragment">
 
     <!-- RecyclerView for displaying job listings -->
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerViewJobListings"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
+    <Button
+        android:id="@+id/addJobButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Add Job"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="16dp"/>
 </FrameLayout>

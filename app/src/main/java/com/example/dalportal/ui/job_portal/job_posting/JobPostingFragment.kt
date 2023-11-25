@@ -1,4 +1,4 @@
-package com.example.dalportal.ui.job_posting
+package com.example.dalportal.ui.job_portal.job_posting
 
 import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
