@@ -12,6 +12,11 @@ import com.example.dalportal.R
 import com.example.dalportal.model.AdminStat
 import com.example.dalportal.util.FirestoreHelper
 
+/**
+ * A fragment for displaying admin statistics.
+ *
+ * @author Shivam Lakhanpal
+ */
 class AdminFragment : Fragment() {
     private lateinit var recyclerView: RecyclerView
     private lateinit var adapter: AdminStatsAdapter
@@ -31,6 +36,9 @@ class AdminFragment : Fragment() {
         return view
     }
 
+    /**
+     * Fetches admin data from Firestore and updates the RecyclerView.
+     */
     private fun fetchAdminData() {
         FirestoreHelper.fetchAdminData(onSuccess = { data ->
             val stats = data.map { AdminStat(it.key.replaceFirstChar { it.uppercase() }, it.value.toString()) }

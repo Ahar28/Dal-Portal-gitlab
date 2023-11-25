@@ -8,7 +8,14 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.dalportal.R
 import com.example.dalportal.model.AdminStat
 import com.example.dalportal.util.FirestoreHelper
-
+/**
+ * Activity to display administrative statistics.
+ *
+ * Responsible for fetching and displaying a list of admin-related statistics in a RecyclerView.
+ * Data is fetched from Firestore.
+ *
+ * @author Shivam Lakhanpal
+ */
 class AdminPortalActivity : AppCompatActivity() {
     private lateinit var recyclerView: RecyclerView
     private lateinit var adapter: AdminStatsAdapter
