@@ -7,5 +7,11 @@ import kotlinx.parcelize.Parcelize
 data class JobListing(
     val id: String,
     val title: String,
-    // ... other fields ...
+    val description: String,
+    val location: String,
+    val pay: Int,
+    val positions : Int,
+    val requirements: String,
+    val type:String
+
 ) : Parcelable

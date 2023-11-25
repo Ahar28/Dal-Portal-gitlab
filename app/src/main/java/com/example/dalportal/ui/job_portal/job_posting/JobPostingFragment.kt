@@ -56,16 +56,16 @@ class JobPostingFragment : Fragment() {
         val jobTitle = binding.jobTitle.text.toString()
         val jobDescription = binding.jobDescription.text.toString()
         val jobType = binding.jobType.selectedItem.toString()
-        val numPositions = binding.numPositions.text.toString()
+        val numPositions = binding.numPositions.text.toString().toIntOrNull() ?: 0 // Parse as Int, default to 0
         val jobLocation = binding.jobLocation.text.toString()
-        val rateOfPay = binding.rateOfPay.text.toString()
+        val rateOfPay = binding.rateOfPay.text.toString().toIntOrNull() ?: 0 // Parse as Int, default to 0
         val jobRequirements = binding.jobRequirements.text.toString()
 
-        // Check if any field is empty
+        // Check if any field is empty or if numeric fields are not numbers
         if (jobTitle.isEmpty() || jobDescription.isEmpty() || jobType.isEmpty() ||
-            numPositions.isEmpty() || jobLocation.isEmpty() || rateOfPay.isEmpty() ||
+            numPositions == 0 || jobLocation.isEmpty() || rateOfPay == 0 ||
             jobRequirements.isEmpty()) {
-            Toast.makeText(requireContext(), "Please fill in all the fields", Toast.LENGTH_SHORT).show()
+            Toast.makeText(requireContext(), "Please fill in all the fields correctly", Toast.LENGTH_SHORT).show()
             return
         }
 
@@ -74,9 +74,9 @@ class JobPostingFragment : Fragment() {
             "title" to jobTitle,
             "description" to jobDescription,
             "type" to jobType,
-            "positions" to numPositions,
+            "positions" to numPositions, // Save as Int
             "location" to jobLocation,
-            "pay" to rateOfPay,
+            "pay" to rateOfPay, // Save as Int
             "requirements" to jobRequirements
         )
 

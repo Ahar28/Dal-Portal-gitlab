@@ -34,7 +34,7 @@ class JobListingAdapter(private var jobListings: MutableList<JobListing>,
         val jobListing = jobListings[position]
         holder.textViewJobTitle.text = jobListing.title
         holder.deleteButton.setOnClickListener {
-            deleteJob(holder.itemView.context, jobListing, position)
+            deleteJob(  holder.itemView.context, jobListing, position)
         }
         holder.itemView.setOnClickListener {
             itemClickListener(jobListing)

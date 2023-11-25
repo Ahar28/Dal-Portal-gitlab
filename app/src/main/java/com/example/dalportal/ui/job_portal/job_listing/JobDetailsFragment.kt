@@ -30,7 +30,10 @@ class JobDetailsFragment : Fragment() {
     private fun displayJobDetails(jobListing: JobListing?) {
         jobListing?.let {
             // Bind the job details to your UI components here
-            binding.textViewTitle.text = it.title
+            binding.textViewJobTitle.text = it.title
+            binding.textViewJobDescription.text = it.description
+            binding.textViewJobLocation.text = it.location
+            binding.textViewJobPay.text = it.pay.toString()
         }
     }
 

@@ -19,11 +19,19 @@ class JobListingFragment : Fragment() {
     private lateinit var jobListingsFull: List<JobListing> // Full list of job postings
     private val db = FirebaseFirestore.getInstance()
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
         _binding = FragmentJobListingBinding.inflate(inflater, container, false)
         setupRecyclerView()
         loadJobPostings()
         setupSearchView()
+// Setting up click listener for the Add Job button
+        binding.addJobButton.setOnClickListener {
+            findNavController().navigate(R.id.action_jobListingFragment_to_jobPostingFragment)
+        }
         return binding.root
     }
 
@@ -34,14 +42,19 @@ class JobListingFragment : Fragment() {
 
     private fun setupRecyclerView() {
         binding.recyclerViewJobListings.layoutManager = LinearLayoutManager(context)
-        binding.recyclerViewJobListings.adapter = JobListingAdapter(mutableListOf(), requireContext()) { jobListing ->
-            val bundle = Bundle().apply {
-                putParcelable("jobListing", jobListing)
-            }
-            findNavController().navigate(R.id.action_jobListingFragment_to_jobDetailsFragment, bundle)
+        binding.recyclerViewJobListings.adapter =
+            JobListingAdapter(mutableListOf(), requireContext()) { jobListing ->
+                val bundle = Bundle().apply {
+                    putParcelable("jobListing", jobListing)
+                }
+                findNavController().navigate(
+                    R.id.action_jobListingFragment_to_jobDetailsFragment,
+                    bundle
+                )
 
-        }
+            }
     }
+
     private fun loadJobPostings() {
         db.collection("jobPostings").get()
             .addOnSuccessListener { documents ->
@@ -49,10 +62,17 @@ class JobListingFragment : Fragment() {
                     JobListing(
                         id = doc.id,
                         title = doc.getString("title") ?: "",
-                        // Map other fields from the document if necessary
+                        description = doc.getString("description") ?: "",
+                        location = doc.getString("location") ?: "",
+                        pay = doc.getLong("pay")?.toInt() ?: 0,
+                        positions = doc.getLong("positions")?.toInt() ?: 0,
+                        requirements = doc.getString("requirements") ?: "",
+                        type = doc.getString("type") ?: ""
                     )
                 }
-                (binding.recyclerViewJobListings.adapter as JobListingAdapter).updateData(jobListingsFull)
+                (binding.recyclerViewJobListings.adapter as JobListingAdapter).updateData(
+                    jobListingsFull
+                )
             }
             .addOnFailureListener { e ->
                 // Handle error, e.g., show a Toast
