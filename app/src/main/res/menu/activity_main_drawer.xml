@@ -44,6 +44,11 @@
             android:icon="@drawable/ic_admin_portal"
             android:title="@string/admin_portal"
             android:visible="false" />
+        <item
+            android:id="@+id/logout"
+            android:icon="@drawable/logout_icon"
+            android:title="Logout"
+            android:visible="true" />
 
     </group>
 </menu>
