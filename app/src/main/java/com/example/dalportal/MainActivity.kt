@@ -44,6 +44,18 @@ class MainActivity : AppCompatActivity() {
         val currentEmailTextView = headerView.findViewById<TextView>(R.id.current_email)
         val currentNameTextView = headerView.findViewById<TextView>(R.id.current_user)
         val adminPortalMenuItem = navView.menu.findItem(R.id.nav_admin_portal)
+        val assignmentMenuItem = navView.menu.findItem(R.id.nav_assignment)
+        val assignmentReviewMenuItem = navView.menu.findItem(R.id.nav_assignment_review)
+        val contentMenuItem = navView.menu.findItem(R.id.nav_content)
+
+        // For role = "TA"
+        assignmentReviewMenuItem.isVisible = UserData.role == "TA" || UserData.role == "Professor"
+        contentMenuItem.isVisible = UserData.role == "TA" || UserData.role == "Professor"
+
+        // For role = "Student"
+        assignmentMenuItem.isVisible = UserData.role == "Student"
+
+        // For role = "admin"
         adminPortalMenuItem.isVisible = UserData.role == "admin"
 
         // Set the text to user's email

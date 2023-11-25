@@ -51,19 +51,21 @@ class RegistrationActivity : AppCompatActivity() {
                         if (exists) {
                             Toast.makeText(this, "Email already exists", Toast.LENGTH_SHORT).show()
                         } else {
+                            // Generate a unique ID based on the role
+                            val userId = generateUserId(role)
                             val newUser =
-                                Users(name = name, email = email, password = password, role = role)
+                                Users(id= userId, name = name, email = email, password = password, role = role)
                             FirestoreHelper.addUser(newUser,
-                                onSuccess = { userId ->
+                                onSuccess = {
                                     Toast.makeText(
                                         this,
                                         "Registered successfully",
                                         Toast.LENGTH_SHORT
                                     ).show()
+                                    UserData.id = userId
                                     UserData.name = name
                                     UserData.email = email
                                     UserData.role = role
-                                    UserData.id = userId
                                     redirectToHomePage()
                                 },
                                 onFailure = { exception ->
@@ -103,5 +105,16 @@ class RegistrationActivity : AppCompatActivity() {
     private fun isEmailValid(email: String): Boolean {
         val emailRegex = "^[A-Za-z](.*)([@]{1})(.{1,})(\\.)(.{1,})"
         return email.matches(emailRegex.toRegex())
+    }
+
+    private fun generateUserId(role: String): String {
+        val prefix = when (role) {
+            "Professor" -> "P0"
+            "Student" -> "S0"
+            "TA" -> "T0"
+            else -> "U0" // Default prefix for unknown roles
+        }
+        val randomPart = (10000000..99999999).random().toString()
+        return "$prefix$randomPart"
     }
 }
