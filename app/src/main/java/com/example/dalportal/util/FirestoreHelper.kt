@@ -41,7 +41,12 @@ object FirestoreHelper {
     }
 
     // This function updates both the reply text and the comments count
-    fun updatePostWithReply(postId: String, reply: String, onSuccess: () -> Unit, onFailure: (Exception) -> Unit) {
+    fun updatePostWithReply(
+        postId: String,
+        reply: String,
+        onSuccess: () -> Unit,
+        onFailure: (Exception) -> Unit
+    ) {
         val postUpdate = mapOf(
             "reply" to reply,
             "comments" to 1 // Assuming each post can only have one reply, set comments to 1
@@ -72,6 +77,7 @@ object FirestoreHelper {
                 onFailure(e)
             }
     }
+
     fun addUser(user: Users, onSuccess: (String) -> Unit, onFailure: (Exception) -> Unit) {
         db.collection("users")
             .add(user)
@@ -89,7 +95,7 @@ object FirestoreHelper {
     fun loginUser(
         email: String,
         password: String,
-        onSuccess: (Boolean, String?, String?, String?) -> Unit,
+        onSuccess: (Boolean, String?, String?, String?, String?) -> Unit,
         onFailure: (Exception) -> Unit
     ) {
         db.collection("users")
@@ -99,15 +105,16 @@ object FirestoreHelper {
             .addOnSuccessListener { documents ->
                 if (documents.isEmpty) {
                     // Email not found
-                    onSuccess(false, null, null, null)
+                    onSuccess(false, null, null, null, null)
                 } else {
                     val user = documents.first().toObject(Users::class.java)
+                    val userId = documents.first().id
                     if (user.password == password) {
                         // Password matches, return user details
-                        onSuccess(true, user.name, user.email, user.role)
+                        onSuccess(true, user.name, user.email, user.role, userId)
                     } else {
                         // Password does not match
-                        onSuccess(false, null, null, null)
+                        onSuccess(false, null, null, null, null)
                     }
                 }
             }
