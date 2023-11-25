@@ -17,6 +17,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.example.dalportal.databinding.ActivityMainBinding
 import com.example.dalportal.ui.DiscussionForm.PostListActivity
 import com.example.dalportal.util.UserData
+import com.example.dalportal.ui.availability.AvailabilityFragment
 import com.google.firebase.FirebaseApp
 
 class MainActivity : AppCompatActivity() {
@@ -99,4 +100,6 @@ class MainActivity : AppCompatActivity() {
         val navController = findNavController(R.id.nav_host_fragment_content_main)
         return navController.navigateUp(appBarConfiguration) || super.onSupportNavigateUp()
     }
+
+
 }

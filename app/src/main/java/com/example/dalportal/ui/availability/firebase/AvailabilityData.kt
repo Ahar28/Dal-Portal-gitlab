@@ -1,6 +1,7 @@
 package com.example.dalportal.ui.availability.firebase
 
 import android.widget.Button
+import com.example.dalportal.R
 import com.google.firebase.database.Exclude
 import com.google.firebase.firestore.PropertyName
 import com.google.firebase.firestore.QueryDocumentSnapshot
