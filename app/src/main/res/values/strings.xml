@@ -43,4 +43,10 @@
     <string name="email">Email</string>
     <string name="password">Password</string>
 
+    <string-array name="ta_edit_status_spinner_items">
+        <item>Pending</item>
+        <item>In-Progress</item>
+        <item>Completed</item>
+    </string-array>
+
 </resources>
