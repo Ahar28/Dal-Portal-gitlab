@@ -43,9 +43,9 @@
 
     <fragment
         android:id="@+id/nav_availability_calendar"
-        android:name="com.example.dalportal.ui.availability.AvailabilityFragment"
+        android:name="com.example.dalportal.ui.availability.ta.AvailabilityTaFragment"
         android:label="@string/availability"
-        tools:layout="@layout/fragment_availability" />
+        tools:layout="@layout/fragment_availability_ta" />
 
     <fragment
         android:id="@+id/nav_discussion"

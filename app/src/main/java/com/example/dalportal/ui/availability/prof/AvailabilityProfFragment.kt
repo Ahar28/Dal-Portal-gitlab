@@ -31,6 +31,7 @@ import com.example.dalportal.R
 import com.example.dalportal.ui.availability.firebase.AvailabilityData
 import com.example.dalportal.ui.availability.firebase.ButtonPair
 import com.example.dalportal.ui.availability.firebase.convertButtonPairsToStrings
+import com.example.dalportal.util.UserData
 import com.google.firebase.Firebase
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.database
@@ -51,11 +52,12 @@ class AvailabilityProfFragment : Fragment() {
     private lateinit var linearLayoutInnerTimeRanges: LinearLayout
     private lateinit var spinnerDays: Spinner
     private lateinit var spinnerAdapter: ArrayAdapter<String>
+    private lateinit var spinnerUserAdapter: ArrayAdapter<String>
     private lateinit var databaseReference: DatabaseReference
     var taNamesArray = mutableListOf<String>()
     var emailNameMap = mutableMapOf<String, String>()
     val db = FirebaseFirestore.getInstance()
-    val userId = 101
+    var userId: String = ""
 
 
     private var timeRangeButtonsMap = mutableMapOf<String, MutableList<Pair<Button, Button>>>()
@@ -161,36 +163,10 @@ class AvailabilityProfFragment : Fragment() {
                 Toast.makeText(requireContext(), "Selected Day: $selectedDay", Toast.LENGTH_SHORT).show()
                 linearLayoutInnerTimeRanges.removeAllViews()
 
-                for (buttonPair in timeRangeButtonsMap[selectedDay]!!) {
-                    // Create a LinearLayout to wrap the buttons
-                    val timeRangeLayout = LinearLayout(requireContext())
-                    timeRangeLayout.layoutParams = LinearLayout.LayoutParams(
-                        LinearLayout.LayoutParams.MATCH_PARENT,
-                        LinearLayout.LayoutParams.WRAP_CONTENT
-                    )
-                    timeRangeLayout.orientation = LinearLayout.HORIZONTAL
-
-                    // Create a TextView between the buttons
-                    val timeRangeSeparator = TextView(requireContext())
-                    timeRangeSeparator.layoutParams = LinearLayout.LayoutParams(
-                        LinearLayout.LayoutParams.WRAP_CONTENT,
-                        LinearLayout.LayoutParams.WRAP_CONTENT
-                    )
-                    timeRangeSeparator.text = " - "
-
-                    val parentButton1Layout = buttonPair.first.parent as? ViewGroup
-                    parentButton1Layout?.removeView(buttonPair.first)
-
-                    val parentButton2Layout = buttonPair.second.parent as? ViewGroup
-                    parentButton2Layout?.removeView(buttonPair.second)
-                    // Add views to the layout
-                    timeRangeLayout.addView(buttonPair.first)
-                    timeRangeLayout.addView(timeRangeSeparator)
-                    timeRangeLayout.addView(buttonPair.second)
-
-                    // Add the layout to the parent layout
-                    linearLayoutInnerTimeRanges.addView(timeRangeLayout)
-                }
+                val availabilityData = AvailabilityData(
+                    timeRangeButtonsMap = convertButtonPairsToStrings(timeRangeButtonsMap)
+                )
+                updateUI(availabilityData, selectedDay.toString())
             }
 
             override fun onNothingSelected(parentView: AdapterView<*>?) {
@@ -230,7 +206,7 @@ class AvailabilityProfFragment : Fragment() {
         )
 
         db.collection("shifts")
-            .document(userId.toString())
+            .document(userId)
             .set(availabilityData)
             .addOnSuccessListener { documentReference ->
                 Log.d(ContentValues.TAG, "DocumentSnapshot added with ID: ${userId}")
@@ -246,10 +222,10 @@ class AvailabilityProfFragment : Fragment() {
         runBlocking {
             val usersCollectionRef = db.collection("users")
 
-            var taNamesArray = mutableListOf<String>()
-            var emailNameMap = mutableMapOf<String, String>()
+//            var taNamesArray = mutableListOf<String>()
+//            var emailNameMap = mutableMapOf<String, String>()
 
-            usersCollectionRef
+            usersCollectionRef.whereEqualTo("role", "TA")
                 .get()
                 .addOnSuccessListener { usersSnapshot ->
                     if (!usersSnapshot.isEmpty) {
@@ -291,7 +267,7 @@ class AvailabilityProfFragment : Fragment() {
                                 position: Int,
                                 id: Long
                             ) {
-                                val selectedUser = spinnerAdapter.getItem(position)
+                                val selectedUser = spinnerUserAdapter.getItem(position)
                                 Toast.makeText(requireContext(), "Selected User: $selectedUser", Toast.LENGTH_SHORT)
                                     .show()
 
@@ -303,7 +279,7 @@ class AvailabilityProfFragment : Fragment() {
                             }
                         }
 
-                        getUserAva(emailNameMap[taNamesArray[0]].toString())
+//                        getUserAva(emailNameMap[taNamesArray[0]].toString())
                     }
                 }
                 .addOnFailureListener { exception ->
@@ -313,17 +289,18 @@ class AvailabilityProfFragment : Fragment() {
         }
     }
 
-
     fun getUserAva(documentId:String) {
                     // Step 3: Read the document from "availability" collection
                     val docRef = db.collection("availability").document(documentId)
 
+        userId=documentId
+        linearLayoutInnerTimeRanges.removeAllViews()
                     docRef.get()
                         .addOnSuccessListener { document ->
                             if (document != null && document.exists()) {
                                 val availabilityData = document.toObject(AvailabilityData::class.java)
                                 // Process the retrieved data (e.g., update UI)
-                                updateUI(availabilityData)
+                                updateUI(availabilityData,"Sun")
                             } else {
                                 // Document does not exist
                                 // Handle the case accordingly
@@ -335,17 +312,19 @@ class AvailabilityProfFragment : Fragment() {
                         }
     }
 
-
-    private fun updateUI(availabilityData: AvailabilityData?) {
+    private fun updateUI(availabilityData: AvailabilityData?, selectedDay: String) {
         // Update your UI with the retrieved data
+        linearLayoutInnerTimeRanges.removeAllViews()
         if (availabilityData != null) {
             selectedStartDate = availabilityData.selectedStartDate
             selectedEndDate = availabilityData.selectedEndDate
             timeRangeButtonsMap = convertStringPairsToButtons(availabilityData.timeRangeButtonsMap)
             etComment.setText(availabilityData.comment)
 
+            btnSelectDate1.text = selectedStartDate
+            btnSelectDate2.text = selectedEndDate
 
-            for (buttonPair in timeRangeButtonsMap["Sun"]!!) {
+            for (buttonPair in timeRangeButtonsMap[selectedDay]!!) {
                 // Create a LinearLayout to wrap the buttons
                 val availabilityDataLayout = LinearLayout(requireContext())
 
@@ -414,6 +393,9 @@ class AvailabilityProfFragment : Fragment() {
                 timeRangeLayout1.addView(timeRangeSeparator1)
                 timeRangeLayout1.addView(avTimeEnd)
 
+                buttonPair.first.text = "--:--"
+                buttonPair.second.text = "--:--"
+
                 timeRangeLayout2.addView(buttonPair.first)
                 timeRangeLayout2.addView(timeRangeSeparator2)
                 timeRangeLayout2.addView(buttonPair.second)
@@ -439,7 +421,7 @@ class AvailabilityProfFragment : Fragment() {
                 )
                 btnStartTime.text = pair.first
                 btnStartTime.setOnClickListener {
-                    showTimePickerDialog(btnStartTime, day)
+                    showTimePickerDialog(btnStartTime, day, pair.first, pair.second)
                 }
 
                 val btnEndTime = Button(requireContext())
@@ -450,7 +432,7 @@ class AvailabilityProfFragment : Fragment() {
                 )
                 btnEndTime.text = pair.second
                 btnEndTime.setOnClickListener {
-                    showTimePickerDialog(btnEndTime, day)
+                    showTimePickerDialog(btnEndTime, day, pair.first, pair.second)
                 }
 
                 Pair(btnStartTime, btnEndTime)
@@ -458,6 +440,26 @@ class AvailabilityProfFragment : Fragment() {
         }.toMutableMap()
     }
 
+    fun convertButtonsToStringPairs(buttonMap: MutableMap<String, MutableList<Pair<Button, Button>>>): Map<String, List<ButtonPair>> {
+        return buttonMap.mapValues { (day, buttonPairs) ->
+            buttonPairs.map { buttonPair ->
+                val startTime = buttonPair.first.text.toString()
+                val endTime = buttonPair.second.text.toString()
+                ButtonPair(startTime, endTime)
+            }
+        }
+    }
+
+    fun convertStringsToButtonPairs(availabilityData: AvailabilityData): MutableMap<String, MutableList<Pair<String, String>>> {
+        return availabilityData.timeRangeButtonsMap.mapValues { (_, buttonPairs) ->
+            buttonPairs.map { pair ->
+                val btnStartTime = pair.first
+                val btnEndTime = pair.second
+
+                Pair(btnStartTime, btnEndTime)
+            }.toMutableList()
+        }.toMutableMap()
+    }
 
     private fun showDatePickerDialog(targetButton: Button) {
         val calendar = Calendar.getInstance()
@@ -538,68 +540,68 @@ class AvailabilityProfFragment : Fragment() {
         return "$day/$month/$year"
     }
 
-    private fun addTimeRangeSetButton() {
-        val selectedDay = spinnerDays.selectedItem.toString()
+//    private fun addTimeRangeSetButton() {
+//        val selectedDay = spinnerDays.selectedItem.toString()
+//
+//        if (selectedDay.isNotEmpty()) {
+//            // Create a LinearLayout to wrap the buttons
+//            val timeRangeLayout = LinearLayout(requireContext())
+//            timeRangeLayout.layoutParams = LinearLayout.LayoutParams(
+//                LinearLayout.LayoutParams.MATCH_PARENT,
+//                LinearLayout.LayoutParams.WRAP_CONTENT
+//            )
+//            timeRangeLayout.orientation = LinearLayout.HORIZONTAL
+//
+//            // Create the start time button
+//            val btnStartTime = Button(requireContext())
+//            btnStartTime.layoutParams = LinearLayout.LayoutParams(
+//                0, // Set layout_weight to distribute space equally
+//                LinearLayout.LayoutParams.WRAP_CONTENT,
+//                1.0f // Set layout_weight to distribute space equally
+//            )
+//            btnStartTime.text = "--:--"
+//            btnStartTime.setOnClickListener {
+//                showTimePickerDialog(btnStartTime, selectedDay, "00:00", "")
+//            }
+//
+//            // Create a TextView between the buttons
+//            val timeRangeSeparator = TextView(requireContext())
+//            timeRangeSeparator.layoutParams = LinearLayout.LayoutParams(
+//                LinearLayout.LayoutParams.WRAP_CONTENT,
+//                LinearLayout.LayoutParams.WRAP_CONTENT
+//            )
+//            timeRangeSeparator.text = " - "
+//
+//            // Create the end time button
+//            val btnEndTime = Button(requireContext())
+//            btnEndTime.layoutParams = LinearLayout.LayoutParams(
+//                0, // Set layout_weight to distribute space equally
+//                LinearLayout.LayoutParams.WRAP_CONTENT,
+//                1.0f // Set layout_weight to distribute space equally
+//            )
+//            btnEndTime.text = "--:--"
+//            btnEndTime.setOnClickListener {
+//                showTimePickerDialog(btnEndTime, selectedDay)
+//            }
+//
+//            // Store the buttons in the map for later reference
+//            timeRangeButtonsMap[selectedDay]?.add(Pair(btnStartTime, btnEndTime))
+//
+//            // Add views to the layout
+//            timeRangeLayout.addView(btnStartTime)
+//            timeRangeLayout.addView(timeRangeSeparator)
+//            timeRangeLayout.addView(btnEndTime)
+//
+//            // Add the layout to the parent layout
+//            linearLayoutInnerTimeRanges.addView(timeRangeLayout)
+//
+//
+//        } else {
+//            Toast.makeText(requireContext(), "Select a day first", Toast.LENGTH_SHORT).show()
+//        }
+//    }
 
-        if (selectedDay.isNotEmpty()) {
-            // Create a LinearLayout to wrap the buttons
-            val timeRangeLayout = LinearLayout(requireContext())
-            timeRangeLayout.layoutParams = LinearLayout.LayoutParams(
-                LinearLayout.LayoutParams.MATCH_PARENT,
-                LinearLayout.LayoutParams.WRAP_CONTENT
-            )
-            timeRangeLayout.orientation = LinearLayout.HORIZONTAL
-
-            // Create the start time button
-            val btnStartTime = Button(requireContext())
-            btnStartTime.layoutParams = LinearLayout.LayoutParams(
-                0, // Set layout_weight to distribute space equally
-                LinearLayout.LayoutParams.WRAP_CONTENT,
-                1.0f // Set layout_weight to distribute space equally
-            )
-            btnStartTime.text = "--:--"
-            btnStartTime.setOnClickListener {
-                showTimePickerDialog(btnStartTime, selectedDay)
-            }
-
-            // Create a TextView between the buttons
-            val timeRangeSeparator = TextView(requireContext())
-            timeRangeSeparator.layoutParams = LinearLayout.LayoutParams(
-                LinearLayout.LayoutParams.WRAP_CONTENT,
-                LinearLayout.LayoutParams.WRAP_CONTENT
-            )
-            timeRangeSeparator.text = " - "
-
-            // Create the end time button
-            val btnEndTime = Button(requireContext())
-            btnEndTime.layoutParams = LinearLayout.LayoutParams(
-                0, // Set layout_weight to distribute space equally
-                LinearLayout.LayoutParams.WRAP_CONTENT,
-                1.0f // Set layout_weight to distribute space equally
-            )
-            btnEndTime.text = "--:--"
-            btnEndTime.setOnClickListener {
-                showTimePickerDialog(btnEndTime, selectedDay)
-            }
-
-            // Store the buttons in the map for later reference
-            timeRangeButtonsMap[selectedDay]?.add(Pair(btnStartTime, btnEndTime))
-
-            // Add views to the layout
-            timeRangeLayout.addView(btnStartTime)
-            timeRangeLayout.addView(timeRangeSeparator)
-            timeRangeLayout.addView(btnEndTime)
-
-            // Add the layout to the parent layout
-            linearLayoutInnerTimeRanges.addView(timeRangeLayout)
-
-
-        } else {
-            Toast.makeText(requireContext(), "Select a day first", Toast.LENGTH_SHORT).show()
-        }
-    }
-
-    private fun showTimePickerDialog(targetButton: Button, selectedDay: String) {
+    private fun showTimePickerDialog(targetButton: Button, selectedDay: String, avStartTime: String, avEndTime: String) {
         val calendar = Calendar.getInstance()
         val hour = calendar.get(Calendar.HOUR_OF_DAY)
         val minute = calendar.get(Calendar.MINUTE)
@@ -609,6 +611,11 @@ class AvailabilityProfFragment : Fragment() {
             TimePickerDialog.OnTimeSetListener { _, hourOfDay, minute ->
                 val selectedTime = String.format("%02d:%02d", hourOfDay, minute)
                 targetButton.text = selectedTime
+                if (isTimeBetween(selectedTime, avStartTime, avEndTime)) {
+                    targetButton.text = selectedTime
+                } else {
+                    Toast.makeText(requireContext(), "Selected time is not within the range", Toast.LENGTH_SHORT).show()
+                }
                 if(!isStartTimeAfterEndTime(selectedDay)) {
                     Toast.makeText(requireContext(), "Start time cannot be after end time", Toast.LENGTH_SHORT).show()
                     targetButton.text = "--:--"
@@ -620,6 +627,15 @@ class AvailabilityProfFragment : Fragment() {
 
         timePickerDialog.show()
 
+    }
+
+    private fun isTimeBetween(selectedTime: String, startTime: String, endTime: String): Boolean {
+        val dateFormat = SimpleDateFormat("HH:mm", Locale.getDefault())
+        val selectedDate = dateFormat.parse(selectedTime)
+        val startDate = dateFormat.parse(startTime)
+        val endDate = dateFormat.parse(endTime)
+
+        return selectedDate in startDate..endDate
     }
 
     private fun isStartTimeAfterEndTime(selectedDay: String): Boolean {

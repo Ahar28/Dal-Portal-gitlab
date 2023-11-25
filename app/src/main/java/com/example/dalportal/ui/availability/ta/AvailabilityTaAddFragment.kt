@@ -15,6 +15,7 @@ import com.example.dalportal.R
 import com.example.dalportal.ui.availability.firebase.AvailabilityData
 import com.example.dalportal.ui.availability.firebase.ButtonPair
 import com.example.dalportal.ui.availability.firebase.convertButtonPairsToStrings
+import com.example.dalportal.util.UserData
 import java.text.ParseException
 import java.text.SimpleDateFormat
 import java.util.*
@@ -189,7 +190,7 @@ class AvailabilityTaAddFragment : Fragment() {
         )
 
         db.collection("availability")
-            .document(userId.toString())
+            .document(UserData.email.toString())
             .set(availabilityData)
             .addOnSuccessListener { documentReference ->
                 Log.d(TAG, "DocumentSnapshot added with ID: ${userId}")
@@ -201,7 +202,7 @@ class AvailabilityTaAddFragment : Fragment() {
     }
 
     private fun loadDataFromFirestore(db: FirebaseFirestore, documentId: String) {
-        val docRef = db.collection("availability").document(documentId)
+        val docRef = db.collection("availability").document(UserData.email.toString())
 
         docRef.get()
             .addOnSuccessListener { document ->

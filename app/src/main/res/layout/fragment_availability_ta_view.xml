@@ -18,22 +18,35 @@
 
         <!-- Section 3 -->
 
+        <TextView
+            android:id="@+id/yourAvailability"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="Your Availability"
+            android:textSize="25sp"
+            app:layout_constraintBottom_toTopOf="@+id/linearLayout"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:ignore="MissingConstraints" />
+
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/linearLayout"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="24dp"
+            android:layout_marginTop="12dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
+            app:layout_constraintTop_toBottomOf="@+id/yourAvailability">
 
             <TextView
                 android:id="@+id/btnSelectDate1"
                 android:layout_width="wrap_content"
-                android:textSize="30sp"
                 android:layout_height="wrap_content"
                 android:text="dd/mm/yyyy"
+                android:textSize="25sp"
                 app:layout_constraintEnd_toStartOf="@+id/textView2"
                 app:layout_constraintStart_toStartOf="parent"
                 tools:ignore="MissingConstraints" />
@@ -44,18 +57,19 @@
                 android:layout_height="wrap_content"
                 android:hint="-"
                 android:textFontWeight="500"
-                android:textSize="30sp"
+                android:textSize="25sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/linearLayout"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
                 android:id="@+id/btnSelectDate2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="30sp"
                 android:text="dd/mm/yyyy"
+                android:textSize="25sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/textView2"
                 tools:ignore="MissingConstraints" />
@@ -68,6 +82,7 @@
             android:layout_marginTop="20dp"
             android:background="@drawable/rounded_button"
             android:prompt="@string/select_day"
+            android:textAlignment="center"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"

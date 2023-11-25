@@ -7,6 +7,7 @@ import android.app.TimePickerDialog
 import android.content.ContentValues
 import android.os.Bundle
 import android.util.Log
+import android.view.Gravity
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -25,6 +26,7 @@ import com.example.dalportal.R
 import com.example.dalportal.ui.availability.firebase.AvailabilityData
 import com.example.dalportal.ui.availability.firebase.ButtonPair
 import com.example.dalportal.ui.availability.firebase.convertButtonPairsToStrings
+import com.example.dalportal.util.UserData
 import com.google.firebase.Firebase
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.database
@@ -113,34 +115,39 @@ class AvailabilityTaViewFragment : Fragment() {
                 linearLayoutInnerTimeRanges.removeAllViews()
 
                 for (buttonPair in timeRangeButtonsMap[selectedDay]!!) {
-                    // Create a LinearLayout to wrap the buttons
-                    val timeRangeLayout = LinearLayout(requireContext())
-                    timeRangeLayout.layoutParams = LinearLayout.LayoutParams(
-                        LinearLayout.LayoutParams.MATCH_PARENT,
-                        LinearLayout.LayoutParams.WRAP_CONTENT
-                    )
-                    timeRangeLayout.orientation = LinearLayout.HORIZONTAL
+                    if(buttonPair.first.text!="--:--" && buttonPair.second.text!="--:--") {
+                        // Create a LinearLayout to wrap the buttons
+                        val timeRangeLayout = LinearLayout(requireContext())
+                        timeRangeLayout.layoutParams = LinearLayout.LayoutParams(
+                            LinearLayout.LayoutParams.MATCH_PARENT,
+                            LinearLayout.LayoutParams.WRAP_CONTENT
+                        )
+                        timeRangeLayout.orientation = LinearLayout.HORIZONTAL
 
-                    // Create a TextView between the buttons
-                    val timeRangeSeparator = TextView(requireContext())
-                    timeRangeSeparator.layoutParams = LinearLayout.LayoutParams(
-                        LinearLayout.LayoutParams.WRAP_CONTENT,
-                        LinearLayout.LayoutParams.WRAP_CONTENT
-                    )
-                    timeRangeSeparator.text = " - "
+                        // Create a TextView between the buttons
+                        val timeRangeSeparator = TextView(requireContext())
+                        timeRangeSeparator.layoutParams = LinearLayout.LayoutParams(
+                            LinearLayout.LayoutParams.WRAP_CONTENT,
+                            LinearLayout.LayoutParams.WRAP_CONTENT
+                        )
+                        timeRangeSeparator.text = " - "
 
-                    val parentButton1Layout = buttonPair.first.parent as? ViewGroup
-                    parentButton1Layout?.removeView(buttonPair.first)
+                        val parentButton1Layout = buttonPair.first.parent as? ViewGroup
+                        parentButton1Layout?.removeView(buttonPair.first)
 
-                    val parentButton2Layout = buttonPair.second.parent as? ViewGroup
-                    parentButton2Layout?.removeView(buttonPair.second)
-                    // Add views to the layout
-                    timeRangeLayout.addView(buttonPair.first)
-                    timeRangeLayout.addView(timeRangeSeparator)
-                    timeRangeLayout.addView(buttonPair.second)
+                        val parentButton2Layout = buttonPair.second.parent as? ViewGroup
+                        parentButton2Layout?.removeView(buttonPair.second)
+                        // Add views to the layout
 
-                    // Add the layout to the parent layout
-                    linearLayoutInnerTimeRanges.addView(timeRangeLayout)
+                        buttonPair.first.setEnabled(false);
+                        buttonPair.second.setEnabled(false);
+                        timeRangeLayout.addView(buttonPair.first)
+                        timeRangeLayout.addView(timeRangeSeparator)
+                        timeRangeLayout.addView(buttonPair.second)
+
+                        // Add the layout to the parent layout
+                        linearLayoutInnerTimeRanges.addView(timeRangeLayout)
+                    }
                 }
             }
 
@@ -186,7 +193,7 @@ class AvailabilityTaViewFragment : Fragment() {
     }
 
     private fun loadDataFromFirestore(db: FirebaseFirestore, documentId: String) {
-        val docRef = db.collection("shifts").document(documentId)
+        val docRef = db.collection("shifts").document(UserData.email.toString())
 
         docRef.get()
             .addOnSuccessListener { document ->
@@ -214,78 +221,41 @@ class AvailabilityTaViewFragment : Fragment() {
 
 
             for (buttonPair in timeRangeButtonsMap["Sun"]!!) {
-                // Create a LinearLayout to wrap the buttons
-                val availabilityDataLayout = LinearLayout(requireContext())
 
-                availabilityDataLayout.layoutParams = LinearLayout.LayoutParams(
-                    LinearLayout.LayoutParams.MATCH_PARENT,
-                    LinearLayout.LayoutParams.WRAP_CONTENT,
-                )
-                availabilityDataLayout.orientation = LinearLayout.VERTICAL
-                availabilityDataLayout.setBackgroundColor(resources.getColor(android.R.color.holo_blue_light))
-                // Set the top margin
-                val layoutParams = availabilityDataLayout.layoutParams as LinearLayout.LayoutParams
-                layoutParams.topMargin = 10
-                availabilityDataLayout.layoutParams = layoutParams
+                if(buttonPair.first.text!="--:--" && buttonPair.second.text!="--:--") {
+                    // Create a LinearLayout to wrap the buttons
+                    val timeRangeLayout = LinearLayout(requireContext())
+                    timeRangeLayout.layoutParams = LinearLayout.LayoutParams(
+                        LinearLayout.LayoutParams.MATCH_PARENT,
+                        LinearLayout.LayoutParams.WRAP_CONTENT
+                    )
+                    timeRangeLayout.orientation = LinearLayout.HORIZONTAL
 
-                val timeRangeLayout1 = LinearLayout(requireContext())
-                val timeRangeLayout2 = LinearLayout(requireContext())
-                timeRangeLayout1.layoutParams = LinearLayout.LayoutParams(
-                    LinearLayout.LayoutParams.MATCH_PARENT,
-                    LinearLayout.LayoutParams.WRAP_CONTENT
-                )
-                timeRangeLayout1.orientation = LinearLayout.HORIZONTAL
+                    // Create a TextView between the buttons
+                    val timeRangeSeparator = TextView(requireContext())
+                    timeRangeSeparator.layoutParams = LinearLayout.LayoutParams(
+                        LinearLayout.LayoutParams.WRAP_CONTENT,
+                        LinearLayout.LayoutParams.WRAP_CONTENT
+                    )
+                    timeRangeSeparator.text = " - "
 
-                timeRangeLayout2.layoutParams = LinearLayout.LayoutParams(
-                    LinearLayout.LayoutParams.MATCH_PARENT,
-                    LinearLayout.LayoutParams.WRAP_CONTENT
-                )
-                timeRangeLayout2.orientation = LinearLayout.HORIZONTAL
+                    val parentButton1Layout = buttonPair.first.parent as? ViewGroup
+                    parentButton1Layout?.removeView(buttonPair.first)
 
-                // Create a TextView between the buttons
-                val timeRangeSeparator1 = TextView(requireContext())
-                timeRangeSeparator1.layoutParams = LinearLayout.LayoutParams(
-                    LinearLayout.LayoutParams.WRAP_CONTENT,
-                    LinearLayout.LayoutParams.WRAP_CONTENT
-                )
-                timeRangeSeparator1.text = " - "
+                    val parentButton2Layout = buttonPair.second.parent as? ViewGroup
+                    parentButton2Layout?.removeView(buttonPair.second)
+                    // Add views to the layout
 
-                val timeRangeSeparator2 = TextView(requireContext())
-                timeRangeSeparator2.layoutParams = LinearLayout.LayoutParams(
-                    LinearLayout.LayoutParams.WRAP_CONTENT,
-                    LinearLayout.LayoutParams.WRAP_CONTENT
-                )
-                timeRangeSeparator2.text = " - "
+                    buttonPair.first.setEnabled(false);
+                    buttonPair.second.setEnabled(false);
+                    timeRangeLayout.addView(buttonPair.first)
+                    timeRangeLayout.addView(timeRangeSeparator)
+                    timeRangeLayout.addView(buttonPair.second)
 
-                val parentButton1Layout = buttonPair.first.parent as? ViewGroup
-                parentButton1Layout?.removeView(buttonPair.first)
+                    // Add the layout to the parent layout
+                    linearLayoutInnerTimeRanges.addView(timeRangeLayout)
+                }
 
-                val parentButton2Layout = buttonPair.second.parent as? ViewGroup
-                parentButton2Layout?.removeView(buttonPair.second)
-
-                val avTimeStart = TextView(requireContext())
-                timeRangeSeparator1.layoutParams = LinearLayout.LayoutParams(
-                    LinearLayout.LayoutParams.WRAP_CONTENT,
-                    LinearLayout.LayoutParams.WRAP_CONTENT
-                )
-                avTimeStart.text = buttonPair.first.text
-
-                val avTimeEnd = TextView(requireContext())
-                timeRangeSeparator1.layoutParams = LinearLayout.LayoutParams(
-                    LinearLayout.LayoutParams.WRAP_CONTENT,
-                    LinearLayout.LayoutParams.WRAP_CONTENT
-                )
-                avTimeEnd.text = buttonPair.second.text
-
-                // Add views to the layout
-                timeRangeLayout1.addView(avTimeStart)
-                timeRangeLayout1.addView(timeRangeSeparator1)
-                timeRangeLayout1.addView(avTimeEnd)
-
-                availabilityDataLayout.addView(timeRangeLayout1)
-
-                // Add the layout to the parent layout
-                linearLayoutInnerTimeRanges.addView(availabilityDataLayout)
             }
 
         }
