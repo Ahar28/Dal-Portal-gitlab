@@ -34,13 +34,13 @@ class TaPortalHomeFragment : Fragment() {
         recyclerView.layoutManager = LinearLayoutManager(context)
         recyclerView.adapter = adapter
 
-        getTaTasks(db, UserData.id)
+        getTaTasks()
     }
 
-    private fun getTaTasks(db: FirebaseFirestore, taUserId: String?) {
+    private fun getTaTasks() {
         val collectionRef = db.collection("TA_tasks")
 
-        collectionRef.whereEqualTo("assignedTo", taUserId).get().addOnSuccessListener { documents ->
+        collectionRef.whereEqualTo("assignedTo", UserData.id).get().addOnSuccessListener { documents ->
             var tasks: MutableList<TaTasksModel> = mutableListOf()
             for (document in documents) {
                 val task: TaTasksModel = document.toObject(TaTasksModel::class.java)
