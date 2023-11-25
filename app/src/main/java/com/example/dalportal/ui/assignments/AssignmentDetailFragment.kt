@@ -9,7 +9,9 @@ import android.view.ViewGroup
 import android.widget.Button
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
 import com.example.dalportal.databinding.FragmentAssignmentDetailBinding
+import com.example.dalportal.ui.assignments.AssignmentViewModel
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.StorageReference
@@ -67,30 +69,41 @@ class AssignmentDetailFragment : Fragment() {
             startActivityForResult(intent, FILE_PICKER_REQUEST_CODE)
         }
 
-        // Button to submit the file
+// Button to submit the file
         val submitButton: Button = binding.submitButton
         submitButton.setOnClickListener {
             // Check if a file is selected
             if (selectedFileUri != null) {
                 // Upload the file to Firebase Storage
                 val fileName = selectedFileUri?.lastPathSegment
-                val fileRef: StorageReference = storageRef.child("uploads/$fileName")
-                fileRef.putFile(selectedFileUri!!)
-                    .addOnSuccessListener {
-                        // File uploaded successfully
-                        updateCompletionStatusInFirestore("Completed")
-                        showSuccessAlert()
-                        // TODO: Update completion status in Firestore to "Completed"
-                    }
-                    .addOnFailureListener { exception ->
-                        // Handle unsuccessful uploads
-                        showErrorAlert(exception.message)
-                        // TODO: Handle error
-                    }
+                val assignmentName = arguments?.getString(ARG_ASSIGNMENT_NAME)
+
+                // Retrieve the studentId from the assignmentViewModel or any other source
+                val studentId = getStudentIdFromAssignmentViewModel(assignmentName)
+
+                if (assignmentName != null && studentId != null) {
+                    val fileRef: StorageReference = storageRef.child("/$assignmentName/$studentId/$fileName")
+                    fileRef.putFile(selectedFileUri!!)
+                        .continueWithTask { uploadTask ->
+                            if (!uploadTask.isSuccessful) {
+                                throw uploadTask.exception!!
+                            }
+                            return@continueWithTask fileRef.downloadUrl
+                        }
+                        .addOnSuccessListener { downloadUri ->
+                            // File uploaded successfully
+                            val fileUrl = downloadUri.toString()
+                            updateCompletionStatusAndFileUrlInFirestore("Completed", fileUrl)
+                            showSuccessAlert()
+                        }
+                        .addOnFailureListener { exception ->
+                            // Handle unsuccessful uploads
+                            showErrorAlert(exception.message)
+                        }
+                }
             } else {
-                // No file selected
+                // No file selected, show error message
                 showNoFileSelectedError()
-                // TODO: Show an error message or prompt the user to select a file
             }
         }
 
@@ -157,8 +170,16 @@ class AssignmentDetailFragment : Fragment() {
         _binding = null
     }
 
-    // Function to update completion status in Firestore
-    private fun updateCompletionStatusInFirestore(status: String) {
+    // Function to retrieve studentId from the AssignmentViewModel or any other source
+    private fun getStudentIdFromAssignmentViewModel(assignmentName: String?): String? {
+        val assignmentViewModel = ViewModelProvider(requireActivity()).get(AssignmentViewModel::class.java)
+        val assignments = assignmentViewModel.assignments.value
+        val assignment = assignments?.find { it.name == assignmentName }
+        return assignment?.studentId
+    }
+
+    // Function to update completion status and file URL in Firestore
+    private fun updateCompletionStatusAndFileUrlInFirestore(status: String, fileUrl: String) {
         // Retrieve assignment details from arguments
         val assignmentName = arguments?.getString(ARG_ASSIGNMENT_NAME)
 
@@ -174,7 +195,12 @@ class AssignmentDetailFragment : Fragment() {
                     for (document in querySnapshot.documents) {
                         val assignmentId = document.id
                         assignmentsCollection.document(assignmentId)
-                            .update("completionStatus", status)
+                            .update(
+                                mapOf(
+                                    "completionStatus" to status,
+                                    "fileUrl" to fileUrl
+                                )
+                            )
                             .addOnSuccessListener {
                             }
                             .addOnFailureListener { exception ->

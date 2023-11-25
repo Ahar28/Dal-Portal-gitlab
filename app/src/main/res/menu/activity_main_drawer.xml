@@ -22,11 +22,19 @@
             android:icon="@drawable/ic_menu_slideshow"
             android:title="@string/Availability" />
 
-
         <item
             android:id="@+id/nav_assignment"
             android:icon="@drawable/ic_menu_assignments"
             android:title="@string/menu_assignments" />
+        <item
+            android:id="@+id/nav_assignment_review"
+            android:icon="@drawable/ic_menu_assignments_review"
+            android:title="@string/menu_assignments_review" />
+        <item
+            android:id="@+id/nav_content"
+            android:icon="@drawable/ic_menu_content"
+            android:title="@string/menu_content" />
+
         <item
             android:id="@+id/nav_discussion"
             android:icon="@drawable/ic_menu_assignments"
@@ -36,6 +44,11 @@
             android:icon="@drawable/ic_admin_portal"
             android:title="@string/admin_portal"
             android:visible="false" />
+        <item
+            android:id="@+id/logout"
+            android:icon="@drawable/logout_icon"
+            android:title="Logout"
+            android:visible="true" />
 
     </group>
 </menu>

@@ -2,6 +2,7 @@ package com.example.dalportal.util
 
 import android.util.Log
 import com.example.dalportal.model.Post
+import com.example.dalportal.model.Users
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.Query
 
@@ -40,7 +41,12 @@ object FirestoreHelper {
     }
 
     // This function updates both the reply text and the comments count
-    fun updatePostWithReply(postId: String, reply: String, onSuccess: () -> Unit, onFailure: (Exception) -> Unit) {
+    fun updatePostWithReply(
+        postId: String,
+        reply: String,
+        onSuccess: () -> Unit,
+        onFailure: (Exception) -> Unit
+    ) {
         val postUpdate = mapOf(
             "reply" to reply,
             "comments" to 1 // Assuming each post can only have one reply, set comments to 1
@@ -68,6 +74,66 @@ object FirestoreHelper {
                 }
             }
             .addOnFailureListener { e ->
+                onFailure(e)
+            }
+    }
+
+    fun addUser(user: Users, onSuccess: (String) -> Unit, onFailure: (Exception) -> Unit) {
+        db.collection("users")
+            .add(user)
+            .addOnSuccessListener { documentReference ->
+                Log.d("FirestoreHelper", "User added successfully with ID: ${documentReference.id}")
+                onSuccess(documentReference.id) // Pass the generated id back
+            }
+            .addOnFailureListener { e ->
+                Log.e("FirestoreHelper", "Error adding user", e)
+                onFailure(e)
+            }
+    }
+
+
+    fun loginUser(
+        email: String,
+        password: String,
+        onSuccess: (Boolean, String?, String?, String?, String?) -> Unit,
+        onFailure: (Exception) -> Unit
+    ) {
+        db.collection("users")
+            .whereEqualTo("email", email)
+            .limit(1)
+            .get()
+            .addOnSuccessListener { documents ->
+                if (documents.isEmpty) {
+                    // Email not found
+                    onSuccess(false, null, null, null, null)
+                } else {
+                    val user = documents.first().toObject(Users::class.java)
+                    val userId = documents.first().id
+                    if (user.password == password) {
+                        // Password matches, return user details
+                        onSuccess(true, user.name, user.email, user.role, userId)
+                    } else {
+                        // Password does not match
+                        onSuccess(false, null, null, null, null)
+                    }
+                }
+            }
+            .addOnFailureListener { e ->
+                Log.e("FirestoreHelper", "Error logging in user", e)
+                onFailure(e)
+            }
+    }
+
+    fun isEmailExist(email: String, onSuccess: (Boolean) -> Unit, onFailure: (Exception) -> Unit) {
+        db.collection("users")
+            .whereEqualTo("email", email)
+            .limit(1)
+            .get()
+            .addOnSuccessListener { documents ->
+                onSuccess(documents.size() > 0)
+            }
+            .addOnFailureListener { e ->
+                Log.e("FirestoreHelper", "Error checking email existence", e)
                 onFailure(e)
             }
     }
