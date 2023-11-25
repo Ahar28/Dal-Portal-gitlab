@@ -4,9 +4,8 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
+import android.widget.SearchView
 import androidx.fragment.app.Fragment
-import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.dalportal.R
 import com.example.dalportal.databinding.FragmentJobListingBinding
@@ -16,19 +15,14 @@ import com.google.firebase.firestore.FirebaseFirestore
 class JobListingFragment : Fragment() {
     private var _binding: FragmentJobListingBinding? = null
     private val binding get() = _binding!!
+    private lateinit var jobListingsFull: List<JobListing> // Full list of job postings
     private val db = FirebaseFirestore.getInstance()
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        val addButton = view.findViewById<Button>(R.id.addJobButton)
-        addButton.setOnClickListener {
-            findNavController().navigate(R.id.action_jobListingFragment_to_jobPostingFragment)
-        }
-    }
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         _binding = FragmentJobListingBinding.inflate(inflater, container, false)
-
         setupRecyclerView()
         loadJobPostings()
+        setupSearchView()
         return binding.root
     }
 
@@ -40,18 +34,39 @@ class JobListingFragment : Fragment() {
     private fun loadJobPostings() {
         db.collection("jobPostings").get()
             .addOnSuccessListener { documents ->
-                val jobListings = documents.map { doc ->
+                jobListingsFull = documents.map { doc ->
                     JobListing(
-                        id = doc.id, // Save the document ID
+                        id = doc.id,
                         title = doc.getString("title") ?: "",
-                        // Add other fields from the document as necessary
+                        // Map other fields from the document if necessary
                     )
                 }
-                (binding.recyclerViewJobListings.adapter as JobListingAdapter).updateData(jobListings)
+                (binding.recyclerViewJobListings.adapter as JobListingAdapter).updateData(jobListingsFull)
             }
             .addOnFailureListener { e ->
                 // Handle error, e.g., show a Toast
             }
+    }
+
+    private fun setupSearchView() {
+        val searchView = binding.searchView
+        searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+            override fun onQueryTextSubmit(query: String?): Boolean {
+                return false
+            }
+
+            override fun onQueryTextChange(newText: String?): Boolean {
+                filterJobPostings(newText.orEmpty())
+                return true
+            }
+        })
+    }
+
+    private fun filterJobPostings(query: String) {
+        val filteredList = jobListingsFull.filter {
+            it.title.contains(query, ignoreCase = true)
+        }
+        (binding.recyclerViewJobListings.adapter as JobListingAdapter).updateData(filteredList)
     }
 
     override fun onDestroyView() {
