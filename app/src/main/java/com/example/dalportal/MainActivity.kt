@@ -66,19 +66,19 @@ class MainActivity : AppCompatActivity() {
 
         setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
-        navView.setNavigationItemSelectedListener { menuItem ->
-            when (menuItem.itemId) {
-                R.id.nav_discussion -> {
-                    // Open the PostListActivity where all posts are listed
-                    val intent = Intent(this, PostListActivity::class.java)
-                    startActivity(intent)
-                    drawerLayout.closeDrawers()
-                    true
-                }
-                // Handle other menu items if necessary...
-                else -> false
-            }
-        }
+//        navView.setNavigationItemSelectedListener { menuItem ->
+//            when (menuItem.itemId) {
+//                R.id.nav_discussion -> {
+//                    // Open the PostListActivity where all posts are listed
+//                    val intent = Intent(this, PostListActivity::class.java)
+//                    startActivity(intent)
+//                    drawerLayout.closeDrawers()
+//                    true
+//                }
+//                // Handle other menu items if necessary...
+//                else -> false
+//            }
+//        }
     }
     private fun logoutUser() {
         // Clear user data
