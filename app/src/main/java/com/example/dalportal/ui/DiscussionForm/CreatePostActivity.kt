@@ -34,7 +34,7 @@ class CreatePostActivity : AppCompatActivity() {
             user = "Username", // Replace with actual user identifier
             content = content
         )
-
+    if(!newPost.content.trim().isNullOrEmpty()) {
         FirestoreHelper.addPost(newPost, onSuccess = {
             // Handle success
             Toast.makeText(this, "Post added successfully", Toast.LENGTH_SHORT).show()
@@ -43,6 +43,10 @@ class CreatePostActivity : AppCompatActivity() {
             // Handle failure
             Toast.makeText(this, "Error adding post: ${e.message}", Toast.LENGTH_SHORT).show()
         })
+    }
+        else{
+        Toast.makeText(this, "You cannot submit an empty discussion post.", Toast.LENGTH_SHORT).show()
+    }
     }
 
 }
