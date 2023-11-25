@@ -34,6 +34,7 @@ class ProfessorPortalFragment : Fragment() {
         val textView: TextView = binding.textGalleryProfessor
         val assignTaskbutton: Button = binding.assignAtaskbutton
         val progressMonitoringbutton: Button = binding.progressMonitoringButton
+        val overviewDashboardButton: Button = binding.assesPerformanceButton
 
         porfessorPortalViewModel.text.observe(viewLifecycleOwner) {
             textView.text = it
@@ -46,8 +47,13 @@ class ProfessorPortalFragment : Fragment() {
         }
         progressMonitoringbutton.setOnClickListener {
             // Handle task assignment here
-            // Navigate to AssignTaskFragment
+            // Navigate to progress monitor task here
             findNavController().navigate(R.id.action_professor_to_task_dashboard)
+        }
+        overviewDashboardButton.setOnClickListener {
+            // Handle task assignment here
+            // Navigate to overview dashboard
+            findNavController().navigate(R.id.action_professor_to_overview_dashboard)
         }
 
         return root

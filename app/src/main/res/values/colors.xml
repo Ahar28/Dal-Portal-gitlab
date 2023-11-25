@@ -8,4 +8,12 @@
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+    <color name="statusCompleted">#FF00FF00</color> <!-- Green, for example -->
+    <color name="statusPending">#FFFF0000</color> <!-- Red, for example -->
+    <color name="statusStarted">#FF0000FF</color> <!-- Blue, for example -->
+    <color name="statusAborted">#FFFFFF00</color> <!-- Yellow, for example -->
+
+    <color name="priorityLow">#FF0000FF</color> <!-- Blue, for example -->
+    <color name="priorityMedium">#FFFFA500</color> <!-- Orange, for example -->
+    <color name="priorityHigh">#FFFF0000</color> <!-- Red, for example -->
 </resources>

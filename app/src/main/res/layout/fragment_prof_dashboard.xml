@@ -41,7 +41,6 @@
                 android:layout_height="12dp"
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="2dp"
-              
                 android:layout_below="@id/taskdesc"/>
 
             <!-- Add additional views for other information -->
