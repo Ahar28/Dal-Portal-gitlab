@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:layout_marginBottom="10dp"
+    android:background="@color/cobalt_blue_light"
     android:orientation="vertical"
     android:padding="16dp"
-    android:background="@color/teal_700"
-    android:layout_marginBottom="10dp">
+    android:elevation="4dp">
 
     <TextView
         android:id="@+id/taskDetails"
@@ -20,13 +21,34 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:textSize="18sp" />
+        android:textSize="18sp"
+        android:layout_below="@id/taskDetails"/>
 
     <TextView
         android:id="@+id/taskProfessor"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:textSize="18sp" />
+        android:textSize="18sp" android:layout_below="@id/deadline"/>
 
-</LinearLayout>
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true">
+
+        <TextView
+            android:id="@+id/taskStatus"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <Spinner
+            android:id="@+id/statusSpinner"
+            android:layout_width="20dp"
+            android:layout_height="50dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="10dp"
+            android:layout_marginBottom="10dp" />
+    </RelativeLayout>
+
+</RelativeLayout>

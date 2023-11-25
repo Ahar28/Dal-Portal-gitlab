@@ -1,7 +1,6 @@
 package com.example.dalportal.ui.ta_portal.firebase
 
 import com.google.firebase.Timestamp
-import com.google.firebase.firestore.Exclude
 import com.google.firebase.firestore.PropertyName
 import java.util.Date
 
@@ -19,7 +18,7 @@ data class TaTasksModel(
     val description: String = "",
 
     @PropertyName("deadline")
-    val deadline: String = "",
+    val deadline: Date? = null,
 
     @PropertyName("priority")
     val priority: String = "",
@@ -30,7 +29,7 @@ data class TaTasksModel(
     @PropertyName("timestamp")
     val timestamp: Timestamp = Timestamp(Date()),
 
-    @Exclude
-    val professor: String = ""
+    @PropertyName("profName")
+    val profName: String = ""
 )
 
