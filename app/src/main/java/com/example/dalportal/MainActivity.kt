@@ -42,6 +42,8 @@ class MainActivity : AppCompatActivity() {
         val headerView = navView.getHeaderView(0)
         val currentEmailTextView = headerView.findViewById<TextView>(R.id.current_email)
         val currentNameTextView = headerView.findViewById<TextView>(R.id.current_user)
+        val adminPortalMenuItem = navView.menu.findItem(R.id.nav_admin_portal)
+        adminPortalMenuItem.isVisible = UserData.role == "admin"
 
         // Set the text to user's email
         currentEmailTextView.text = UserData.email ?: "No Email"
@@ -65,19 +67,6 @@ class MainActivity : AppCompatActivity() {
 
         setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
-//        navView.setNavigationItemSelectedListener { menuItem ->
-//            when (menuItem.itemId) {
-//                R.id.nav_discussion -> {
-//                    // Open the PostListActivity where all posts are listed
-//                    val intent = Intent(this, PostListActivity::class.java)
-//                    startActivity(intent)
-//                    drawerLayout.closeDrawers()
-//                    true
-//                }
-//                // Handle other menu items if necessary...
-//                else -> false
-//            }
-//        }
     }
     private fun logoutUser() {
         // Clear user data
