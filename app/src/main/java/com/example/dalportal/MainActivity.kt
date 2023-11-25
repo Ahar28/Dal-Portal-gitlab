@@ -42,10 +42,11 @@ class MainActivity : AppCompatActivity() {
         val headerView = navView.getHeaderView(0)
         val currentEmailTextView = headerView.findViewById<TextView>(R.id.current_email)
         val currentNameTextView = headerView.findViewById<TextView>(R.id.current_user)
-
+    val currentRoleTextView=headerView.findViewById<TextView>(R.id.current_role)
         // Set the text to user's email
-        currentEmailTextView.text = UserData.email ?: "No Email"
+        currentEmailTextView.text = UserData.email ?: "John@gmail.com"
         currentNameTextView.text=UserData.name ?: "John Doe"
+            currentRoleTextView.text=UserData.role?:"Professor"
         val drawerLayout: DrawerLayout = binding.drawerLayout
 
         val navController = findNavController(R.id.nav_host_fragment_content_main)
