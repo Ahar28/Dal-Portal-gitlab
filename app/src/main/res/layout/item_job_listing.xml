@@ -11,5 +11,12 @@
         android:layout_height="wrap_content"
         android:layout_weight="1"
         android:textSize="16sp" />
+    <Button
+        android:id="@+id/deleteButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Delete"
+        android:layout_alignParentEnd="true"/>
+
     <!-- Add other views here if needed -->
 </LinearLayout>

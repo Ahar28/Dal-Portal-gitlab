@@ -34,15 +34,18 @@ class JobListingFragment : Fragment() {
 
     private fun setupRecyclerView() {
         binding.recyclerViewJobListings.layoutManager = LinearLayoutManager(context)
-        binding.recyclerViewJobListings.adapter = JobListingAdapter(listOf())
+        binding.recyclerViewJobListings.adapter = JobListingAdapter(mutableListOf(), requireContext())
     }
 
     private fun loadJobPostings() {
         db.collection("jobPostings").get()
             .addOnSuccessListener { documents ->
                 val jobListings = documents.map { doc ->
-                    JobListing(title = doc.getString("title") ?: "")
-                    // Map other fields if needed
+                    JobListing(
+                        id = doc.id, // Save the document ID
+                        title = doc.getString("title") ?: "",
+                        // Add other fields from the document as necessary
+                    )
                 }
                 (binding.recyclerViewJobListings.adapter as JobListingAdapter).updateData(jobListings)
             }
