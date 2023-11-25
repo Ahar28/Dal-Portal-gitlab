@@ -30,6 +30,47 @@
         tools:layout="@layout/fragment_assignment" />
 
     <fragment
+        android:id="@+id/nav_professor_portal"
+        android:name="com.example.dalportal.ui.professorportal.ProfessorPortalFragment"
+        android:label="@string/professor_portal"
+        tools:layout="@layout/fragment_professor_portal" >
+
+    <action
+        android:id="@+id/action_professor_to_assign_task"
+        app:destination="@id/nav_assign_a_task_to_TA" />
+
+    <action
+        android:id="@+id/action_professor_to_task_dashboard"
+        app:destination="@id/nav_prof_task_dashboard" />
+
+    <action
+        android:id="@+id/action_professor_to_overview_dashboard"
+        app:destination="@id/nav_prof_overview_dashboard" />
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/nav_assign_a_task_to_TA"
+        android:name="com.example.dalportal.ui.professorportal.AssignTaskFragment"
+        android:label="@string/Assign_task_to_TA"
+        tools:layout="@layout/fragment_assign_task"
+        />
+
+    <fragment
+        android:id="@+id/nav_prof_task_dashboard"
+        android:name="com.example.dalportal.ui.professorportal.ProfDashboardFragment"
+        android:label="@string/Professor_task_dashboard"
+        tools:layout="@layout/fragment_assign_task"
+        />
+
+    <fragment
+        android:id="@+id/nav_prof_overview_dashboard"
+        android:name="com.example.dalportal.ui.professorportal.ProfessorOverviewDashboardFragment"
+        android:label="@string/Professor_task_dashboard"
+        tools:layout="@layout/fragment_assign_task"
+        />
+
+    <fragment
         android:id="@+id/nav_assignment_review"
         android:name="com.example.dalportal.ui.assignments_review.AssignmentsReviewFragment"
         android:label="@string/menu_assignments_review"
@@ -43,9 +84,28 @@
 
     <fragment
         android:id="@+id/nav_availability_calendar"
-        android:name="com.example.dalportal.ui.availability.AvailabilityFragment"
+        android:name="com.example.dalportal.ui.availability.ta.AvailabilityTaFragment"
         android:label="@string/availability"
-        tools:layout="@layout/fragment_availability" />
+        tools:layout="@layout/fragment_availability_ta" />
+
+    <fragment
+        android:id="@+id/nav_availability_calendar_prof"
+        android:name="com.example.dalportal.ui.availability.prof.AvailabilityProfFragment"
+        android:label="@string/availability"
+        tools:layout="@layout/fragment_availability_prof" />
+
+    <fragment
+        android:id="@+id/nav_rating"
+        android:name="com.example.dalportal.ui.rating_system.RatingAppFragment"
+        android:label="rating"
+        tools:layout="@layout/fragment_rating_app" />
+
+    <fragment
+        android:id="@+id/nav_rating_admin"
+        android:name="com.example.dalportal.ui.rating_system.RatingViewFragment"
+        android:label="rating"
+        tools:layout="@layout/fragment_rating_view" />
+
 
     <fragment
         android:id="@+id/nav_discussion"
@@ -58,5 +118,11 @@
         android:name="com.example.dalportal.ui.Admin.AdminFragment"
         android:label="Admin Portal"
         tools:layout="@layout/fragment_availability" />
+
+    <fragment
+        android:id="@+id/nav_event"
+        android:name="com.example.dalportal.ui.event_calendar.EventFragment"
+        android:label="Event Calendar"
+        tools:layout="@layout/fragment_event" />
 
 </navigation>
