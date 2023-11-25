@@ -24,9 +24,9 @@
     <string name="admin_portal">Admin Portal</string>
     <string name="stat_icon_desc" />
     <string name="registration_headline">Registration</string>
-        <string name="name_hint">Name</string>
-        <string name="email_hint">Email</string>
-        <string name="password_hint">Password</string>
+    <string name="name_hint">Name</string>
+    <string name="email_hint">Email</string>
+    <string name="password_hint">Password</string>
     <string name="register_button">Register</string>
 
 

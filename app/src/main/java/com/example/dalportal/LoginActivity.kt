@@ -32,25 +32,33 @@ class LoginActivity : AppCompatActivity() {
             val password = passwordEditText.text.toString().trim()
 
             if (email.isEmpty() || password.isEmpty()) {
-                Toast.makeText(this, "Please enter both email and password", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, "Please enter both email and password", Toast.LENGTH_SHORT)
+                    .show()
             } else {
                 FirestoreHelper.loginUser(email, password,
-                    onSuccess = { success, name, email, role ->
+                    onSuccess = { success, name, email, role, userId ->
                         if (success) {
-                            Toast.makeText(this, "Login successful for $name", Toast.LENGTH_SHORT).show()
+                            Toast.makeText(this, "Login successful for $name", Toast.LENGTH_SHORT)
+                                .show()
                             UserData.name = name
                             UserData.email = email
                             UserData.role = role
+                            UserData.id = userId
                             val email = emailEditText.text.toString().trim()
                             val password = passwordEditText.text.toString().trim()
 
                             redirectToHomePage() // Redirect to home page only
                         } else {
-                            Toast.makeText(this, "Invalid email or password", Toast.LENGTH_SHORT).show()
+                            Toast.makeText(this, "Invalid email or password", Toast.LENGTH_SHORT)
+                                .show()
                         }
                     },
                     onFailure = { exception ->
-                        Toast.makeText(this, "Login failed: ${exception.message}", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(
+                            this,
+                            "Login failed: ${exception.message}",
+                            Toast.LENGTH_SHORT
+                        ).show()
                     }
                 )
             }
@@ -58,7 +66,8 @@ class LoginActivity : AppCompatActivity() {
     }
 
     private fun redirectToHomePage() {
-        val intent = Intent(this, MainActivity::class.java) // Make sure MainActivity is your home page
+        val intent =
+            Intent(this, MainActivity::class.java) // Make sure MainActivity is your home page
         startActivity(intent)
         finish() // Close the login activity
     }

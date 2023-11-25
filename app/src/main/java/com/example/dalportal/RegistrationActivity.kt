@@ -51,23 +51,37 @@ class RegistrationActivity : AppCompatActivity() {
                         if (exists) {
                             Toast.makeText(this, "Email already exists", Toast.LENGTH_SHORT).show()
                         } else {
-                            val newUser = Users(name = name, email = email, password = password, role = role)
+                            val newUser =
+                                Users(name = name, email = email, password = password, role = role)
                             FirestoreHelper.addUser(newUser,
-                                onSuccess = {
-                                    Toast.makeText(this, "Registered successfully", Toast.LENGTH_SHORT).show()
+                                onSuccess = { userId ->
+                                    Toast.makeText(
+                                        this,
+                                        "Registered successfully",
+                                        Toast.LENGTH_SHORT
+                                    ).show()
                                     UserData.name = name
                                     UserData.email = email
                                     UserData.role = role
+                                    UserData.id = userId
                                     redirectToHomePage()
                                 },
                                 onFailure = { exception ->
-                                    Toast.makeText(this, "Registration failed: ${exception.message}", Toast.LENGTH_SHORT).show()
+                                    Toast.makeText(
+                                        this,
+                                        "Registration failed: ${exception.message}",
+                                        Toast.LENGTH_SHORT
+                                    ).show()
                                 }
                             )
                         }
                     },
                     onFailure = { exception ->
-                        Toast.makeText(this, "Error checking email: ${exception.message}", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(
+                            this,
+                            "Error checking email: ${exception.message}",
+                            Toast.LENGTH_SHORT
+                        ).show()
                     }
                 )
             }
