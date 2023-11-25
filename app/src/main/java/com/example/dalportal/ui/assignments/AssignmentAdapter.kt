@@ -16,6 +16,7 @@ class AssignmentAdapter(private var assignments: List<Assignment>) :
         val assignmentDetails: TextView = view.findViewById(R.id.assignmentDetails)
         val completionStatus: TextView = view.findViewById(R.id.completionStatus)
         val score: TextView = view.findViewById(R.id.score)
+        val feedback: TextView = view.findViewById(R.id.feedback)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -30,6 +31,7 @@ class AssignmentAdapter(private var assignments: List<Assignment>) :
         holder.assignmentDetails.text = assignmentDetails
         holder.completionStatus.text = assignment.completionStatus
         holder.score.text = assignment.score.toString()
+        holder.feedback.text = assignment.feedback
 
         // Handle item click to open AssignmentDetailActivity
         holder.itemView.setOnClickListener {

@@ -55,7 +55,6 @@ class AvailabilityTaAddFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-
         loadDataFromFirestore(db, userId.toString())
     }
 
@@ -96,7 +95,8 @@ class AvailabilityTaAddFragment : Fragment() {
         val daysArray = arrayOf("Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat")
 
         // Create an ArrayAdapter using the string array and a default spinner layout
-        spinnerAdapter = ArrayAdapter(requireContext(), android.R.layout.simple_spinner_item, daysArray)
+        spinnerAdapter =
+            ArrayAdapter(requireContext(), android.R.layout.simple_spinner_item, daysArray)
 
         // Specify the layout to use when the list of choices appears
         spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
@@ -106,9 +106,15 @@ class AvailabilityTaAddFragment : Fragment() {
 
         // Set a listener to handle item selection
         spinnerDays.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-            override fun onItemSelected(parentView: AdapterView<*>?, selectedItemView: View?, position: Int, id: Long) {
+            override fun onItemSelected(
+                parentView: AdapterView<*>?,
+                selectedItemView: View?,
+                position: Int,
+                id: Long
+            ) {
                 val selectedDay = spinnerAdapter.getItem(position)
-                Toast.makeText(requireContext(), "Selected Day: $selectedDay", Toast.LENGTH_SHORT).show()
+                Toast.makeText(requireContext(), "Selected Day: $selectedDay", Toast.LENGTH_SHORT)
+                    .show()
                 linearLayoutInnerTimeRanges.removeAllViews()
 
                 for (buttonPair in timeRangeButtonsMap[selectedDay]!!) {
@@ -161,14 +167,14 @@ class AvailabilityTaAddFragment : Fragment() {
 
         val updateButton: Button = view.findViewById(R.id.btnSubmitAvability)
 
-        updateButton.setOnClickListener(){
+        updateButton.setOnClickListener() {
             saveDataToFirebase(db)
         }
 
         return view
     }
 
-    private fun saveDataToFirebase(db: FirebaseFirestore ) {
+    private fun saveDataToFirebase(db: FirebaseFirestore) {
         // Create a unique key for the availability data
 //        val availabilityKey = databaseReference.child("availability").push().key
         val convertedTimeRangeButtonsMap = convertButtonPairsToStrings(timeRangeButtonsMap)
@@ -300,16 +306,36 @@ class AvailabilityTaAddFragment : Fragment() {
                 val selectedDate = "$dayOfMonth/${month + 1}/$year"
 
                 if (targetButton.id == R.id.btnSelectDate1 && isStartDateBeforeToday(selectedDate)) {
-                    Toast.makeText(requireContext(), "Start date cannot be before today", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(
+                        requireContext(),
+                        "Start date cannot be before today",
+                        Toast.LENGTH_SHORT
+                    ).show()
                     return@OnDateSetListener
                 }
 
-                if (targetButton.id == R.id.btnSelectDate1 && isStartDateAfterEndDate(selectedDate, selectedEndDate)) {
-                    Toast.makeText(requireContext(), "Start date cannot be after end date", Toast.LENGTH_SHORT).show()
+                if (targetButton.id == R.id.btnSelectDate1 && isStartDateAfterEndDate(
+                        selectedDate,
+                        selectedEndDate
+                    )
+                ) {
+                    Toast.makeText(
+                        requireContext(),
+                        "Start date cannot be after end date",
+                        Toast.LENGTH_SHORT
+                    ).show()
                     return@OnDateSetListener
                 }
-                if (targetButton.id == R.id.btnSelectDate2 && isStartDateAfterEndDate(selectedStartDate, selectedDate)) {
-                    Toast.makeText(requireContext(), "End date cannot be before start date", Toast.LENGTH_SHORT).show()
+                if (targetButton.id == R.id.btnSelectDate2 && isStartDateAfterEndDate(
+                        selectedStartDate,
+                        selectedDate
+                    )
+                ) {
+                    Toast.makeText(
+                        requireContext(),
+                        "End date cannot be before start date",
+                        Toast.LENGTH_SHORT
+                    ).show()
                     return@OnDateSetListener
                 }
 
@@ -438,8 +464,12 @@ class AvailabilityTaAddFragment : Fragment() {
             TimePickerDialog.OnTimeSetListener { _, hourOfDay, minute ->
                 val selectedTime = String.format("%02d:%02d", hourOfDay, minute)
                 targetButton.text = selectedTime
-                if(!isStartTimeAfterEndTime(selectedDay)) {
-                    Toast.makeText(requireContext(), "Start time cannot be after end time", Toast.LENGTH_SHORT).show()
+                if (!isStartTimeAfterEndTime(selectedDay)) {
+                    Toast.makeText(
+                        requireContext(),
+                        "Start time cannot be after end time",
+                        Toast.LENGTH_SHORT
+                    ).show()
                     targetButton.text = "--:--"
                 }
 
@@ -468,8 +498,7 @@ class AvailabilityTaAddFragment : Fragment() {
 
                     if (dateStart != null && dateEnd != null && dateEnd.after(dateStart)) {
                         // Do nothing
-                    }
-                    else {
+                    } else {
                         return false
                     }
                 } catch (e: ParseException) {
