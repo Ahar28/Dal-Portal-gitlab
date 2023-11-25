@@ -144,7 +144,7 @@ class AvailabilityProfFragment : Fragment() {
         val daysArray = arrayOf("Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat")
 
         // Create an ArrayAdapter using the string array and a default spinner layout
-        spinnerAdapter = ArrayAdapter(requireContext(), android.R.layout.simple_spinner_item, daysArray)
+        spinnerAdapter = ArrayAdapter(requireContext(), R.layout.spinner_items, daysArray)
 
         // Specify the layout to use when the list of choices appears
         spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
@@ -251,7 +251,7 @@ class AvailabilityProfFragment : Fragment() {
 
                         // Create an ArrayAdapter using the string array and a default spinner layout
                         var spinnerUserAdapter =
-                            ArrayAdapter(requireContext(), android.R.layout.simple_spinner_item, userArray)
+                            ArrayAdapter(requireContext(), R.layout.spinner_items, userArray)
 
                         // Specify the layout to use when the list of choices appears
                         spinnerUserAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
@@ -333,7 +333,7 @@ class AvailabilityProfFragment : Fragment() {
                     LinearLayout.LayoutParams.WRAP_CONTENT,
                 )
                 availabilityDataLayout.orientation = LinearLayout.VERTICAL
-                availabilityDataLayout.setBackgroundColor(resources.getColor(android.R.color.holo_blue_light))
+                availabilityDataLayout.setBackgroundColor(resources.getColor(android.R.color.holo_blue_dark))
                 // Set the top margin
                 val layoutParams = availabilityDataLayout.layoutParams as LinearLayout.LayoutParams
                 layoutParams.topMargin = 10

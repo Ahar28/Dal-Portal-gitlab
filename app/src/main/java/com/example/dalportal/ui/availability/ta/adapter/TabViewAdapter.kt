@@ -23,7 +23,7 @@ class TabViewAdapter(fragment: Fragment) : FragmentStateAdapter(fragment) {
             return 1
         if(userData.role=="TA")
             return 2
-        return 0
+        return 2
     }
 
     // Override method to create and return a city fragment based on its position
@@ -57,6 +57,20 @@ class TabViewAdapter(fragment: Fragment) : FragmentStateAdapter(fragment) {
             // Default case: return City1Fragment if position is not 0, 1, or 2
             return AvailabilityTaAddFragment()
         }
+
+        when (position) {
+            0 -> {
+                // Creating and returning City1Fragment for position 0
+                return AvailabilityTaAddFragment()
+            }
+
+            1 -> {
+                // Creating and returning City2Fragment for position 1
+                return AvailabilityTaViewFragment()
+            }
+
+        }
+
         return AvailabilityTaAddFragment()
     }
 }

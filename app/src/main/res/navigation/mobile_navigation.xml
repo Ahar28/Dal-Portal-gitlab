@@ -48,6 +48,25 @@
         tools:layout="@layout/fragment_availability_ta" />
 
     <fragment
+        android:id="@+id/nav_availability_calendar_prof"
+        android:name="com.example.dalportal.ui.availability.prof.AvailabilityProfFragment"
+        android:label="@string/availability"
+        tools:layout="@layout/fragment_availability_prof" />
+
+    <fragment
+        android:id="@+id/nav_rating"
+        android:name="com.example.dalportal.ui.rating_system.RatingAppFragment"
+        android:label="rating"
+        tools:layout="@layout/fragment_rating_app" />
+
+    <fragment
+        android:id="@+id/nav_rating_admin"
+        android:name="com.example.dalportal.ui.rating_system.RatingViewFragment"
+        android:label="rating"
+        tools:layout="@layout/fragment_rating_view" />
+
+
+    <fragment
         android:id="@+id/nav_discussion"
         android:name="com.example.dalportal.ui.DiscussionForm.DiscussionFragment"
         android:label="Discussion"
@@ -58,5 +77,11 @@
         android:name="com.example.dalportal.ui.Admin.AdminFragment"
         android:label="Admin Portal"
         tools:layout="@layout/fragment_availability" />
+
+    <fragment
+        android:id="@+id/nav_event"
+        android:name="com.example.dalportal.ui.event_calendar.EventFragment"
+        android:label="Event Calendar"
+        tools:layout="@layout/fragment_event" />
 
 </navigation>

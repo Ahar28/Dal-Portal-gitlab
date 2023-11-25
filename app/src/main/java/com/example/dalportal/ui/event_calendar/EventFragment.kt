@@ -1,60 +1,61 @@
 package com.example.dalportal.ui.event_calendar
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ArrayAdapter
+import android.widget.Button
+import android.widget.ListView
+import android.widget.Spinner
+import androidx.fragment.app.Fragment
 import com.example.dalportal.R
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
-
-/**
- * A simple [Fragment] subclass.
- * Use the [EventFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
 class EventFragment : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
-        }
-    }
+    private var monthSpinner: Spinner? = null
+    private var yearSpinner: Spinner? = null
+    private var selectedDateTextView: ListView? = null
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
+        inflater: LayoutInflater,
+        container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_event, container, false)
-    }
+        val view: View = inflater.inflate(R.layout.fragment_event, container, false)
 
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment EventFragment.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            EventFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
-                }
-            }
+        // Initialize views
+        monthSpinner = view.findViewById(R.id.monthSpinner)
+        yearSpinner = view.findViewById(R.id.yearSpinner)
+        val showDateButton: Button = view.findViewById(R.id.buttonShowDate)
+        selectedDateTextView = view.findViewById(R.id.listViewEvents)
+
+        // Populate month spinner
+        val months = arrayOf("January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December")
+        val monthAdapter = ArrayAdapter(requireContext(), android.R.layout.simple_spinner_item, months)
+        monthAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+        monthSpinner?.adapter = monthAdapter
+
+        // Populate year spinner
+        val years: List<String> = mutableListOf("2023", "2024")
+        val yearAdapter = ArrayAdapter(requireContext(), android.R.layout.simple_spinner_item, years)
+        yearAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+        yearSpinner?.adapter = yearAdapter
+
+        // Set button click listener
+        showDateButton.setOnClickListener {
+            // Handle button click to show the selected date
+            val selectedMonth = monthSpinner?.selectedItem.toString()
+            val selectedYear = yearSpinner?.selectedItem.toString()
+            val selectedDate = "$selectedMonth $selectedYear"
+
+            // Filter events for the selected date
+            val filteredEvents = EventData.events.filter { it.monthYear == selectedDate }
+
+            // Display the events in a ListView
+            val eventAdapter = ArrayAdapter(requireContext(), R.layout.list_items, filteredEvents.map { it.date+": "+it.name })
+            selectedDateTextView?.adapter = eventAdapter
+        }
+
+        return view
     }
 }
