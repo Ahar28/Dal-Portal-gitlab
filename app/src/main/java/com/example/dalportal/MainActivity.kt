@@ -47,10 +47,6 @@ class MainActivity : AppCompatActivity() {
         val assignmentReviewMenuItem = navView.menu.findItem(R.id.nav_assignment_review)
         val contentMenuItem = navView.menu.findItem(R.id.nav_content)
 
-        // For role = "Professor"
-//        assignmentReviewMenuItem.isVisible = UserData.role == "Professor"
-//        contentMenuItem.isVisible = UserData.role == "Professor"
-
         // For role = "TA"
         assignmentReviewMenuItem.isVisible = UserData.role == "TA" || UserData.role == "Professor"
         contentMenuItem.isVisible = UserData.role == "TA" || UserData.role == "Professor"
