@@ -45,18 +45,28 @@ class MainActivity : AppCompatActivity() {
         val currentNameTextView = headerView.findViewById<TextView>(R.id.current_user)
         val adminPortalMenuItem = navView.menu.findItem(R.id.nav_admin_portal)
         val assignmentMenuItem = navView.menu.findItem(R.id.nav_assignment)
+        val availabilityTa = navView.menu.findItem(R.id.nav_availability_calendar)
+        val ratingAdmin = navView.menu.findItem(R.id.nav_rating_admin)
+        val ratingUser = navView.menu.findItem(R.id.nav_rating)
+        val availabilityProf = navView.menu.findItem(R.id.nav_availability_calendar_prof)
         val assignmentReviewMenuItem = navView.menu.findItem(R.id.nav_assignment_review)
         val contentMenuItem = navView.menu.findItem(R.id.nav_content)
 
         // For role = "TA"
         assignmentReviewMenuItem.isVisible = UserData.role == "TA" || UserData.role == "Professor"
         contentMenuItem.isVisible = UserData.role == "TA" || UserData.role == "Professor"
+        availabilityTa.isVisible = UserData.role == "TA"
+
+        // For role = "Professor"
+        availabilityProf.isVisible = UserData.role == "Professor"
 
         // For role = "Student"
         assignmentMenuItem.isVisible = UserData.role == "Student"
 
         // For role = "admin"
         adminPortalMenuItem.isVisible = UserData.role == "admin"
+        ratingAdmin.isVisible = UserData.role == "admin"
+        ratingUser.isVisible = UserData.role != "admin"
 
         // Set the text to user's email
         currentEmailTextView.text = UserData.email ?: "No Email"
@@ -78,6 +88,7 @@ class MainActivity : AppCompatActivity() {
             logoutUser()
             true
         }
+
 
         setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)

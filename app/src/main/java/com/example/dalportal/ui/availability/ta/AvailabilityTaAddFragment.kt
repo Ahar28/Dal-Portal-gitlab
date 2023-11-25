@@ -97,7 +97,7 @@ class AvailabilityTaAddFragment : Fragment() {
 
         // Create an ArrayAdapter using the string array and a default spinner layout
         spinnerAdapter =
-            ArrayAdapter(requireContext(), android.R.layout.simple_spinner_item, daysArray)
+            ArrayAdapter(requireContext(), R.layout.spinner_items, daysArray)
 
         // Specify the layout to use when the list of choices appears
         spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
