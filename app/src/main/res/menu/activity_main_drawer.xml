@@ -26,6 +26,12 @@
             android:id="@+id/nav_assignment"
             android:icon="@drawable/ic_menu_assignments"
             android:title="@string/menu_assignments" />
+
+        <item
+            android:id="@+id/nav_professor_portal"
+            android:icon="@drawable/professor_portal_icon"
+            android:title="@string/professor_portal" />
+
         <item
             android:id="@+id/nav_assignment_review"
             android:icon="@drawable/ic_menu_assignments_review"
@@ -49,6 +55,5 @@
             android:icon="@drawable/logout_icon"
             android:title="Logout"
             android:visible="true" />
-
     </group>
 </menu>

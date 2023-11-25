@@ -30,6 +30,47 @@
         tools:layout="@layout/fragment_assignment" />
 
     <fragment
+        android:id="@+id/nav_professor_portal"
+        android:name="com.example.dalportal.ui.professorportal.ProfessorPortalFragment"
+        android:label="@string/professor_portal"
+        tools:layout="@layout/fragment_professor_portal" >
+
+    <action
+        android:id="@+id/action_professor_to_assign_task"
+        app:destination="@id/nav_assign_a_task_to_TA" />
+
+    <action
+        android:id="@+id/action_professor_to_task_dashboard"
+        app:destination="@id/nav_prof_task_dashboard" />
+
+    <action
+        android:id="@+id/action_professor_to_overview_dashboard"
+        app:destination="@id/nav_prof_overview_dashboard" />
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/nav_assign_a_task_to_TA"
+        android:name="com.example.dalportal.ui.professorportal.AssignTaskFragment"
+        android:label="@string/Assign_task_to_TA"
+        tools:layout="@layout/fragment_assign_task"
+        />
+
+    <fragment
+        android:id="@+id/nav_prof_task_dashboard"
+        android:name="com.example.dalportal.ui.professorportal.ProfDashboardFragment"
+        android:label="@string/Professor_task_dashboard"
+        tools:layout="@layout/fragment_assign_task"
+        />
+
+    <fragment
+        android:id="@+id/nav_prof_overview_dashboard"
+        android:name="com.example.dalportal.ui.professorportal.ProfessorOverviewDashboardFragment"
+        android:label="@string/Professor_task_dashboard"
+        tools:layout="@layout/fragment_assign_task"
+        />
+
+    <fragment
         android:id="@+id/nav_assignment_review"
         android:name="com.example.dalportal.ui.assignments_review.AssignmentsReviewFragment"
         android:label="@string/menu_assignments_review"
