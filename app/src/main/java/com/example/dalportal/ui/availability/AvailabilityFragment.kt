@@ -35,10 +35,22 @@ class AvailabilityFragment : Fragment() {
         // Replace FirstFragment with SecondFragment
         val availabilityTaFragment = AvailabilityTaFragment()
         val availabilityProfFragment = AvailabilityProfFragment()
+
         val transaction = requireActivity().supportFragmentManager.beginTransaction()
-        transaction.replace(R.id.nav_host_fragment_content_main, availabilityTaFragment)
+
+        var role = "Professor"
+        role = "TA"
+        if(role=="Professor") {
+            transaction.replace(R.id.nav_host_fragment_content_main, availabilityProfFragment)
+        }
+        else{
+            transaction.replace(R.id.nav_host_fragment_content_main, availabilityTaFragment)
+        }
+
         transaction.addToBackStack(null) // Optional: Add transaction to back stack
         transaction.commit()
+
+
     }
 
 

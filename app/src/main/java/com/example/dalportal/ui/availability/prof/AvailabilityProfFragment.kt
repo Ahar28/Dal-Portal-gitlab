@@ -19,7 +19,14 @@ import android.widget.RadioGroup
 import android.widget.Spinner
 import android.widget.TextView
 import android.widget.Toast
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.runBlocking
+import kotlinx.coroutines.tasks.await
+import androidx.activity.OnBackPressedCallback
 import androidx.core.view.marginTop
+import androidx.fragment.app.FragmentManager
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.Observer
 import com.example.dalportal.R
 import com.example.dalportal.ui.availability.firebase.AvailabilityData
 import com.example.dalportal.ui.availability.firebase.ButtonPair
@@ -28,6 +35,7 @@ import com.google.firebase.Firebase
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.database
 import com.google.firebase.firestore.FirebaseFirestore
+import kotlinx.coroutines.GlobalScope
 import java.text.ParseException
 import java.text.SimpleDateFormat
 import java.util.Calendar
@@ -44,14 +52,45 @@ class AvailabilityProfFragment : Fragment() {
     private lateinit var spinnerDays: Spinner
     private lateinit var spinnerAdapter: ArrayAdapter<String>
     private lateinit var databaseReference: DatabaseReference
+    var taNamesArray = mutableListOf<String>()
+    var emailNameMap = mutableMapOf<String, String>()
     val db = FirebaseFirestore.getInstance()
     val userId = 101
+
 
     private var timeRangeButtonsMap = mutableMapOf<String, MutableList<Pair<Button, Button>>>()
 
     private var selectedStartDate = getCurrentDate()
     private var selectedEndDate = getCurrentDate()
     private var comment: String = ""
+
+    private val onBackPressedCallback = object : OnBackPressedCallback(true) {
+        override fun handleOnBackPressed() {
+            // Handle the back button press here
+            // You can add your custom logic or call the fragment's onBackPressed method
+            // For example:
+//             popBackStack() //to navigate back
+            val fm: FragmentManager = requireActivity().supportFragmentManager
+            fm.popBackStack()
+            fm.popBackStack()
+        }
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+
+        // Remove the callback when the fragment is destroyed
+        onBackPressedCallback.remove()
+    }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+
+
+
+
+        requireActivity().onBackPressedDispatcher.addCallback(this, onBackPressedCallback)
+    }
 
     private fun initializeTimeRangeButtonsMap() {
         val daysOfWeek = arrayOf("Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat")
@@ -65,7 +104,7 @@ class AvailabilityProfFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
 
-        loadDataFromFirestore(db, userId.toString())
+
     }
 
     override fun onCreateView(
@@ -112,39 +151,8 @@ class AvailabilityProfFragment : Fragment() {
         spinnerDays.adapter = spinnerAdapter
 
 
-        // Initialize views
-        var spinnerUser: Spinner = view.findViewById(R.id.spinnerUser)
+        loadDataFromFirestore(db, userId.toString(), view)
 
-        // Dummy data for the spinner
-        val userArray = arrayOf("User 1", "User 2")
-
-        // Create an ArrayAdapter using the string array and a default spinner layout
-        var spinnerUserAdapter =
-            ArrayAdapter(requireContext(), android.R.layout.simple_spinner_item, userArray)
-
-        // Specify the layout to use when the list of choices appears
-        spinnerUserAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-
-        // Apply the adapter to the spinner
-        spinnerUser.adapter = spinnerUserAdapter
-
-        // Set a listener to handle item selection
-        spinnerUser.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-            override fun onItemSelected(
-                parentView: AdapterView<*>?,
-                selectedItemView: View?,
-                position: Int,
-                id: Long
-            ) {
-                val selectedUser = spinnerAdapter.getItem(position)
-                Toast.makeText(requireContext(), "Selected User: $selectedUser", Toast.LENGTH_SHORT)
-                    .show()
-            }
-
-            override fun onNothingSelected(parent: AdapterView<*>?) {
-                TODO("Not yet implemented")
-            }
-        }
 
         // Set a listener to handle item selection
         spinnerDays.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
@@ -233,25 +241,100 @@ class AvailabilityProfFragment : Fragment() {
 
     }
 
-    private fun loadDataFromFirestore(db: FirebaseFirestore, documentId: String) {
-        val docRef = db.collection("availability").document(documentId)
+    private fun loadDataFromFirestore(db: FirebaseFirestore, documentId: String, view: View) {
+        // Step 1: Read the "users" collection
+        runBlocking {
+            val usersCollectionRef = db.collection("users")
 
-        docRef.get()
-            .addOnSuccessListener { document ->
-                if (document != null && document.exists()) {
-                    val availabilityData = document.toObject(AvailabilityData::class.java)
-                    // Process the retrieved data (e.g., update UI)
-                    updateUI(availabilityData)
-                } else {
-                    // Document does not exist
-                    // Handle the case accordingly
+            var taNamesArray = mutableListOf<String>()
+            var emailNameMap = mutableMapOf<String, String>()
+
+            usersCollectionRef
+                .get()
+                .addOnSuccessListener { usersSnapshot ->
+                    if (!usersSnapshot.isEmpty) {
+                        for (userDocument in usersSnapshot) {
+                            val email = userDocument.getString("email")
+                            val name = userDocument.getString("name")
+
+                            // Store name in the array
+                            name?.let {
+                                taNamesArray.add(it)
+                            }
+
+                            // Store email and name in the map
+                            if (email != null && name != null) {
+                                emailNameMap[name] = email
+                            }
+                        }
+
+                        // Initialize views
+                        var spinnerUser: Spinner = view.findViewById(R.id.spinnerUser)
+                        // Dummy data for the spinner
+                        val userArray = taNamesArray
+
+                        // Create an ArrayAdapter using the string array and a default spinner layout
+                        var spinnerUserAdapter =
+                            ArrayAdapter(requireContext(), android.R.layout.simple_spinner_item, userArray)
+
+                        // Specify the layout to use when the list of choices appears
+                        spinnerUserAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+
+                        // Apply the adapter to the spinner
+                        spinnerUser.adapter = spinnerUserAdapter
+
+                        // Set a listener to handle item selection
+                        spinnerUser.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+                            override fun onItemSelected(
+                                parentView: AdapterView<*>?,
+                                selectedItemView: View?,
+                                position: Int,
+                                id: Long
+                            ) {
+                                val selectedUser = spinnerAdapter.getItem(position)
+                                Toast.makeText(requireContext(), "Selected User: $selectedUser", Toast.LENGTH_SHORT)
+                                    .show()
+
+                                getUserAva(emailNameMap[selectedUser.toString()].toString())
+                            }
+
+                            override fun onNothingSelected(parent: AdapterView<*>?) {
+                                TODO("Not yet implemented")
+                            }
+                        }
+
+                        getUserAva(emailNameMap[taNamesArray[0]].toString())
+                    }
                 }
-            }
-            .addOnFailureListener { exception ->
-                // Handle failures
-                Log.w(ContentValues.TAG, "Error getting documents: ", exception)
-            }
+                .addOnFailureListener { exception ->
+                    // Handle failures while fetching users
+                    Log.w("LoadData", "Error getting users: ", exception)
+                }
+        }
     }
+
+
+    fun getUserAva(documentId:String) {
+                    // Step 3: Read the document from "availability" collection
+                    val docRef = db.collection("availability").document(documentId)
+
+                    docRef.get()
+                        .addOnSuccessListener { document ->
+                            if (document != null && document.exists()) {
+                                val availabilityData = document.toObject(AvailabilityData::class.java)
+                                // Process the retrieved data (e.g., update UI)
+                                updateUI(availabilityData)
+                            } else {
+                                // Document does not exist
+                                // Handle the case accordingly
+                            }
+                        }
+                        .addOnFailureListener { exception ->
+                            // Handle failures
+                            Log.w(ContentValues.TAG, "Error getting documents: ", exception)
+                        }
+    }
+
 
     private fun updateUI(availabilityData: AvailabilityData?) {
         // Update your UI with the retrieved data
