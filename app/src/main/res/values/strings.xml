@@ -15,5 +15,32 @@
     <string name="Assign_task_to_TA">Assign Task to TA</string>
     <string name="Professor_task_dashboard">Professor Task Dashboard</string>
     <string name="Professor_overview_dashboard">Professor Overview Dashboard</string>
+    <string name="menu_assignments_review">Assignments Review</string>
+    <string name="menu_content">Content</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="Availability">Availability</string>
+    <string name="availability">Availability</string>
+    <string name="my_availability">My Availability</string>
+    <string name="select_day">Select Day</string>
+    <string name="post_hint">Enter your post here...</string>
+    <string name="submit_post">Submit Post</string>
+    <string name="create_new_post">Create New Post</string>
+    <string name="admin_portal">Admin Portal</string>
+    <string name="stat_icon_desc" />
+    <string name="registration_headline">Registration</string>
+    <string name="name_hint">Name</string>
+    <string name="email_hint">Email</string>
+    <string name="password_hint">Password</string>
+    <string name="register_button">Register</string>
+
+
+    <string-array name="role_options">
+        <item>Professor</item>
+        <item>Student</item>
+        <item>TA</item>
+    </string-array>
+    <string name="login_headline">Login</string>
+    <string name="email">Email</string>
+    <string name="password">Password</string>
+
 </resources>

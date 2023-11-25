@@ -1,7 +1,10 @@
 package com.example.dalportal
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
+import android.widget.Button
+import android.widget.TextView
 import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.navigation.NavigationView
 import androidx.navigation.findNavController
@@ -12,6 +15,9 @@ import androidx.navigation.ui.setupWithNavController
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.appcompat.app.AppCompatActivity
 import com.example.dalportal.databinding.ActivityMainBinding
+import com.example.dalportal.ui.DiscussionForm.PostListActivity
+import com.example.dalportal.util.UserData
+import com.example.dalportal.ui.availability.AvailabilityFragment
 import com.google.firebase.FirebaseApp
 
 class MainActivity : AppCompatActivity() {
@@ -20,6 +26,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
+
         super.onCreate(savedInstanceState)
         FirebaseApp.initializeApp(this)
 
@@ -32,20 +39,58 @@ class MainActivity : AppCompatActivity() {
             Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
                 .setAction("Action", null).show()
         }
-        val drawerLayout: DrawerLayout = binding.drawerLayout
         val navView: NavigationView = binding.navView
+        val headerView = navView.getHeaderView(0)
+        val currentEmailTextView = headerView.findViewById<TextView>(R.id.current_email)
+        val currentNameTextView = headerView.findViewById<TextView>(R.id.current_user)
+        val adminPortalMenuItem = navView.menu.findItem(R.id.nav_admin_portal)
+        val assignmentMenuItem = navView.menu.findItem(R.id.nav_assignment)
+        val assignmentReviewMenuItem = navView.menu.findItem(R.id.nav_assignment_review)
+        val contentMenuItem = navView.menu.findItem(R.id.nav_content)
+
+        // For role = "TA"
+        assignmentReviewMenuItem.isVisible = UserData.role == "TA" || UserData.role == "Professor"
+        contentMenuItem.isVisible = UserData.role == "TA" || UserData.role == "Professor"
+
+        // For role = "Student"
+        assignmentMenuItem.isVisible = UserData.role == "Student"
+
+        // For role = "admin"
+        adminPortalMenuItem.isVisible = UserData.role == "admin"
+
+        // Set the text to user's email
+        currentEmailTextView.text = UserData.email ?: "No Email"
+        currentNameTextView.text=UserData.name ?: "John Doe"
+        val drawerLayout: DrawerLayout = binding.drawerLayout
+
         val navController = findNavController(R.id.nav_host_fragment_content_main)
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
         appBarConfiguration = AppBarConfiguration(
             setOf(
-                R.id.nav_home, R.id.nav_gallery, R.id.nav_slideshow,R.id.nav_professor_portal
+
+                R.id.nav_home, R.id.nav_gallery, R.id.nav_slideshow, R.id.nav_availability_calendar,R.id.nav_professor_portal
             ), drawerLayout
         )
+
+        val logoutMenuItem = navView.menu.findItem(R.id.logout)
+        logoutMenuItem.setOnMenuItemClickListener {
+            logoutUser()
+            true
+        }
+
         setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
     }
+    private fun logoutUser() {
+        // Clear user data
+        UserData.clear()
 
+        // Redirect to LoginActivity
+        val intent = Intent(this, LoginActivity::class.java)
+        startActivity(intent)
+        finish() // Close the current activity
+    }
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         // Inflate the menu; this adds items to the action bar if it is present.
         menuInflater.inflate(R.menu.main, menu)
@@ -56,4 +101,6 @@ class MainActivity : AppCompatActivity() {
         val navController = findNavController(R.id.nav_host_fragment_content_main)
         return navController.navigateUp(appBarConfiguration) || super.onSupportNavigateUp()
     }
+
+
 }

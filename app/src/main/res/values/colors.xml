@@ -6,14 +6,17 @@
     <color name="blue">#0000FF</color>
     <color name="teal_200">#FF03DAC5</color>
     <color name="teal_700">#FF018786</color>
-    <color name="black">#FF000000</color>
-    <color name="white">#FFFFFFFF</color>
-    <color name="statusCompleted">#FF00FF00</color> <!-- Green, for example -->
-    <color name="statusPending">#FFFF0000</color> <!-- Red, for example -->
-    <color name="statusStarted">#FF0000FF</color> <!-- Blue, for example -->
-    <color name="statusAborted">#FFFFFF00</color> <!-- Yellow, for example -->
-
-    <color name="priorityLow">#FF0000FF</color> <!-- Blue, for example -->
-    <color name="priorityMedium">#FFFFA500</color> <!-- Orange, for example -->
-    <color name="priorityHigh">#FFFF0000</color> <!-- Red, for example -->
+    <color name="statusCompleted">#FF00FF00</color>
+    <color name="statusPending">#FFFF0000</color>
+    <color name="statusStarted">#FF0000FF</color>
+    <color name="statusAborted">#FFFFFF00</color>
+    <color name="priorityLow">#FF0000FF</color>
+    <color name="priorityMedium">#FFFFA500</color>
+    <color name="priorityHigh">#FFFF0000</color>
+    <color name="black">#242E38</color>
+    <color name="white">#fffafa</color>
+    <color name="cobalt_blue">#2A5C99</color>
+    <color name="cobalt_blue_light">#dde2ee</color>
+    <color name="yellow_dark">#9e9025</color>
+    <color name="yellow_electric">#ffff33</color>
 </resources>
