@@ -26,8 +26,14 @@
         <string name="name_hint">Name</string>
         <string name="email_hint">Email</string>
         <string name="password_hint">Password</string>
+    <string name="register_button">Register</string>
 
 
+    <string-array name="role_options">
+        <item>Professor</item>
+        <item>Student</item>
+        <item>TA</item>
+    </string-array>
     <string name="login_headline">Login</string>
     <string name="email">Email</string>
     <string name="password">Password</string>
