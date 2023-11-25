@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.SearchView
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.dalportal.R
 import com.example.dalportal.databinding.FragmentJobListingBinding
@@ -26,11 +27,21 @@ class JobListingFragment : Fragment() {
         return binding.root
     }
 
+//    private fun setupRecyclerView() {
+//        binding.recyclerViewJobListings.layoutManager = LinearLayoutManager(context)
+//        binding.recyclerViewJobListings.adapter = JobListingAdapter(mutableListOf(), requireContext())
+//    }
+
     private fun setupRecyclerView() {
         binding.recyclerViewJobListings.layoutManager = LinearLayoutManager(context)
-        binding.recyclerViewJobListings.adapter = JobListingAdapter(mutableListOf(), requireContext())
-    }
+        binding.recyclerViewJobListings.adapter = JobListingAdapter(mutableListOf(), requireContext()) { jobListing ->
+            val bundle = Bundle().apply {
+                putParcelable("jobListing", jobListing)
+            }
+            findNavController().navigate(R.id.action_jobListingFragment_to_jobDetailsFragment, bundle)
 
+        }
+    }
     private fun loadJobPostings() {
         db.collection("jobPostings").get()
             .addOnSuccessListener { documents ->

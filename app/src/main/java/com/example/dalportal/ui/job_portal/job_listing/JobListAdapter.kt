@@ -12,7 +12,9 @@ import com.example.dalportal.R
 import com.example.dalportal.model.JobListing
 import com.google.firebase.firestore.FirebaseFirestore
 
-class JobListingAdapter(private var jobListings: MutableList<JobListing>, private val context: Context) :
+class JobListingAdapter(private var jobListings: MutableList<JobListing>,
+                        private val context: Context,
+                        private val itemClickListener: (JobListing) -> Unit) :
     RecyclerView.Adapter<JobListingAdapter.ViewHolder>() {
 
     private val db = FirebaseFirestore.getInstance()
@@ -33,6 +35,9 @@ class JobListingAdapter(private var jobListings: MutableList<JobListing>, privat
         holder.textViewJobTitle.text = jobListing.title
         holder.deleteButton.setOnClickListener {
             deleteJob(holder.itemView.context, jobListing, position)
+        }
+        holder.itemView.setOnClickListener {
+            itemClickListener(jobListing)
         }
     }
 

@@ -81,5 +81,24 @@
             app:destination="@id/nav_jobPosting" />
     </fragment>
 
+    <fragment
+        android:id="@+id/jobDetailsFragment"
+        android:name="com.example.dalportal.ui.job_portal.job_listing.JobDetailsFragment"
+        android:label="Job Details"
+        tools:layout="@layout/fragment_job_details" />
+
+    <action
+        android:id="@+id/action_jobListingFragment_to_jobDetailsFragment"
+        app:destination="@id/jobDetailsFragment" />
+
+    <fragment
+        android:id="@+id/jobListingFragment"
+        android:name="com.example.dalportal.ui.job_portal.job_listing.JobListingFragment"
+        android:label="Job Listing"
+        tools:layout="@layout/fragment_job_listing">
+        <action
+            android:id="@+id/action_jobListingFragment_to_jobDetailsFragment"
+            app:destination="@id/jobDetailsFragment" />
+    </fragment>
 
 </navigation>
