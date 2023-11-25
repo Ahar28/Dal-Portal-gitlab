@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.job_posting.JobPostingFragment">
+
+
+        <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:padding="16dp">
+
+            <!-- Job Title -->
+            <EditText
+                android:id="@+id/jobTitle"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:hint="@string/job_title"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"/>
+
+            <!-- Job Description -->
+            <EditText
+                android:id="@+id/jobDescription"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:hint="@string/job_description"
+                android:inputType="textMultiLine"
+                app:layout_constraintTop_toBottomOf="@id/jobTitle"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"/>
+
+            <!-- Job Type Dropdown -->
+            <Spinner
+                android:id="@+id/jobType"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@id/jobDescription"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"/>
+
+            <!-- Number of Positions -->
+            <EditText
+                android:id="@+id/numPositions"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:hint="@string/number_of_positions"
+                android:inputType="number"
+                app:layout_constraintTop_toBottomOf="@id/jobType"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"/>
+
+            <!-- Job Location -->
+            <EditText
+                android:id="@+id/jobLocation"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:hint="@string/job_location"
+                app:layout_constraintTop_toBottomOf="@id/numPositions"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"/>
+
+            <!-- Rate of Pay -->
+            <EditText
+                android:id="@+id/rateOfPay"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:hint="@string/rate_of_pay"
+                android:inputType="numberDecimal"
+                app:layout_constraintTop_toBottomOf="@id/jobLocation"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"/>
+
+            <!-- Job Requirements -->
+            <EditText
+                android:id="@+id/jobRequirements"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:hint="@string/job_requirements"
+                android:inputType="textMultiLine"
+                app:layout_constraintTop_toBottomOf="@id/rateOfPay"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"/>
+
+            <!-- Submit Button -->
+            <Button
+                android:id="@+id/submitJobPosting"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/post_job"
+                app:layout_constraintTop_toBottomOf="@id/jobRequirements"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"/>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+</FrameLayout>

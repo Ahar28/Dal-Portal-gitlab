@@ -36,6 +36,15 @@
             android:title="@string/menu_content" />
 
         <item
+            android:id="@+id/nav_jobPosting"
+            android:icon="@drawable/ic_menu_content"
+            android:title="@string/job_posting" />
+        <item
+            android:id="@+id/nav_jobListing"
+            android:icon="@drawable/ic_menu_content"
+            android:title="Job Listing" />
+
+        <item
             android:id="@+id/nav_discussion"
             android:icon="@drawable/ic_menu_assignments"
             android:title="Discussion Form" />

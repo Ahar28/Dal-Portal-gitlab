@@ -59,4 +59,16 @@
         android:label="Admin Portal"
         tools:layout="@layout/fragment_availability" />
 
+    <fragment
+        android:id="@+id/nav_jobPosting"
+        android:name="com.example.dalportal.ui.job_posting.JobPostingFragment"
+        android:label="@string/menu_job_posting"
+        tools:layout="@layout/fragment_job_posting" />
+
+    <fragment
+        android:id="@+id/nav_jobListing"
+        android:name="com.example.dalportal.ui.job_listing.JobListingFragment"
+        android:label="Job Listing"
+        tools:layout="@layout/fragment_job_listing" />
+
 </navigation>
