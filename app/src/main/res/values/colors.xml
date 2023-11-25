@@ -11,4 +11,6 @@
     <color name="cobalt_blue_light">#dde2ee</color>
     <color name="yellow_dark">#9e9025</color>
     <color name="yellow_electric">#ffff33</color>
+    <color name="green">#58AA3D</color>
+    <color name="orange">#FF5F01</color>
 </resources>

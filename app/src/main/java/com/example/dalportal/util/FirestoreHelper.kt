@@ -137,4 +137,16 @@ object FirestoreHelper {
             }
     }
 
+    fun updateTaskStatus(status:String,taskId:String){
+        val statusUpdate = mapOf("status" to status)
+        db.collection("TA_tasks").document(taskId)
+            .update(statusUpdate)
+            .addOnSuccessListener {
+                Log.d("FirestoreHelper", "Status updated successfully for task ID: $taskId")
+            }
+            .addOnFailureListener { e ->
+                Log.e("FirestoreHelper", "Error updating status for task ID: $taskId", e)
+            }
+    }
+
 }
