@@ -20,7 +20,7 @@ class TaPortalFragment : Fragment() {
     private lateinit var viewPager: ViewPager2
     private lateinit var tabs: TabLayout
     private lateinit var viewPagerAdapter: TaPortalViewPagerAdapter
-    private val tabsList = arrayOf("TA Home", "Chat")
+    private val tabsList = arrayOf("Tasks", "Chat")
 
     override fun onCreateView(
         inflater: LayoutInflater,
