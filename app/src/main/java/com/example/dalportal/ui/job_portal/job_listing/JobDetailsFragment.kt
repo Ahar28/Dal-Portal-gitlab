@@ -5,11 +5,11 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
-import androidx.navigation.fragment.findNavController
 import com.example.dalportal.databinding.FragmentJobDetailsBinding
 import com.example.dalportal.model.JobListing
 import com.google.firebase.firestore.FirebaseFirestore
+import android.widget.Toast
+import androidx.navigation.fragment.findNavController
 
 class JobDetailsFragment : Fragment() {
     private var _binding: FragmentJobDetailsBinding? = null
@@ -30,7 +30,12 @@ class JobDetailsFragment : Fragment() {
         displayJobDetails(jobListing)
 
         binding.updateButton.setOnClickListener {
-            updateJobDetails(jobListing)
+            if (binding.updateButton.text.toString() == "Update") {
+                enableEditing()
+                binding.updateButton.text = "Save"
+            } else {
+                updateJobDetails(jobListing)
+            }
         }
     }
 
@@ -44,6 +49,16 @@ class JobDetailsFragment : Fragment() {
             binding.editTextJobRequirement.setText(it.requirements)
             binding.editTextJobType.setText(it.type)
         }
+    }
+
+    private fun enableEditing() {
+        binding.editTextJobTitle.isEnabled = true
+        binding.editTextJobDescription.isEnabled = true
+        binding.editTextJobLocation.isEnabled = true
+        binding.editTextJobPay.isEnabled = true
+        binding.editTextJobPosition.isEnabled = true
+        binding.editTextJobRequirement.isEnabled = true
+        binding.editTextJobType.isEnabled = true
     }
 
     private fun updateJobDetails(jobListing: JobListing?) {

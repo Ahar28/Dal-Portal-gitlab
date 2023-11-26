@@ -16,7 +16,8 @@
                     android:hint="Job Title"
                     android:inputType="text"
                     android:textSize="24sp"
-                    android:layout_marginBottom="8dp" />
+                    android:layout_marginBottom="8dp"
+                    android:enabled="false" />
 
                 <EditText
                     android:id="@+id/editTextJobDescription"
@@ -24,7 +25,9 @@
                     android:layout_height="wrap_content"
                     android:hint="Description"
                     android:inputType="textMultiLine"
-                    android:layout_marginBottom="8dp" />
+                    android:layout_marginBottom="8dp"
+                    android:enabled="false"
+                    />
 
                 <EditText
                     android:id="@+id/editTextJobLocation"
@@ -32,7 +35,9 @@
                     android:layout_height="wrap_content"
                     android:hint="Location"
                     android:inputType="text"
-                    android:layout_marginBottom="8dp" />
+                    android:layout_marginBottom="8dp"
+                    android:enabled="false"
+                    />
 
                 <EditText
                     android:id="@+id/editTextJobPay"
@@ -40,7 +45,9 @@
                     android:layout_height="wrap_content"
                     android:hint="Pay"
                     android:inputType="number"
-                    android:layout_marginBottom="8dp" />
+                    android:layout_marginBottom="8dp"
+                    android:enabled="false"
+                    />
 
                 <!-- EditTexts for 'positions', 'requirements', and 'type' -->
                 <EditText
@@ -49,7 +56,9 @@
                     android:layout_height="wrap_content"
                     android:hint="Positions"
                     android:inputType="number"
-                    android:layout_marginBottom="8dp" />
+                    android:layout_marginBottom="8dp"
+                    android:enabled="false"
+                    />
 
                 <EditText
                     android:id="@+id/editTextJobRequirement"
@@ -57,7 +66,9 @@
                     android:layout_height="wrap_content"
                     android:hint="Requirements"
                     android:inputType="textMultiLine"
-                    android:layout_marginBottom="8dp" />
+                    android:layout_marginBottom="8dp"
+                    android:enabled="false"
+                    />
 
                 <EditText
                     android:id="@+id/editTextJobType"
@@ -65,7 +76,9 @@
                     android:layout_height="wrap_content"
                     android:hint="Type"
                     android:inputType="text"
-                    android:layout_marginBottom="8dp" />
+                    android:layout_marginBottom="8dp"
+                    android:enabled="false"
+                    />
 
                 <Button
                     android:id="@+id/updateButton"
