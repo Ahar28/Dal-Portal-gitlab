@@ -54,9 +54,15 @@
         tools:layout="@layout/fragment_availability" />
 
     <fragment
+        android:id="@+id/nav_feedback_form"
+        android:name="com.example.dalportal.ui.feedback.FeedbackFragment"
+        android:label="Feedback Form"
+        tools:layout="@layout/fragment_feedback" />
+    <fragment
         android:id="@+id/nav_admin_portal"
         android:name="com.example.dalportal.ui.Admin.AdminFragment"
         android:label="Admin Portal"
         tools:layout="@layout/fragment_availability" />
+
 
 </navigation>

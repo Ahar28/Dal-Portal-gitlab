@@ -50,6 +50,21 @@ class MainActivity : AppCompatActivity() {
         val drawerLayout: DrawerLayout = binding.drawerLayout
 
         val navController = findNavController(R.id.nav_host_fragment_content_main)
+
+
+        // Set up NavigationItemSelectedListener
+        navView.setNavigationItemSelectedListener { menuItem ->
+            when (menuItem.itemId) {
+                R.id.nav_feedback_form -> {
+                    // Navigate to FeedbackFragment
+                    navController.navigate(R.id.nav_feedback_form)
+                    drawerLayout.closeDrawers()
+                    true
+                }
+                // Handle other menu items...
+                else -> false
+            }
+        }
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
         appBarConfiguration = AppBarConfiguration(

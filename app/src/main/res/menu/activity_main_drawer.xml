@@ -40,6 +40,10 @@
             android:icon="@drawable/ic_menu_assignments"
             android:title="Discussion Form" />
         <item
+            android:id="@+id/nav_feedback_form"
+            android:icon="@drawable/ic_menu_assignments"
+            android:title="Feedback Form" />
+        <item
             android:id="@+id/nav_admin_portal"
             android:icon="@drawable/ic_admin_portal"
             android:title="@string/admin_portal"
