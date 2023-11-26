@@ -1,11 +1,14 @@
 package com.example.dalportal.ui.chat.users
 
 import android.annotation.SuppressLint
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.MenuItem
 import androidx.appcompat.widget.Toolbar
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.dalportal.MainActivity
 import com.example.dalportal.R
 import com.example.dalportal.util.UserData
 import com.google.firebase.database.DataSnapshot
@@ -31,6 +34,10 @@ class ChatUserActivity : AppCompatActivity() {
         userRecylerView.adapter = adapter
 
         supportActionBar?.title = "Chat"
+        supportActionBar?.apply {
+            setDisplayHomeAsUpEnabled(true)
+        }
+
 
         dbRef = FirebaseDatabase.getInstance().reference
         dbRef.child("users").addValueEventListener(object : ValueEventListener {
@@ -51,5 +58,17 @@ class ChatUserActivity : AppCompatActivity() {
             }
 
         })
+    }
+
+    @Override
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        val intent = Intent(this, MainActivity::class.java)
+        startActivity(intent)
+        return super.onOptionsItemSelected(item)
+    }
+
+    override fun onBackPressed() {
+        val intent = Intent(this, MainActivity::class.java)
+        startActivity(intent)
     }
 }
