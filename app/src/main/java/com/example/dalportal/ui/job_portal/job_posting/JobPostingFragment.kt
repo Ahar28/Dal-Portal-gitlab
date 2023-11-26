@@ -7,7 +7,9 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import android.widget.Toast
+import com.example.dalportal.R
 import com.example.dalportal.databinding.FragmentJobPostingBinding
+import com.google.android.material.textfield.MaterialAutoCompleteTextView
 import com.google.firebase.firestore.FirebaseFirestore
 import okhttp3.*
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
@@ -46,16 +48,16 @@ class JobPostingFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentJobPostingBinding.inflate(inflater, container, false)
-        setupSpinner()
+//        setupSpinner()
         setupButtonClickListener()
         return binding.root
     }
 
-    private fun setupSpinner() {
-        val jobTypes = listOf("Casual", "Part-time", "Full-time")
-        val adapter = ArrayAdapter(requireContext(), android.R.layout.simple_spinner_item, jobTypes)
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-        binding.jobType.adapter = adapter
+    private fun setupJobTypeDropdown() {
+        val items = resources.getStringArray(R.array.job_types)
+        val adapter = ArrayAdapter(requireContext(), R.layout.dropdown_item, items)
+        val jobTypeDropdown = view?.findViewById<MaterialAutoCompleteTextView>(R.id.jobType)
+        jobTypeDropdown?.setAdapter(adapter)
     }
 
     private fun setupButtonClickListener() {
@@ -67,7 +69,8 @@ class JobPostingFragment : Fragment() {
     private fun saveJobPostingToFirestore() {
         val jobTitle = binding.jobTitle.text.toString()
         val jobDescription = binding.jobDescription.text.toString()
-        val jobType = binding.jobType.selectedItem.toString()
+        val jobType = binding.jobType.text.toString()
+        println(jobType)
         val numPositions = binding.numPositions.text.toString().toIntOrNull() ?: 0 // Parse as Int, default to 0
         val jobLocation = binding.jobLocation.text.toString()
         val rateOfPay = binding.rateOfPay.text.toString().toIntOrNull() ?: 0 // Parse as Int, default to 0
@@ -154,6 +157,10 @@ class JobPostingFragment : Fragment() {
         binding.jobLocation.setText("")
         binding.rateOfPay.setText("")
         binding.jobRequirements.setText("")
+    }
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        setupJobTypeDropdown()
     }
 
     override fun onDestroyView() {

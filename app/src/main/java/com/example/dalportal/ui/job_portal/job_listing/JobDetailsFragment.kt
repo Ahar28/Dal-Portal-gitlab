@@ -10,6 +10,7 @@ import com.example.dalportal.model.JobListing
 import com.google.firebase.firestore.FirebaseFirestore
 import android.widget.Toast
 import androidx.navigation.fragment.findNavController
+import com.example.dalportal.R
 
 class JobDetailsFragment : Fragment() {
     private var _binding: FragmentJobDetailsBinding? = null
@@ -33,6 +34,7 @@ class JobDetailsFragment : Fragment() {
             if (binding.updateButton.text.toString() == "Update") {
                 enableEditing()
                 binding.updateButton.text = "Save"
+                binding.updateButton.setIconResource(R.drawable.ic_save) // Change to save icon
             } else {
                 updateJobDetails(jobListing)
             }

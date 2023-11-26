@@ -6,34 +6,52 @@
     android:layout_height="match_parent"
     tools:context=".ui.job_portal.job_listing.JobListingFragment">
 
-    <!-- SearchView placed at the top -->
-    <SearchView
-        android:id="@+id/searchView"
+    <!-- Material SearchView or TextInputLayout for search -->
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/searchLayout"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:iconifiedByDefault="false"
-        android:queryHint="Search Jobs"
+        android:hint="Search Jobs"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/addJobButton" />
+        app:layout_constraintEnd_toStartOf="@+id/addJobButton"
+        app:startIconDrawable="@drawable/ic_search_24">
 
-    <!-- Add Job button next to the SearchView -->
-    <Button
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/searchEditText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <!-- Material Add Job Button -->
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/addJobButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Add Job"
-        app:layout_constraintTop_toTopOf="@+id/searchView"
+        app:iconTint="@color/blue"
+        style="@style/Widget.MaterialComponents.Button.TextButton.Dialog.Flush"
+        app:icon="@drawable/ic_add"
+        app:layout_constraintTop_toTopOf="@+id/searchLayout"
         app:layout_constraintEnd_toEndOf="parent" />
 
-    <!-- RecyclerView for displaying job listings -->
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerViewJobListings"
+
+    <!-- RecyclerView inside MaterialCardView for displaying job listings -->
+    <com.google.android.material.card.MaterialCardView
         android:layout_width="0dp"
         android:layout_height="0dp"
-        app:layout_constraintTop_toBottomOf="@+id/searchView"
+        app:layout_constraintTop_toBottomOf="@+id/searchLayout"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:cardCornerRadius="8dp"
+        app:cardElevation="4dp">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerViewJobListings"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+    </com.google.android.material.card.MaterialCardView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
