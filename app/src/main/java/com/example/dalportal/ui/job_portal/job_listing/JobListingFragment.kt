@@ -1,6 +1,8 @@
 package com.example.dalportal.ui.job_portal.job_listing
 
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -86,18 +88,22 @@ class JobListingFragment : Fragment() {
 
 
     private fun setupSearchView() {
-        val searchView = binding.searchView
-        searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
-            override fun onQueryTextSubmit(query: String?): Boolean {
-                return false
+        val searchEditText = binding.searchEditText
+        searchEditText.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+                // Not needed for this implementation
             }
 
-            override fun onQueryTextChange(newText: String?): Boolean {
-                filterJobPostings(newText.orEmpty())
-                return true
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                // Not needed for this implementation
+            }
+
+            override fun afterTextChanged(s: Editable?) {
+                filterJobPostings(s.toString())
             }
         })
     }
+
 
     private fun filterJobPostings(query: String) {
         val filteredList = jobListingsFull.filter {

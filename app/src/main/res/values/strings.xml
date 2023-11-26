@@ -66,4 +66,11 @@
     <string name="post_job">Post</string>
     <string name="dalhousie_university">Dalhousie University</string>
 
+    <string-array name="job_types">
+        <item>Full-time</item>
+        <item>Part-time</item>
+        <item>Contract</item>
+        <!-- Add other job types as needed -->
+    </string-array>
+
 </resources>
