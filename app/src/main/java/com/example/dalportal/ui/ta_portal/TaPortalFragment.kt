@@ -15,12 +15,10 @@ import com.google.android.material.tabs.TabLayoutMediator
 
 class TaPortalFragment : Fragment() {
 
-    private var _binding: FragmentTaPortalBinding? = null
-    private val binding get() = _binding!!
     private lateinit var viewPager: ViewPager2
     private lateinit var tabs: TabLayout
     private lateinit var viewPagerAdapter: TaPortalViewPagerAdapter
-    private val tabsList = arrayOf("TA Home", "Chat")
+    private val tabsList = arrayOf("Tasks")
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -46,6 +44,5 @@ class TaPortalFragment : Fragment() {
 
     override fun onDestroyView() {
         super.onDestroyView()
-        _binding = null
     }
 }

@@ -4,10 +4,13 @@
     <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="nav_header_title">John Doe</string>
     <string name="nav_header_subtitle">john.doe@gmail.com</string>
+    <string name="nav_header_role">Professor</string>
+
     <string name="nav_header_desc">Dashboard</string>
+
     <string name="action_user_profile">User profile</string>
 
-    <string name="menu_dashboard">Home</string>
+    <string name="menu_dashboard">Dashboard</string>
     <string name="menu_ta_portal">TA Portal</string>
     <string name="menu_events">Events</string>
     <string name="menu_assignments">Assignments</string>
@@ -48,7 +51,6 @@
         <item>In-Progress</item>
         <item>Completed</item>
     </string-array>
-
 
 
     <!--  JOB PORTAL  >-->

@@ -8,16 +8,18 @@
 
     <com.google.android.material.tabs.TabLayout
         android:id="@+id/taTabLayout"
-        android:layout_width="0dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:elevation="4dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:tabBackground="@color/cobalt_blue"
         app:tabIndicatorColor="@color/yellow_electric"
+        app:tabMaxWidth="0dp"
+        app:tabMinWidth="300dp"
         app:tabSelectedTextColor="@color/yellow_electric"
-        app:tabTextColor="@color/white"
-        android:elevation="4dp"/>
+        app:tabTextColor="@color/white" />
 
     <androidx.viewpager2.widget.ViewPager2
         android:id="@+id/taViewPager"
