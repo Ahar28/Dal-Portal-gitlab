@@ -16,14 +16,20 @@
         android:theme="@style/Theme.DalPortal"
         tools:targetApi="31">
         <activity
+            android:name=".ui.chat.ChatActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.chat.users.ChatUserActivity"
+            android:exported="false" />
+        <activity
             android:name=".RegistrationActivity"
-            android:exported="true">
-        </activity>
+            android:exported="true" />
         <activity
             android:name=".LoginActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
@@ -53,9 +59,9 @@
             <!-- Any intent filters if necessary -->
         </activity>
         <activity android:name=".ui.Admin.AdminPortalActivity">
+
             <!-- You can also add an intent-filter here if this activity is an entry point for some action -->
         </activity>
-
     </application>
 
 </manifest>

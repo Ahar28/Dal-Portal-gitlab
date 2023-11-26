@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="16dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+                <EditText
+                    android:id="@+id/editTextJobTitle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Job Title"
+                    android:inputType="text"
+                    android:textSize="24sp"
+                    android:layout_marginBottom="8dp"
+                    android:enabled="false" />
+
+                <EditText
+                    android:id="@+id/editTextJobDescription"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Description"
+                    android:inputType="textMultiLine"
+                    android:layout_marginBottom="8dp"
+                    android:enabled="false"
+                    />
+
+                <EditText
+                    android:id="@+id/editTextJobLocation"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Location"
+                    android:inputType="text"
+                    android:layout_marginBottom="8dp"
+                    android:enabled="false"
+                    />
+
+                <EditText
+                    android:id="@+id/editTextJobPay"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Pay"
+                    android:inputType="number"
+                    android:layout_marginBottom="8dp"
+                    android:enabled="false"
+                    />
+
+                <!-- EditTexts for 'positions', 'requirements', and 'type' -->
+                <EditText
+                    android:id="@+id/editTextJobPosition"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Positions"
+                    android:inputType="number"
+                    android:layout_marginBottom="8dp"
+                    android:enabled="false"
+                    />
+
+                <EditText
+                    android:id="@+id/editTextJobRequirement"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Requirements"
+                    android:inputType="textMultiLine"
+                    android:layout_marginBottom="8dp"
+                    android:enabled="false"
+                    />
+
+                <EditText
+                    android:id="@+id/editTextJobType"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Type"
+                    android:inputType="text"
+                    android:layout_marginBottom="8dp"
+                    android:enabled="false"
+                    />
+
+                <Button
+                    android:id="@+id/updateButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Update"
+                    android:layout_marginTop="16dp"
+                    android:layout_gravity="center_horizontal"/>
+
+        </LinearLayout>
+</ScrollView>

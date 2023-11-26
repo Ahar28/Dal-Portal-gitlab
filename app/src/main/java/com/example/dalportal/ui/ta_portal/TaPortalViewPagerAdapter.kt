@@ -20,7 +20,7 @@ class TaPortalViewPagerAdapter(fragmentManager: FragmentManager, lifecycle: Life
      * Always returns 2 in this case, as we are dealing with two ta portal fragments.
      */
     override fun getItemCount(): Int {
-        return 2
+        return 1
     }
 
     /**
@@ -33,7 +33,6 @@ class TaPortalViewPagerAdapter(fragmentManager: FragmentManager, lifecycle: Life
     override fun createFragment(position: Int): Fragment {
         when (position) {
             0 -> return TaPortalHomeFragment()
-            1 -> return TaPortalChatFragment()
         }
 
         return TaPortalHomeFragment()

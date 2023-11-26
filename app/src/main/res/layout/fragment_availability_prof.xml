@@ -23,10 +23,11 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="44dp"
             android:background="@drawable/rounded_button"
-            android:textAlignment="center"
+            android:textColor="@android:color/white"
             android:prompt="@string/select_day"
+            android:textAlignment="center"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
