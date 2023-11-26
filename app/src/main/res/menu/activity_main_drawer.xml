@@ -20,12 +20,12 @@
 
         <item
             android:id="@+id/nav_availability_calendar"
-            android:icon="@drawable/ic_menu_slideshow"
+            android:icon="@drawable/icon_ava"
             android:title="@string/Availability" />
 
         <item
             android:id="@+id/nav_availability_calendar_prof"
-            android:icon="@drawable/ic_menu_slideshow"
+            android:icon="@drawable/icon_ava"
             android:title="@string/Availability" />
 
         <item
@@ -47,10 +47,23 @@
             android:icon="@drawable/ic_menu_content"
             android:title="@string/menu_content" />
 
+<!--        <item-->
+<!--            android:id="@+id/nav_jobPosting"-->
+<!--            android:icon="@drawable/ic_menu_content"-->
+<!--            android:title="@string/job_posting" />-->
+        <item
+            android:id="@+id/nav_jobListing"
+            android:icon="@drawable/ic_menu_content"
+            android:title="Job Portal" />
+
         <item
             android:id="@+id/nav_discussion"
             android:icon="@drawable/ic_menu_discussions"
             android:title="Discussion Form" />
+        <item
+            android:id="@+id/nav_feedback_form"
+            android:icon="@drawable/ic_menu_assignments"
+            android:title="Feedback Form" />
         <item
             android:id="@+id/nav_admin_portal"
             android:icon="@drawable/ic_admin_portal"
@@ -59,12 +72,12 @@
 
         <item
             android:id="@+id/nav_rating"
-            android:icon="@drawable/ic_admin_portal"
+            android:icon="@drawable/icon_rating"
             android:title="Rating"
             android:visible="true" />
         <item
             android:id="@+id/nav_rating_admin"
-            android:icon="@drawable/ic_admin_portal"
+            android:icon="@drawable/icon_rating"
             android:title="Rating"
             android:visible="true" />
 

@@ -84,28 +84,9 @@
 
     <fragment
         android:id="@+id/nav_availability_calendar"
-        android:name="com.example.dalportal.ui.availability.ta.AvailabilityTaFragment"
+        android:name="com.example.dalportal.ui.availability.AvailabilityFragment"
         android:label="@string/availability"
-        tools:layout="@layout/fragment_availability_ta" />
-
-    <fragment
-        android:id="@+id/nav_availability_calendar_prof"
-        android:name="com.example.dalportal.ui.availability.prof.AvailabilityProfFragment"
-        android:label="@string/availability"
-        tools:layout="@layout/fragment_availability_prof" />
-
-    <fragment
-        android:id="@+id/nav_rating"
-        android:name="com.example.dalportal.ui.rating_system.RatingAppFragment"
-        android:label="rating"
-        tools:layout="@layout/fragment_rating_app" />
-
-    <fragment
-        android:id="@+id/nav_rating_admin"
-        android:name="com.example.dalportal.ui.rating_system.RatingViewFragment"
-        android:label="rating"
-        tools:layout="@layout/fragment_rating_view" />
-
+        tools:layout="@layout/fragment_availability" />
 
     <fragment
         android:id="@+id/nav_discussion"
@@ -114,15 +95,63 @@
         tools:layout="@layout/fragment_availability" />
 
     <fragment
+        android:id="@+id/nav_feedback_form"
+        android:name="com.example.dalportal.ui.feedback.FeedbackFragment"
+        android:label="Feedback Form"
+        tools:layout="@layout/fragment_feedback" />
+    <fragment
         android:id="@+id/nav_admin_portal"
         android:name="com.example.dalportal.ui.Admin.AdminFragment"
         android:label="Admin Portal"
         tools:layout="@layout/fragment_availability" />
+
 
     <fragment
         android:id="@+id/nav_event"
         android:name="com.example.dalportal.ui.event_calendar.EventFragment"
         android:label="Event Calendar"
         tools:layout="@layout/fragment_event" />
+
+    <fragment
+        android:id="@+id/nav_jobPosting"
+        android:name="com.example.dalportal.ui.job_portal.job_posting.JobPostingFragment"
+        android:label="@string/menu_job_posting"
+        tools:layout="@layout/fragment_job_posting" />
+
+<!--    <fragment-->
+<!--        android:id="@+id/nav_jobListing"-->
+<!--        android:name="com.example.dalportal.ui.job_portal.job_listing.JobListingFragment"-->
+<!--        android:label="Job Listing"-->
+<!--        tools:layout="@layout/fragment_job_listing" />-->
+    <fragment
+        android:id="@+id/nav_jobListing"
+        android:name="com.example.dalportal.ui.job_portal.job_listing.JobListingFragment"
+        android:label="Job Listing"
+        tools:layout="@layout/fragment_job_listing">
+
+        <action
+            android:id="@+id/action_jobListingFragment_to_jobPostingFragment"
+            app:destination="@id/nav_jobPosting" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/jobDetailsFragment"
+        android:name="com.example.dalportal.ui.job_portal.job_listing.JobDetailsFragment"
+        android:label="Job Details"
+        tools:layout="@layout/fragment_job_details" />
+
+    <action
+        android:id="@+id/action_jobListingFragment_to_jobDetailsFragment"
+        app:destination="@id/jobDetailsFragment" />
+
+    <fragment
+        android:id="@+id/jobListingFragment"
+        android:name="com.example.dalportal.ui.job_portal.job_listing.JobListingFragment"
+        android:label="Job Listing"
+        tools:layout="@layout/fragment_job_listing">
+        <action
+            android:id="@+id/action_jobListingFragment_to_jobDetailsFragment"
+            app:destination="@id/jobDetailsFragment" />
+    </fragment>
 
 </navigation>

@@ -43,6 +43,7 @@ class MainActivity : AppCompatActivity() {
         val headerView = navView.getHeaderView(0)
         val currentEmailTextView = headerView.findViewById<TextView>(R.id.current_email)
         val currentNameTextView = headerView.findViewById<TextView>(R.id.current_user)
+    val currentRoleTextView=headerView.findViewById<TextView>(R.id.current_role)
         val adminPortalMenuItem = navView.menu.findItem(R.id.nav_admin_portal)
         val assignmentMenuItem = navView.menu.findItem(R.id.nav_assignment)
         val availabilityTa = navView.menu.findItem(R.id.nav_availability_calendar)
@@ -69,11 +70,27 @@ class MainActivity : AppCompatActivity() {
         ratingUser.isVisible = UserData.role != "admin"
 
         // Set the text to user's email
-        currentEmailTextView.text = UserData.email ?: "No Email"
+        currentEmailTextView.text = UserData.email ?: "John@gmail.com"
         currentNameTextView.text=UserData.name ?: "John Doe"
+            currentRoleTextView.text=UserData.role?:"Professor"
         val drawerLayout: DrawerLayout = binding.drawerLayout
 
         val navController = findNavController(R.id.nav_host_fragment_content_main)
+
+
+        // Set up NavigationItemSelectedListener
+        navView.setNavigationItemSelectedListener { menuItem ->
+            when (menuItem.itemId) {
+                R.id.nav_feedback_form -> {
+                    // Navigate to FeedbackFragment
+                    navController.navigate(R.id.nav_feedback_form)
+                    drawerLayout.closeDrawers()
+                    true
+                }
+                // Handle other menu items...
+                else -> false
+            }
+        }
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
         appBarConfiguration = AppBarConfiguration(
@@ -89,9 +106,21 @@ class MainActivity : AppCompatActivity() {
             true
         }
 
-
         setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
+//        navView.setNavigationItemSelectedListener { menuItem ->
+//            when (menuItem.itemId) {
+//                R.id.nav_discussion -> {
+//                    // Open the PostListActivity where all posts are listed
+//                    val intent = Intent(this, PostListActivity::class.java)
+//                    startActivity(intent)
+//                    drawerLayout.closeDrawers()
+//                    true
+//                }
+//                // Handle other menu items if necessary...
+//                else -> false
+//            }
+//        }
     }
     private fun logoutUser() {
         // Clear user data
