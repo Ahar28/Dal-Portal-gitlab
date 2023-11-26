@@ -29,6 +29,7 @@
         android:label="@string/menu_assignments"
         tools:layout="@layout/fragment_assignment" />
 
+
     <fragment
         android:id="@+id/nav_professor_portal"
         android:name="com.example.dalportal.ui.professorportal.ProfessorPortalFragment"
@@ -84,9 +85,28 @@
 
     <fragment
         android:id="@+id/nav_availability_calendar"
-        android:name="com.example.dalportal.ui.availability.AvailabilityFragment"
+        android:name="com.example.dalportal.ui.availability.ta.AvailabilityTaFragment"
         android:label="@string/availability"
-        tools:layout="@layout/fragment_availability" />
+        tools:layout="@layout/fragment_availability_ta" />
+
+    <fragment
+        android:id="@+id/nav_availability_calendar_prof"
+        android:name="com.example.dalportal.ui.availability.prof.AvailabilityProfFragment"
+        android:label="@string/availability"
+        tools:layout="@layout/fragment_availability_prof" />
+
+    <fragment
+        android:id="@+id/nav_rating"
+        android:name="com.example.dalportal.ui.rating_system.RatingAppFragment"
+        android:label="rating"
+        tools:layout="@layout/fragment_rating_app" />
+
+    <fragment
+        android:id="@+id/nav_rating_admin"
+        android:name="com.example.dalportal.ui.rating_system.RatingViewFragment"
+        android:label="rating"
+        tools:layout="@layout/fragment_rating_view" />
+
 
     <fragment
         android:id="@+id/nav_discussion"
