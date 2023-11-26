@@ -125,4 +125,46 @@
         android:label="Event Calendar"
         tools:layout="@layout/fragment_event" />
 
+    <fragment
+        android:id="@+id/nav_jobPosting"
+        android:name="com.example.dalportal.ui.job_portal.job_posting.JobPostingFragment"
+        android:label="@string/menu_job_posting"
+        tools:layout="@layout/fragment_job_posting" />
+
+<!--    <fragment-->
+<!--        android:id="@+id/nav_jobListing"-->
+<!--        android:name="com.example.dalportal.ui.job_portal.job_listing.JobListingFragment"-->
+<!--        android:label="Job Listing"-->
+<!--        tools:layout="@layout/fragment_job_listing" />-->
+    <fragment
+        android:id="@+id/nav_jobListing"
+        android:name="com.example.dalportal.ui.job_portal.job_listing.JobListingFragment"
+        android:label="Job Listing"
+        tools:layout="@layout/fragment_job_listing">
+
+        <action
+            android:id="@+id/action_jobListingFragment_to_jobPostingFragment"
+            app:destination="@id/nav_jobPosting" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/jobDetailsFragment"
+        android:name="com.example.dalportal.ui.job_portal.job_listing.JobDetailsFragment"
+        android:label="Job Details"
+        tools:layout="@layout/fragment_job_details" />
+
+    <action
+        android:id="@+id/action_jobListingFragment_to_jobDetailsFragment"
+        app:destination="@id/jobDetailsFragment" />
+
+    <fragment
+        android:id="@+id/jobListingFragment"
+        android:name="com.example.dalportal.ui.job_portal.job_listing.JobListingFragment"
+        android:label="Job Listing"
+        tools:layout="@layout/fragment_job_listing">
+        <action
+            android:id="@+id/action_jobListingFragment_to_jobDetailsFragment"
+            app:destination="@id/jobDetailsFragment" />
+    </fragment>
+
 </navigation>
