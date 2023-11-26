@@ -1,23 +1,26 @@
 package com.example.dalportal.ui.chat
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.MenuItem
 import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageView
+import android.widget.Toolbar
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.dalportal.R
 import com.example.dalportal.ui.chat.messages.ChatMessageAdapter
 import com.example.dalportal.ui.chat.messages.Message
+import com.example.dalportal.ui.chat.users.ChatUserActivity
 import com.example.dalportal.util.UserData
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
-import com.google.firebase.database.getValue
 import java.util.Date
 
 class ChatActivity : AppCompatActivity() {
@@ -42,6 +45,9 @@ class ChatActivity : AppCompatActivity() {
         receiverRoom = UserData.id + recUserId
 
         supportActionBar?.title = recName
+        supportActionBar?.apply {
+            setDisplayHomeAsUpEnabled(true)
+        }
 
         dbRef = FirebaseDatabase.getInstance().reference
 
@@ -85,5 +91,12 @@ class ChatActivity : AppCompatActivity() {
             }
 
         }
+    }
+
+    @Override
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        val intent = Intent(this, ChatUserActivity::class.java)
+        startActivity(intent)
+        return super.onOptionsItemSelected(item)
     }
 }
