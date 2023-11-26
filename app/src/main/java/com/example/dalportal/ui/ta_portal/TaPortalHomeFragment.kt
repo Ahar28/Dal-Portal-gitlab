@@ -6,6 +6,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.dalportal.R
@@ -34,20 +35,41 @@ class TaPortalHomeFragment : Fragment() {
         recyclerView.layoutManager = LinearLayoutManager(context)
         recyclerView.adapter = adapter
 
-        getTaTasks(db, UserData.id)
+        getTaTasks(view)
     }
 
-    private fun getTaTasks(db: FirebaseFirestore, taUserId: String?) {
+    private fun getTaTasks(view: View, showAll: Boolean = false) {
         val collectionRef = db.collection("TA_tasks")
+        val tasksEmptyTextView: TextView = view.findViewById(R.id.tasksEmpty)
+        val showMoreTasksTextView: TextView = view.findViewById(R.id.showMoreTasks)
+        collectionRef.whereEqualTo("assignedTo", UserData.id).get()
+            .addOnSuccessListener { documents ->
+                var tasks: MutableList<TaTasksModel> = mutableListOf()
 
-        collectionRef.whereEqualTo("assignedTo", taUserId).get().addOnSuccessListener { documents ->
-            var tasks: MutableList<TaTasksModel> = mutableListOf()
-            for (document in documents) {
-                val task: TaTasksModel = document.toObject(TaTasksModel::class.java)
-                task.id = document.id
-                tasks.add(task)
+                if (documents.isEmpty) {
+                    tasksEmptyTextView.visibility = View.VISIBLE
+                    showMoreTasksTextView.visibility = View.GONE
+                } else {
+                    var limit = 3;
+                    if (showAll) {
+                        limit = 100;
+                    }
+                    var index = 1;
+
+                    if (documents.size() > 3) {
+                        showMoreTasksTextView.visibility = View.VISIBLE
+                    }
+                    tasksEmptyTextView.visibility = View.GONE
+                    for (document in documents) {
+                        val task: TaTasksModel = document.toObject(TaTasksModel::class.java)
+                        task.id = document.id
+                        tasks.add(task)
+                        if (++index > limit) {
+                            break;
+                        }
+                    }
+                }
+                adapter.updateTasks(tasks)
             }
-            adapter.updateTasks(tasks)
-        }
     }
 }

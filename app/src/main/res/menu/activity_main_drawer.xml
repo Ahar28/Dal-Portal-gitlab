@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/menu_list"
     tools:showIn="navigation_view">
 
     <group android:checkableBehavior="single">
@@ -13,7 +14,7 @@
             android:icon="@drawable/ic_menu_gallery"
             android:title="@string/menu_ta_portal" />
         <item
-            android:id="@+id/nav_slideshow"
+            android:id="@+id/nav_event"
             android:icon="@drawable/ic_menu_slideshow"
             android:title="@string/menu_events" />
 
@@ -23,9 +24,20 @@
             android:title="@string/Availability" />
 
         <item
+            android:id="@+id/nav_availability_calendar_prof"
+            android:icon="@drawable/ic_menu_slideshow"
+            android:title="@string/Availability" />
+
+        <item
             android:id="@+id/nav_assignment"
             android:icon="@drawable/ic_menu_assignments"
             android:title="@string/menu_assignments" />
+
+        <item
+            android:id="@+id/nav_professor_portal"
+            android:icon="@drawable/professor_portal_icon"
+            android:title="@string/professor_portal" />
+
         <item
             android:id="@+id/nav_assignment_review"
             android:icon="@drawable/ic_menu_assignments_review"
@@ -46,18 +58,29 @@
 
         <item
             android:id="@+id/nav_discussion"
-            android:icon="@drawable/ic_menu_assignments"
+            android:icon="@drawable/ic_menu_discussions"
             android:title="Discussion Form" />
         <item
             android:id="@+id/nav_admin_portal"
             android:icon="@drawable/ic_admin_portal"
             android:title="@string/admin_portal"
             android:visible="false" />
+
+        <item
+            android:id="@+id/nav_rating"
+            android:icon="@drawable/ic_admin_portal"
+            android:title="Rating"
+            android:visible="true" />
+        <item
+            android:id="@+id/nav_rating_admin"
+            android:icon="@drawable/ic_admin_portal"
+            android:title="Rating"
+            android:visible="true" />
+
         <item
             android:id="@+id/logout"
             android:icon="@drawable/logout_icon"
             android:title="Logout"
             android:visible="true" />
-
     </group>
 </menu>

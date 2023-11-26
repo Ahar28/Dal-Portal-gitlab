@@ -108,10 +108,9 @@ object FirestoreHelper {
                     onSuccess(false, null, null, null, null)
                 } else {
                     val user = documents.first().toObject(Users::class.java)
-                    val userId = documents.first().id
                     if (user.password == password) {
                         // Password matches, return user details
-                        onSuccess(true, user.name, user.email, user.role, userId)
+                        onSuccess(true, user.name, user.email, user.role, user.id)
                     } else {
                         // Password does not match
                         onSuccess(false, null, null, null, null)
@@ -135,6 +134,18 @@ object FirestoreHelper {
             .addOnFailureListener { e ->
                 Log.e("FirestoreHelper", "Error checking email existence", e)
                 onFailure(e)
+            }
+    }
+
+    fun updateTaskStatus(status:String,taskId:String){
+        val statusUpdate = mapOf("status" to status)
+        db.collection("TA_tasks").document(taskId)
+            .update(statusUpdate)
+            .addOnSuccessListener {
+                Log.d("FirestoreHelper", "Status updated successfully for task ID: $taskId")
+            }
+            .addOnFailureListener { e ->
+                Log.e("FirestoreHelper", "Error updating status for task ID: $taskId", e)
             }
     }
 
