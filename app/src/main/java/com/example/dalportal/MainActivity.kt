@@ -42,11 +42,6 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         setSupportActionBar(binding.appBarMain.toolbar)
-
-        binding.appBarMain.fab.setOnClickListener { view ->
-            Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                .setAction("Action", null).show()
-        }
         val navView: NavigationView = binding.navView
         val headerView = navView.getHeaderView(0)
         val currentEmailTextView = headerView.findViewById<TextView>(R.id.current_email)
@@ -118,20 +113,6 @@ class MainActivity : AppCompatActivity() {
 
         setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
-//        navView.setNavigationItemSelectedListener { menuItem ->
-//            when (menuItem.itemId) {
-//                R.id.nav_discussion -> {
-//                    // Open the PostListActivity where all posts are listed
-//                    val intent = Intent(this, PostListActivity::class.java)
-//                    startActivity(intent)
-//                    drawerLayout.closeDrawers()
-//                    true
-//                }
-//                // Handle other menu items if necessary...
-//                else -> false
-//            }
-//        }
-
     }
 
     private fun logoutUser() {
