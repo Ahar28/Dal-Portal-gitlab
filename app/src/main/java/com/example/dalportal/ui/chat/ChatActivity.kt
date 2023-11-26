@@ -99,4 +99,9 @@ class ChatActivity : AppCompatActivity() {
         startActivity(intent)
         return super.onOptionsItemSelected(item)
     }
+
+    override fun onBackPressed() {
+        val intent = Intent(this, ChatUserActivity::class.java)
+        startActivity(intent)
+    }
 }
