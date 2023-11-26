@@ -174,4 +174,5 @@
             app:destination="@id/jobDetailsFragment" />
     </fragment>
 
+
 </navigation>

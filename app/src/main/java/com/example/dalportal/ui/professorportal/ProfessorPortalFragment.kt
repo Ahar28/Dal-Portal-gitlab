@@ -1,5 +1,6 @@
 package com.example.dalportal.ui.professorportal
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -11,6 +12,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.example.dalportal.R
 import com.example.dalportal.databinding.FragmentProfessorPortalBinding
+import com.example.dalportal.ui.chat.users.ChatUserActivity
 
 class ProfessorPortalFragment : Fragment() {
 
@@ -35,6 +37,7 @@ class ProfessorPortalFragment : Fragment() {
         val assignTaskbutton: Button = binding.assignAtaskbutton
         val progressMonitoringbutton: Button = binding.progressMonitoringButton
         val overviewDashboardButton: Button = binding.assesPerformanceButton
+        val coursescheduleButton: Button = binding.courseScheduleButton
 
         porfessorPortalViewModel.text.observe(viewLifecycleOwner) {
             textView.text = it
@@ -54,6 +57,12 @@ class ProfessorPortalFragment : Fragment() {
             // Handle task assignment here
             // Navigate to overview dashboard
             findNavController().navigate(R.id.action_professor_to_overview_dashboard)
+        }
+
+        coursescheduleButton.setOnClickListener {
+            // Start CalendarActivity when coursescheduleButton is clicked
+            val intent = Intent(requireContext(), CalendarActivity::class.java)
+            startActivity(intent)
         }
 
         return root

@@ -35,6 +35,8 @@
     <string name="email_hint">Email</string>
     <string name="password_hint">Password</string>
     <string name="register_button">Register</string>
+    <string name="back"><![CDATA[<-]]></string>
+    <string name="forward"><![CDATA[->]]></string>
 
 
     <string-array name="role_options">
