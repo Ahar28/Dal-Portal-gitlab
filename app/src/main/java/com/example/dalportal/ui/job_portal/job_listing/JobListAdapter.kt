@@ -22,6 +22,7 @@ class JobListingAdapter(private var jobListings: MutableList<JobListing>,
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val textViewJobTitle: TextView = view.findViewById(R.id.textViewJobTitle)
         val deleteButton: Button = view.findViewById(R.id.deleteButton)
+        val textViewJobTags:TextView = view.findViewById(R.id.textViewJobTags)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -33,6 +34,7 @@ class JobListingAdapter(private var jobListings: MutableList<JobListing>,
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val jobListing = jobListings[position]
         holder.textViewJobTitle.text = jobListing.title
+        holder.textViewJobTags.text = jobListing.tags.joinToString(", ")
         holder.deleteButton.setOnClickListener {
             deleteJob(  holder.itemView.context, jobListing, position)
         }

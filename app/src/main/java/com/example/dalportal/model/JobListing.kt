@@ -12,6 +12,8 @@ data class JobListing(
     val pay: Int,
     val positions : Int,
     val requirements: String,
-    val type:String
+    val type:String,
+    val tags: List<String>
+
 
 ) : Parcelable

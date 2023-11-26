@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.SearchView
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -35,10 +36,7 @@ class JobListingFragment : Fragment() {
         return binding.root
     }
 
-//    private fun setupRecyclerView() {
-//        binding.recyclerViewJobListings.layoutManager = LinearLayoutManager(context)
-//        binding.recyclerViewJobListings.adapter = JobListingAdapter(mutableListOf(), requireContext())
-//    }
+
 
     private fun setupRecyclerView() {
         binding.recyclerViewJobListings.layoutManager = LinearLayoutManager(context)
@@ -58,7 +56,8 @@ class JobListingFragment : Fragment() {
     private fun loadJobPostings() {
         db.collection("jobPostings").get()
             .addOnSuccessListener { documents ->
-                jobListingsFull = documents.map { doc ->
+                jobListingsFull = documents.mapNotNull { doc ->
+                    val tagsList = doc.get("tags") as? List<String> ?: listOf() // Fetch tags
                     JobListing(
                         id = doc.id,
                         title = doc.getString("title") ?: "",
@@ -67,7 +66,8 @@ class JobListingFragment : Fragment() {
                         pay = doc.getLong("pay")?.toInt() ?: 0,
                         positions = doc.getLong("positions")?.toInt() ?: 0,
                         requirements = doc.getString("requirements") ?: "",
-                        type = doc.getString("type") ?: ""
+                        type = doc.getString("type") ?: "",
+                        tags = tagsList  // Add tags to JobListing
                     )
                 }
                 (binding.recyclerViewJobListings.adapter as JobListingAdapter).updateData(
@@ -75,9 +75,10 @@ class JobListingFragment : Fragment() {
                 )
             }
             .addOnFailureListener { e ->
-                // Handle error, e.g., show a Toast
+                Toast.makeText(context, "Error loading job postings: ${e.message}", Toast.LENGTH_LONG).show()
             }
     }
+
 
     private fun setupSearchView() {
         val searchView = binding.searchView
