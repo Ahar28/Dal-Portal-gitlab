@@ -23,7 +23,7 @@ class DashboardViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         }
     }
 
-    fun bind(item: String) {
+    fun bind(item: String, onItemClicked: (String) -> Unit) {
         when (item) {
             "assignments_submit" -> {
                 dashButton.text = "Submit assignment"
@@ -84,26 +84,7 @@ class DashboardViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         }
 
         dashButton.setOnClickListener {
-            val navId = navigateItem(item)
-            navController = Navigation.findNavController(itemView)
-            navController!!.navigate(navId)
-        }
-    }
-
-    private fun navigateItem(item: String): Int {
-        return when (item) {
-            "assignments_submit" -> R.id.nav_assignment
-            "events" -> R.id.nav_event
-            "forum" -> R.id.nav_discussion
-            "ta_portal" -> R.id.nav_ta_portal
-            "update_availability" -> R.id.nav_availability_calendar
-            "assignments_review" -> R.id.nav_assignment_review
-            "content" -> R.id.nav_content
-            "prof_portal" -> R.id.nav_professor_portal
-            "review_availability" -> R.id.nav_availability_calendar_prof
-            "admin_portal" -> R.id.nav_admin_portal
-            "job_portal" -> R.id.nav_jobListing
-            else -> 0
+            onItemClicked(item)
         }
     }
 }

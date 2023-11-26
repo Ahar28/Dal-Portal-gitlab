@@ -6,7 +6,8 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.dalportal.R
 
-class DashboardAdapter() : RecyclerView.Adapter<DashboardViewHolder>() {
+class DashboardAdapter(private val onItemClicked: (String) -> Unit) :
+    RecyclerView.Adapter<DashboardViewHolder>() {
     private var dashItems: List<String> = emptyList()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): DashboardViewHolder {
@@ -18,7 +19,7 @@ class DashboardAdapter() : RecyclerView.Adapter<DashboardViewHolder>() {
     override fun getItemCount(): Int = dashItems.size
 
     override fun onBindViewHolder(holder: DashboardViewHolder, position: Int) {
-        holder.bind(dashItems[position])
+        holder.bind(dashItems[position], onItemClicked)
     }
 
     fun updateDashItems(dashItems: List<String>) {
