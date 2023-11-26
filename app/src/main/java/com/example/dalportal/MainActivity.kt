@@ -32,6 +32,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var contentMenuItem: MenuItem
     private lateinit var taPortalMenuItem: MenuItem
     private lateinit var professorPortalMenuItem: MenuItem
+    private lateinit var jobPortalMenuItem: MenuItem
 
     override fun onCreate(savedInstanceState: Bundle?) {
 
@@ -59,7 +60,7 @@ class MainActivity : AppCompatActivity() {
         contentMenuItem = navView.menu.findItem(R.id.nav_content)
         taPortalMenuItem = navView.menu.findItem(R.id.nav_ta_portal)
         professorPortalMenuItem = navView.menu.findItem(R.id.nav_professor_portal)
-
+        jobPortalMenuItem = navView.menu.findItem(R.id.nav_jobListing)
         hideNavItems()
 
         // Set the text to user's email
@@ -147,6 +148,7 @@ class MainActivity : AppCompatActivity() {
         adminPortalMenuItem.isVisible = false
         ratingAdmin.isVisible = false
         ratingUser.isVisible = false
+        jobPortalMenuItem.isVisible = true
 
         when (UserData.role) {
             "TA" -> {
@@ -154,6 +156,7 @@ class MainActivity : AppCompatActivity() {
                 contentMenuItem.isVisible = true
                 availabilityTa.isVisible = true
                 taPortalMenuItem.isVisible = true
+                ratingUser.isVisible = true
             }
 
             "Professor" -> {
@@ -161,17 +164,17 @@ class MainActivity : AppCompatActivity() {
                 professorPortalMenuItem.isVisible = true
                 assignmentReviewMenuItem.isVisible = true
                 contentMenuItem.isVisible = true
-
+                ratingUser.isVisible = true
             }
 
             "Student" -> {
                 assignmentMenuItem.isVisible = true
+                ratingUser.isVisible = true
             }
 
             "admin" -> {
                 adminPortalMenuItem.isVisible = true
                 ratingAdmin.isVisible = true
-                ratingUser.isVisible = true
             }
         }
     }

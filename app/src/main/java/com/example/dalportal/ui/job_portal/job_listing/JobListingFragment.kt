@@ -8,12 +8,14 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.SearchView
 import android.widget.Toast
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.dalportal.R
 import com.example.dalportal.databinding.FragmentJobListingBinding
 import com.example.dalportal.model.JobListing
+import com.example.dalportal.util.UserData
 import com.google.firebase.firestore.FirebaseFirestore
 
 class JobListingFragment : Fragment() {
@@ -31,13 +33,12 @@ class JobListingFragment : Fragment() {
         setupRecyclerView()
         loadJobPostings()
         setupSearchView()
-// Setting up click listener for the Add Job button
+        binding.addJobButton.isVisible = UserData.role == "Professor" || UserData.role == "admin"
         binding.addJobButton.setOnClickListener {
             findNavController().navigate(R.id.action_jobListingFragment_to_jobPostingFragment)
         }
         return binding.root
     }
-
 
 
     private fun setupRecyclerView() {
@@ -77,7 +78,11 @@ class JobListingFragment : Fragment() {
                 )
             }
             .addOnFailureListener { e ->
-                Toast.makeText(context, "Error loading job postings: ${e.message}", Toast.LENGTH_LONG).show()
+                Toast.makeText(
+                    context,
+                    "Error loading job postings: ${e.message}",
+                    Toast.LENGTH_LONG
+                ).show()
             }
     }
 

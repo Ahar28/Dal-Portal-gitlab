@@ -6,19 +6,12 @@
     android:layout_height="match_parent"
     tools:context=".ui.chat.ChatActivity">
 
-
-    <ScrollView
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/messageRecyclerView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingBottom="70dp">
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/messageRecyclerView"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignParentTop="true" />
-    </ScrollView>
-
+        android:layout_alignParentTop="true"
+        android:paddingBottom="80dp" />
 
     <LinearLayout
         android:id="@+id/chatInputLayout"

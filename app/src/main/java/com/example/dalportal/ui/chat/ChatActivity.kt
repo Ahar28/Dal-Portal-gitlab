@@ -1,14 +1,13 @@
 package com.example.dalportal.ui.chat
 
-import android.annotation.SuppressLint
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.MenuItem
-import android.widget.Button
+import android.view.View
 import android.widget.EditText
 import android.widget.ImageView
-import android.widget.Toolbar
+import android.widget.ScrollView
+import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.dalportal.R
@@ -70,6 +69,7 @@ class ChatActivity : AppCompatActivity() {
                         messageList.add(message!!)
                     }
                     messageAdapter.updateMessages(messageList)
+                    scrollToBottom()
                 }
 
                 override fun onCancelled(error: DatabaseError) {
@@ -90,6 +90,12 @@ class ChatActivity : AppCompatActivity() {
                 chatEditText.setText("")
             }
 
+        }
+    }
+
+    private fun scrollToBottom() {
+        if (messageAdapter.itemCount > 0) {
+            messageRecyclerView.scrollToPosition(messageAdapter.itemCount - 1)
         }
     }
 
