@@ -102,7 +102,8 @@ class MainActivity : AppCompatActivity() {
                 R.id.nav_feedback_form,
                 R.id.nav_jobListing,
                 R.id.nav_content,
-                R.id.nav_assignment_review
+                R.id.nav_assignment_review,
+                R.id.nav_discussion
             ), drawerLayout
         )
 
@@ -179,4 +180,24 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    override fun onBackPressed() {
+        val navController = findNavController(R.id.nav_host_fragment_content_main)
+        when (navController.currentDestination?.id) {
+            R.id.nav_assignment,
+            R.id.nav_event,
+            R.id.nav_discussion,
+            R.id.nav_ta_portal,
+            R.id.nav_availability_calendar,
+            R.id.nav_assignment_review,
+            R.id.nav_content,
+            R.id.nav_professor_portal,
+            R.id.nav_availability_calendar_prof,
+            R.id.nav_admin_portal,
+            R.id.nav_jobListing,
+            R.id.nav_dashboard -> navController.navigate(R.id.nav_dashboard)
+
+            else -> super.onBackPressed()
+        }
+
+    }
 }

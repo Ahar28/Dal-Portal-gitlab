@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.navigation.NavController
+import androidx.navigation.NavOptions
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -23,7 +24,7 @@ class DashboardFragment : Fragment() {
     private lateinit var navHostFragment: NavHostFragment
     private lateinit var navController: NavController
     private lateinit var dashRecyclerView: RecyclerView
-    private val dashAdapter: DashboardAdapter = DashboardAdapter()
+    private lateinit var dashAdapter: DashboardAdapter
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -49,11 +50,33 @@ class DashboardFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         dashRecyclerView = view.findViewById(R.id.dashRecyclerView)
         dashRecyclerView.layoutManager = LinearLayoutManager(context)
+        dashAdapter = DashboardAdapter { item ->
+            val navOptions = NavOptions.Builder()
+                .setPopUpTo(R.id.mobile_navigation, true)
+                .build()
+            val navId = navigateItem(item)
+            findNavController().navigate(navId, null, navOptions)
+        }
         dashRecyclerView.adapter = dashAdapter
 
         var dashItems: List<String> = DashItems[UserData.role]
         dashAdapter.updateDashItems(dashItems)
     }
 
-
+    private fun navigateItem(item: String): Int {
+        return when (item) {
+            "assignments_submit" -> R.id.nav_assignment
+            "events" -> R.id.nav_event
+            "forum" -> R.id.nav_discussion
+            "ta_portal" -> R.id.nav_ta_portal
+            "update_availability" -> R.id.nav_availability_calendar
+            "assignments_review" -> R.id.nav_assignment_review
+            "content" -> R.id.nav_content
+            "prof_portal" -> R.id.nav_professor_portal
+            "review_availability" -> R.id.nav_availability_calendar_prof
+            "admin_portal" -> R.id.nav_admin_portal
+            "job_portal" -> R.id.nav_jobListing
+            else -> 0
+        }
+    }
 }
