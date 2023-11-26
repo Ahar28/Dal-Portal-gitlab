@@ -10,7 +10,7 @@
 
     <string name="action_user_profile">User profile</string>
 
-    <string name="menu_dashboard">Home</string>
+    <string name="menu_dashboard">Dashboard</string>
     <string name="menu_ta_portal">TA Portal</string>
     <string name="menu_events">Events</string>
     <string name="menu_assignments">Assignments</string>
@@ -51,7 +51,6 @@
         <item>In-Progress</item>
         <item>Completed</item>
     </string-array>
-
 
 
     <!--  JOB PORTAL  >-->
