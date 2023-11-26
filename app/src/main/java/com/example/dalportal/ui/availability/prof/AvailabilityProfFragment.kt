@@ -186,6 +186,7 @@ class AvailabilityProfFragment : Fragment() {
 
         updateButton.setOnClickListener(){
             saveDataToFirebase(db)
+            Toast.makeText(requireContext(), "Shifts Assigned.", Toast.LENGTH_SHORT)
         }
 
         return view
