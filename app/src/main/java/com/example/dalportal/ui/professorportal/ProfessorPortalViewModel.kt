@@ -7,7 +7,7 @@ import androidx.lifecycle.ViewModel
 class ProfessorPortalViewModel : ViewModel() {
 
     private val _text = MutableLiveData<String>().apply {
-        value = "This is Professor portal Fragment"
+        value = ""
     }
     val text: LiveData<String> = _text
 }

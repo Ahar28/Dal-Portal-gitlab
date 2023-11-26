@@ -170,6 +170,8 @@ class AvailabilityTaAddFragment : Fragment() {
 
         updateButton.setOnClickListener() {
             saveDataToFirebase(db)
+            Toast.makeText(requireContext(), "Availability Uploaded.", Toast.LENGTH_SHORT)
+
         }
 
         return view
