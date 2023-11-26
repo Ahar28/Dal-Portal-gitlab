@@ -17,6 +17,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.example.dalportal.databinding.ActivityMainBinding
 import com.example.dalportal.ui.DiscussionForm.PostListActivity
 import com.example.dalportal.util.UserData
+import com.example.dalportal.ui.availability.AvailabilityFragment
 import com.google.firebase.FirebaseApp
 
 class MainActivity : AppCompatActivity() {
@@ -43,6 +44,31 @@ class MainActivity : AppCompatActivity() {
         val currentEmailTextView = headerView.findViewById<TextView>(R.id.current_email)
         val currentNameTextView = headerView.findViewById<TextView>(R.id.current_user)
     val currentRoleTextView=headerView.findViewById<TextView>(R.id.current_role)
+        val adminPortalMenuItem = navView.menu.findItem(R.id.nav_admin_portal)
+        val assignmentMenuItem = navView.menu.findItem(R.id.nav_assignment)
+        val availabilityTa = navView.menu.findItem(R.id.nav_availability_calendar)
+        val ratingAdmin = navView.menu.findItem(R.id.nav_rating_admin)
+        val ratingUser = navView.menu.findItem(R.id.nav_rating)
+        val availabilityProf = navView.menu.findItem(R.id.nav_availability_calendar_prof)
+        val assignmentReviewMenuItem = navView.menu.findItem(R.id.nav_assignment_review)
+        val contentMenuItem = navView.menu.findItem(R.id.nav_content)
+
+        // For role = "TA"
+        assignmentReviewMenuItem.isVisible = UserData.role == "TA" || UserData.role == "Professor"
+        contentMenuItem.isVisible = UserData.role == "TA" || UserData.role == "Professor"
+        availabilityTa.isVisible = UserData.role == "TA"
+
+        // For role = "Professor"
+        availabilityProf.isVisible = UserData.role == "Professor"
+
+        // For role = "Student"
+        assignmentMenuItem.isVisible = UserData.role == "Student"
+
+        // For role = "admin"
+        adminPortalMenuItem.isVisible = UserData.role == "admin"
+        ratingAdmin.isVisible = UserData.role == "admin"
+        ratingUser.isVisible = UserData.role != "admin"
+
         // Set the text to user's email
         currentEmailTextView.text = UserData.email ?: "John@gmail.com"
         currentNameTextView.text=UserData.name ?: "John Doe"
@@ -69,7 +95,8 @@ class MainActivity : AppCompatActivity() {
         // menu should be considered as top level destinations.
         appBarConfiguration = AppBarConfiguration(
             setOf(
-                R.id.nav_home, R.id.nav_gallery, R.id.nav_slideshow, R.id.nav_availability_calendar
+
+                R.id.nav_home, R.id.nav_gallery, R.id.nav_slideshow, R.id.nav_availability_calendar,R.id.nav_professor_portal
             ), drawerLayout
         )
 
@@ -114,4 +141,6 @@ class MainActivity : AppCompatActivity() {
         val navController = findNavController(R.id.nav_host_fragment_content_main)
         return navController.navigateUp(appBarConfiguration) || super.onSupportNavigateUp()
     }
+
+
 }

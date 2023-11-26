@@ -41,7 +41,12 @@ object FirestoreHelper {
     }
 
     // This function updates both the reply text and the comments count
-    fun updatePostWithReply(postId: String, reply: String, onSuccess: () -> Unit, onFailure: (Exception) -> Unit) {
+    fun updatePostWithReply(
+        postId: String,
+        reply: String,
+        onSuccess: () -> Unit,
+        onFailure: (Exception) -> Unit
+    ) {
         val postUpdate = mapOf(
             "reply" to reply,
             "comments" to 1 // Assuming each post can only have one reply, set comments to 1
@@ -72,6 +77,7 @@ object FirestoreHelper {
                 onFailure(e)
             }
     }
+
     fun addUser(user: Users, onSuccess: (String) -> Unit, onFailure: (Exception) -> Unit) {
         db.collection("users")
             .add(user)
@@ -89,7 +95,7 @@ object FirestoreHelper {
     fun loginUser(
         email: String,
         password: String,
-        onSuccess: (Boolean, String?, String?, String?) -> Unit,
+        onSuccess: (Boolean, String?, String?, String?, String?) -> Unit,
         onFailure: (Exception) -> Unit
     ) {
         db.collection("users")
@@ -99,15 +105,15 @@ object FirestoreHelper {
             .addOnSuccessListener { documents ->
                 if (documents.isEmpty) {
                     // Email not found
-                    onSuccess(false, null, null, null)
+                    onSuccess(false, null, null, null, null)
                 } else {
                     val user = documents.first().toObject(Users::class.java)
                     if (user.password == password) {
                         // Password matches, return user details
-                        onSuccess(true, user.name, user.email, user.role)
+                        onSuccess(true, user.name, user.email, user.role, user.id)
                     } else {
                         // Password does not match
-                        onSuccess(false, null, null, null)
+                        onSuccess(false, null, null, null, null)
                     }
                 }
             }
@@ -128,6 +134,18 @@ object FirestoreHelper {
             .addOnFailureListener { e ->
                 Log.e("FirestoreHelper", "Error checking email existence", e)
                 onFailure(e)
+            }
+    }
+
+    fun updateTaskStatus(status:String,taskId:String){
+        val statusUpdate = mapOf("status" to status)
+        db.collection("TA_tasks").document(taskId)
+            .update(statusUpdate)
+            .addOnSuccessListener {
+                Log.d("FirestoreHelper", "Status updated successfully for task ID: $taskId")
+            }
+            .addOnFailureListener { e ->
+                Log.e("FirestoreHelper", "Error updating status for task ID: $taskId", e)
             }
     }
 
