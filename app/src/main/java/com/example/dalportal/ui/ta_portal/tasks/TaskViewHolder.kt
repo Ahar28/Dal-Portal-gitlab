@@ -2,6 +2,7 @@ package com.example.dalportal.ui.ta_portal.tasks
 
 import android.app.AlertDialog
 import android.view.View
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.dalportal.R
@@ -11,25 +12,38 @@ import com.example.dalportal.util.TaskStatus
 import java.text.SimpleDateFormat
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
+import java.util.Calendar
 import java.util.Date
+import java.util.Locale
+import java.util.concurrent.TimeUnit
 
 class TaskViewHolder(view: View) : RecyclerView.ViewHolder(view) {
     private val deadlineTextView: TextView = view.findViewById(R.id.deadline)
+    private val deadlineTimeTextView: TextView = view.findViewById(R.id.deadlineTime)
     private val detailsTextView: TextView = view.findViewById(R.id.taskDetails)
     private val professorTextView: TextView = view.findViewById(R.id.taskProfessor)
     private val statusTextView: TextView = view.findViewById(R.id.taskStatus)
     private val spinnerItems: Array<String> =
         view.context.resources.getStringArray(R.array.ta_edit_status_spinner_items)
     private val context = view.context
+    private val priorityIcon: TextView = view.findViewById(R.id.priorityIcon)
 
     fun bind(task: TaTasksModel) {
         val deadline: Date? = task.deadline
         var formatter = SimpleDateFormat("dd-MM-yyyy HH:MM")
         val dateString: String = formatter.format(deadline)
+        val daysLeft: Long? = deadline?.let { daysUntilDeadline(it) }
+        val priority = task.priority
+
+        setPriorityIcon(priority)
 
         detailsTextView.text = task.description
-        deadlineTextView.text = "Due on $dateString"
-        professorTextView.text = "Assigned by ${task.profName}"
+        deadlineTextView.text = dateString
+        professorTextView.text = task.profName
+
+        if (daysLeft != null) {
+            setDaysLeft(daysLeft)
+        }
 
         val statusString = TaskStatus.valueOf(task.status).statusString
         setStatus(statusString, task.id)
@@ -44,6 +58,63 @@ class TaskViewHolder(view: View) : RecyclerView.ViewHolder(view) {
                 }
                 .show()
         }
+    }
+
+    private fun setPriorityIcon(priority: String) {
+        val priorities = context?.resources?.getStringArray(R.array.priority_levels)
+
+        priorityIcon.setOnClickListener {
+            priorityIcon.performLongClick()
+        }
+        when (priority.lowercase(Locale.ROOT)) {
+            priorities?.get(0)?.lowercase(Locale.ROOT) -> {
+                priorityIcon.setCompoundDrawablesWithIntrinsicBounds(
+                    R.drawable.ic_high_priority,
+                    0,
+                    0,
+                    0
+                )
+                priorityIcon.tooltipText = "${priorities?.get(0)} Priority"
+                priorityIcon.setTextColor(
+                    itemView.context.getColor(
+                        R.color.red
+                    )
+                )
+            }
+
+            priorities?.get(1)?.lowercase(Locale.ROOT) -> {
+                priorityIcon.setCompoundDrawablesWithIntrinsicBounds(
+                    R.drawable.ic_med_priority,
+                    0,
+                    0,
+                    0
+                )
+                priorityIcon.tooltipText = "${priorities?.get(1)} Priority"
+                priorityIcon.setTextColor(
+                    itemView.context.getColor(
+                        R.color.yellow_electric
+                    )
+                )
+            }
+
+            priorities?.get(2)?.lowercase(Locale.ROOT) -> {
+                priorityIcon.setCompoundDrawablesWithIntrinsicBounds(
+                    R.drawable.ic_low_priority,
+                    0,
+                    0,
+                    0
+                )
+                priorityIcon.tooltipText = "${priorities?.get(2)} Priority"
+                priorityIcon.setTextColor(
+                    itemView.context.getColor(
+                        R.color.green
+                    )
+                )
+            }
+
+            else -> {}
+        }
+
     }
 
     private fun setStatus(status: String, taskId: String) {
@@ -102,5 +173,43 @@ class TaskViewHolder(view: View) : RecyclerView.ViewHolder(view) {
                 )
             }
         }
+    }
+
+    fun setDaysLeft(daysLeft: Long) {
+        if (daysLeft != null) {
+            if (daysLeft > 0) {
+                deadlineTimeTextView.text = "$daysLeft days left"
+                deadlineTimeTextView.visibility = View.VISIBLE
+                if (daysLeft < 3) {
+                    deadlineTimeTextView.setTextColor(
+                        itemView.context.getColor(
+                            R.color.orange
+                        )
+                    )
+                } else {
+                    deadlineTimeTextView.setTextColor(
+                        itemView.context.getColor(
+                            R.color.cobalt_blue
+                        )
+                    )
+                }
+            } else if (daysLeft < 0) {
+                deadlineTimeTextView.text = "${-daysLeft} days late"
+                deadlineTimeTextView.visibility = View.VISIBLE
+                deadlineTimeTextView.setTextColor(
+                    itemView.context.getColor(
+                        R.color.red
+                    )
+                )
+            } else {
+                deadlineTimeTextView.visibility = View.GONE
+            }
+        }
+    }
+
+    fun daysUntilDeadline(deadline: Date): Long {
+        val currentDate = Calendar.getInstance().time
+        val diffInMillies = deadline.time - currentDate.time
+        return TimeUnit.DAYS.convert(diffInMillies, TimeUnit.MILLISECONDS)
     }
 }

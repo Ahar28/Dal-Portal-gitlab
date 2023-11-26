@@ -27,7 +27,7 @@ data class TaTasksModel(
     val status: String = "",
 
     @PropertyName("timestamp")
-    val timestamp: Timestamp = Timestamp(Date()),
+    val timestamp: Date = Date(),
 
     @PropertyName("profName")
     val profName: String = ""
