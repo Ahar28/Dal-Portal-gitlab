@@ -109,14 +109,20 @@ class TaPortalHomeFragment : Fragment() {
             add(Calendar.DATE, -3)
         }.time
 
-        val sortedTasks = tasks.filter { it.deadline?.after(threeDaysAgo) == true }
-            .sortedWith(compareBy<TaTasksModel> {
-                it.deadline
-                    ?: Date(Long.MAX_VALUE) // Handle null deadlines by assigning them a far future date
-            }.thenBy {
-                priorityMap[it.priority.lowercase(Locale.ROOT)]
-                    ?: Int.MAX_VALUE // Handle unknown priorities by assigning them the lowest priority
-            })
+        Log.d("TA_tasks", tasks.toString())
+        val sortedTasks =
+            tasks.filter { it.deadline?.after(threeDaysAgo) == true } // Filter out tasks with deadline before 3 days ago
+                .sortedWith(compareBy<TaTasksModel> {
+                    when (it.status.lowercase()) {
+                        "in_progress" -> 0
+                        "completed" -> 2
+                        else -> 1
+                    } // Completed tasks will be sorted to the end
+                }.thenBy {
+                    it.deadline ?: Date(Long.MAX_VALUE) // Handle null deadlines
+                }.thenBy {
+                    priorityMap[it.priority.lowercase()] ?: Int.MAX_VALUE // Handle priorities
+                })
 
         return sortedTasks
     }
