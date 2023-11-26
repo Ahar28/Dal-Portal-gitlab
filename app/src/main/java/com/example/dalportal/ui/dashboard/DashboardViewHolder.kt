@@ -75,6 +75,11 @@ class DashboardViewHolder(view: View) : RecyclerView.ViewHolder(view) {
                 dashLayout.setBackgroundResource(R.drawable.img_admin_portal)
             }
 
+            "job_portal" -> {
+                dashButton.text = "Job portal"
+                dashLayout.setBackgroundResource(R.drawable.img_job_portal)
+            }
+
             else -> {}
         }
 
@@ -97,6 +102,7 @@ class DashboardViewHolder(view: View) : RecyclerView.ViewHolder(view) {
             "prof_portal" -> R.id.nav_professor_portal
             "review_availability" -> R.id.nav_availability_calendar_prof
             "admin_portal" -> R.id.nav_admin_portal
+            "job_portal" -> R.id.nav_jobListing
             else -> 0
         }
     }

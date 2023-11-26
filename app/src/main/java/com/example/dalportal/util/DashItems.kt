@@ -10,12 +10,14 @@ object DashItems {
         }
     }
 
-    private val studentItems: List<String> = arrayListOf("assignments_submit", "events", "forum")
+    private val studentItems: List<String> =
+        arrayListOf("assignments_submit", "job_portal", "events", "forum")
     private val taItems: List<String> =
         arrayListOf(
             "ta_portal",
             "update_availability",
             "assignments_review",
+            "job_portal",
             "content",
             "events",
             "forum"
@@ -23,10 +25,11 @@ object DashItems {
     private val professorItems: List<String> = arrayListOf(
         "prof_portal",
         "review_availability",
-        "assignments_review",
+        "assignments_review", "job_portal",
         "content",
         "events",
         "forum"
     )
-    private val adminItems: List<String> = arrayListOf("admin_portal", "events", "forum")
+    private val adminItems: List<String> =
+        arrayListOf("admin_portal", "job_portal", "events", "forum")
 }
