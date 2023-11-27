@@ -18,8 +18,6 @@ class ProfessorPortalFragment : Fragment() {
 
     private var _binding: FragmentProfessorPortalBinding? = null
 
-    // This property is only valid between onCreateView and
-    // onDestroyView.
     private val binding get() = _binding!!
 
     override fun onCreateView(
@@ -44,23 +42,19 @@ class ProfessorPortalFragment : Fragment() {
         }
 
         assignTaskbutton.setOnClickListener {
-            // Handle task assignment here
             // Navigate to AssignTaskFragment
             findNavController().navigate(R.id.action_professor_to_assign_task)
         }
         progressMonitoringbutton.setOnClickListener {
-            // Handle task assignment here
             // Navigate to progress monitor task here
             findNavController().navigate(R.id.action_professor_to_task_dashboard)
         }
         overviewDashboardButton.setOnClickListener {
-            // Handle task assignment here
             // Navigate to overview dashboard
             findNavController().navigate(R.id.action_professor_to_overview_dashboard)
         }
 
         coursescheduleButton.setOnClickListener {
-            // Start CalendarActivity when coursescheduleButton is clicked
             val intent = Intent(requireContext(), CalendarActivity::class.java)
             startActivity(intent)
         }
