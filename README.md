@@ -8,7 +8,8 @@ Our proposed mobile application seeks to revolutionize how TAs, markers, and stu
 - [Shivam Lakhanpal (sh475218@dal.ca)](https://git.cs.dal.ca/slakhanpal)
 - [Amanjot Singh (am854663@dal.ca)](https://git.cs.dal.ca/amanjots)
 - [Shubham Chauhan (shubhamchauhan@dal.ca)](https://git.cs.dal.ca/shubhamc)
-- [Aharnish Solanki (ah910744@dal.ca)](https://git.cs.dal.ca/asolanki)
+- [Aharnish Maheshbhai Solanki (ah910744@dal.ca)](https://git.cs.dal.ca/asolanki)
+- [Dheeraj Bhat (dh210086@dal.ca)](https://git.cs.dal.ca/dbhat)
 
 <ADD YOUR NAMES AND EMAIL IN THIS LIST>
 
