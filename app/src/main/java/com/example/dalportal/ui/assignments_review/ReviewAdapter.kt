@@ -18,6 +18,7 @@ class ReviewAdapter(private var reviews: List<AssignmentReview>) :
         val assignmentName: TextView = view.findViewById(R.id.textAssignmentName)
         val studentId: TextView = view.findViewById(R.id.textStudentId)
         val fileUrl: TextView = view.findViewById(R.id.textFileUrl)
+        val deadline: TextView = view.findViewById(R.id.reviewDeadline)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -30,6 +31,7 @@ class ReviewAdapter(private var reviews: List<AssignmentReview>) :
         val review = reviews[position]
         holder.assignmentName.text = review.name
         holder.studentId.text = review.studentId
+        holder.deadline.text = "Due on ${review.deadline}"
         val customUrl = "ASSIGNMENT URL"
         val spanUrl = SpannableString(customUrl)
         spanUrl.setSpan(UnderlineSpan(), 0, spanUrl.length, 0)
