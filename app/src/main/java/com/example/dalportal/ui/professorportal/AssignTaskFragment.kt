@@ -38,7 +38,7 @@ class AssignTaskFragment : Fragment() {
         val deadlineEditText = binding.datePickerDeadline
         val prioritySpinner = binding.spinnerPriority
 
-        // Initialize your form fields
+        // Initialize form fields
         val assignedToSpinner = binding.spinnerAssignedTo
 
         // Fetch teaching assistants and populating spinner
@@ -116,5 +116,4 @@ class AssignTaskFragment : Fragment() {
                     Toast.makeText(requireContext(), "Error fetching teaching assistants", Toast.LENGTH_SHORT).show()
                 }
         }
-
 }

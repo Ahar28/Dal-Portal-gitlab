@@ -21,9 +21,7 @@ class WeekViewActivity : AppCompatActivity(), OnItemListener {
     private var monthYearText: TextView? = null
     private var calendarRecyclerView: RecyclerView? = null
     private var eventListView: ListView? = null
-
-    // Inside WeekViewActivity
-    private val firestore = FirebaseFirestore.getInstance()
+    
     override fun onCreate(savedInstanceState: Bundle?) {
         val recName = intent.getStringExtra("name")
 
