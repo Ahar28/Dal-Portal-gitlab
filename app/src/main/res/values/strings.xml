@@ -60,11 +60,11 @@
     <string name="job_posting">Job Posting</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="job_title">Enter Job Title</string>
-    <string name="job_description">Enter Job Description</string>
+    <string name="job_description">Enter Job Description (min 100 chars)</string>
     <string name="number_of_positions">Enter Number of positions</string>
     <string name="job_location">Enter Job Location</string>
     <string name="rate_of_pay">Enter Rate of Pay</string>
-    <string name="job_requirements">Enter Job requirements</string>
+    <string name="job_requirements">Enter Job requirements (min 100 chars)</string>
     <string name="post_job">Post</string>
     <string name="dalhousie_university">Dalhousie University</string>
 
