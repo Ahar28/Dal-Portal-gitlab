@@ -12,15 +12,13 @@ Our proposed mobile application seeks to revolutionize how TAs, markers, and stu
 - [Dheeraj Bhat (dh210086@dal.ca)](https://git.cs.dal.ca/dbhat)
 - [Tapan Patel (tapan.patel@dal.ca)](https://git.cs.dal.ca/tapan)
 
-< ADD YOUR NAMES AND EMAIL IN THIS LIST >
-
 ## Features
 
 The following are the essential features that were supposed to be developed by our team:
 
 - Profile Creation and Management (Amanjot Singh)
 - Availability Calendar (Shubham Chauhan)
-- Notifications (Dheeraj Bhat)
+- Chat (Dheeraj Bhat)
 - Job Posting (Tapan Patel)
 - Dashboard(Amanjot Singh)
 - Professor Portal (Aharnish Maheshbhai Solanki)
@@ -41,8 +39,6 @@ Out of these features, some features are using hard-coded data, as mentioned by 
 2. Feedback
 3. Event Calendar
 4. Course Scheduler
-
-< ADD YOUR STATIC FEATURES IN THE ABOVE GIVEN LIST >
 
 ## Login Details For Different Roles:
 
