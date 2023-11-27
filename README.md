@@ -38,6 +38,7 @@ Out of these features, some features are using hard-coded data, as mentioned by 
 1. Admin Dashboard
 2. Feedback
 3. Event Calendar
+4. Course Scheduler
 
 < ADD YOUR STATIC FEATURES IN THE ABOVE GIVEN LIST >
 
