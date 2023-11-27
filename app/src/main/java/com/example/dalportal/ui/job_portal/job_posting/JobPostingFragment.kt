@@ -16,31 +16,9 @@ import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import org.json.JSONObject
 import java.io.IOException
 
-
-/*
-    125892 - IT Developer Coop Student
-
-    Information Technology / Client Solutions within the City of Calgary has an exciting opportunity for a student to fill an IT Developer Coop Student role. The successful applicant will focus on supporting the advancement of several Microsoft technology implementations including Power Automate, Power Apps, Logic Apps, Azure Functions under the leadership of experienced staff. This position will report to the Leader for IT-CS-Resource Centre 1 and will be exposed to a variety of projects related to Client Solutions priorities in the Microsoft power platform space. Specific duties of this position include:
-    Researching best practices in the development of power automate, power apps, and or logic apps
-    Document governance roles / rules / responsibilities and accountabilities, etc.
-    Create samples for others to reuse or modify to fit business needs
-
-    Qualifications:
-    Enrolled in a post-secondary program in Computer Science with 2 years completed in the program.
-    Previous experience with Power Automate, Power Apps, Logic Apps, or Azure Functions
-    Intermediate proficiency in Microsoft Office (Outlook, Word, Excel, and Teams)
-    Knowledge and experience using programming languages and databases and related technologies is considered an asset
-    Experience documenting system functionality and technical processes (workflow diagrams) is considered an asset.
-    Successful candidate will have communication and interpersonal skills along with demonstrated attention to detail.
-    Pre-employment Requirements
-    Successful applicants must provide proof of qualifications.
-    A security clearance will be conducted.
-    You must be currently attending a full-time post-secondary program and be required to complete a Work Integrated Learning experience placement (e.g., co-op, practicum, internship) to apply for this competition.
-    This position is subject to Union dues.*/
 class JobPostingFragment : Fragment() {
     private var _binding: FragmentJobPostingBinding? = null
     private val binding get() = _binding!!
-
     private val db = FirebaseFirestore.getInstance()
 
     override fun onCreateView(
@@ -48,9 +26,13 @@ class JobPostingFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentJobPostingBinding.inflate(inflater, container, false)
-//        setupSpinner()
         setupButtonClickListener()
         return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        setupJobTypeDropdown()
     }
 
     private fun setupJobTypeDropdown() {
@@ -62,27 +44,43 @@ class JobPostingFragment : Fragment() {
 
     private fun setupButtonClickListener() {
         binding.submitJobPosting.setOnClickListener {
-            saveJobPostingToFirestore()
+            if (validateForm()) {
+                saveJobPostingToFirestore()
+            }
         }
     }
 
+    private fun validateForm(): Boolean {
+        // Local variables for EditText content
+        val jobTitleText = binding.jobTitle.text
+        val jobDescriptionText = binding.jobDescription.text
+        val jobTypeText = binding.jobType.text
+        val numPositionsText = binding.numPositions.text
+        val jobLocationText = binding.jobLocation.text
+        val rateOfPayText = binding.rateOfPay.text
+        val jobRequirementsText = binding.jobRequirements.text
+
+        // Validation checks
+        if (jobTitleText.isNullOrEmpty() || jobDescriptionText.isNullOrEmpty() || jobDescriptionText.length < 100 ||
+            jobTypeText.isNullOrEmpty() || numPositionsText.isNullOrEmpty() ||
+            jobLocationText.isNullOrEmpty() || rateOfPayText.isNullOrEmpty() ||
+            jobRequirementsText.isNullOrEmpty() || jobRequirementsText.length < 100) {
+            Toast.makeText(requireContext(), "Please fill in all the fields correctly", Toast.LENGTH_SHORT).show()
+            return false
+        }
+
+        return true
+    }
+
     private fun saveJobPostingToFirestore() {
+        // Convert EditText content to String
         val jobTitle = binding.jobTitle.text.toString()
         val jobDescription = binding.jobDescription.text.toString()
         val jobType = binding.jobType.text.toString()
-        println(jobType)
-        val numPositions = binding.numPositions.text.toString().toIntOrNull() ?: 0 // Parse as Int, default to 0
+        val numPositions = binding.numPositions.text.toString().toIntOrNull() ?: 0
         val jobLocation = binding.jobLocation.text.toString()
-        val rateOfPay = binding.rateOfPay.text.toString().toIntOrNull() ?: 0 // Parse as Int, default to 0
+        val rateOfPay = binding.rateOfPay.text.toString().toIntOrNull() ?: 0
         val jobRequirements = binding.jobRequirements.text.toString()
-
-
-        if (jobTitle.isEmpty() || jobDescription.isEmpty() || jobType.isEmpty() ||
-            numPositions ==0 || jobLocation.isEmpty() || rateOfPay == 0 ||
-            jobRequirements.isEmpty()) {
-            Toast.makeText(requireContext(), "Please fill in all the fields", Toast.LENGTH_SHORT).show()
-            return
-        }
 
         fetchTags("$jobDescription $jobRequirements") { tags ->
             val jobData = hashMapOf(
@@ -107,7 +105,6 @@ class JobPostingFragment : Fragment() {
                 }
         }
     }
-
     private fun fetchTags(jobDescription: String, onComplete: (List<String>) -> Unit) {
         val client = OkHttpClient()
         val requestJson = JSONObject().apply {
@@ -126,9 +123,9 @@ class JobPostingFragment : Fragment() {
 
         client.newCall(request).enqueue(object : Callback {
             override fun onFailure(call: Call, e: IOException) {
-                // Handle failure
-                Toast.makeText(requireContext(), "Error making call: ${e.message}", Toast.LENGTH_LONG).show()
-
+                activity?.runOnUiThread {
+                    Toast.makeText(requireContext(), "Error making call: ${e.message}", Toast.LENGTH_LONG).show()
+                }
             }
 
             override fun onResponse(call: Call, response: Response) {
@@ -139,11 +136,13 @@ class JobPostingFragment : Fragment() {
                     for (i in 0 until tags.length()) {
                         tagList.add(tags.getString(i))
                     }
-                    onComplete(tagList)
+                    activity?.runOnUiThread {
+                        onComplete(tagList)
+                    }
                 } else {
-                    // Handle error
-                    Toast.makeText(requireContext(), "Error creating tags", Toast.LENGTH_LONG).show()
-
+                    activity?.runOnUiThread {
+                        Toast.makeText(requireContext(), "Error creating tags", Toast.LENGTH_LONG).show()
+                    }
                 }
             }
         })
@@ -152,15 +151,11 @@ class JobPostingFragment : Fragment() {
     private fun clearForm() {
         binding.jobTitle.setText("")
         binding.jobDescription.setText("")
-        binding.jobType.setSelection(0)
+        binding.jobType.setText("") // Adjusted for MaterialAutoCompleteTextView
         binding.numPositions.setText("")
         binding.jobLocation.setText("")
         binding.rateOfPay.setText("")
         binding.jobRequirements.setText("")
-    }
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        setupJobTypeDropdown()
     }
 
     override fun onDestroyView() {
