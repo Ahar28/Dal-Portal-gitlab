@@ -9,8 +9,6 @@ import android.widget.TimePicker
 import androidx.appcompat.app.AppCompatActivity
 import com.example.dalportal.R
 import com.example.dalportal.ui.professorportal.CalendarUtils.formattedDate
-import com.example.dalportal.ui.professorportal.CalendarUtils.formattedTime
-import com.google.firebase.firestore.FirebaseFirestore
 import java.time.LocalTime
 
 
@@ -20,8 +18,7 @@ class EventEditActivity : AppCompatActivity() {
     private var eventTimeTV: TextView? = null
     private var eventTimePicker: TimePicker? = null
     private lateinit var time: LocalTime
-    // Inside EventEditActivity
-    private val firestore = FirebaseFirestore.getInstance()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_event_edit)

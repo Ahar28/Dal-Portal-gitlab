@@ -2,7 +2,6 @@ package com.example.dalportal.ui.professorportal
 
 import android.view.View
 import android.widget.TextView
-import androidx.annotation.NonNull
 import androidx.recyclerview.widget.RecyclerView
 import com.example.dalportal.R
 import com.example.dalportal.ui.professorportal.CalendarAdapter.OnItemListener

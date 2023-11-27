@@ -8,9 +8,11 @@ Our proposed mobile application seeks to revolutionize how TAs, markers, and stu
 - [Shivam Lakhanpal (sh475218@dal.ca)](https://git.cs.dal.ca/slakhanpal)
 - [Amanjot Singh (am854663@dal.ca)](https://git.cs.dal.ca/amanjots)
 - [Shubham Chauhan (shubhamchauhan@dal.ca)](https://git.cs.dal.ca/shubhamc)
-- [Aadith Shameel (ad766375@dal.ca)](https://git.cs.dal.ca/shameel)
+- [Aharnish Maheshbhai Solanki (ah910744@dal.ca)](https://git.cs.dal.ca/asolanki)
+- [Dheeraj Bhat (dh210086@dal.ca)](https://git.cs.dal.ca/dbhat)
+- [Tapan Patel (tapan.patel@dal.ca)](https://git.cs.dal.ca/tapan)
 
-<ADD YOUR NAMES AND EMAIL IN THIS LIST>
+< ADD YOUR NAMES AND EMAIL IN THIS LIST >
 
 ## Features
 
@@ -21,7 +23,7 @@ The following are the essential features that were supposed to be developed by o
 - Notifications (Dheeraj Bhat)
 - Job Posting (Tapan Patel)
 - Dashboard(Amanjot Singh)
-- Professor Portal (Amanjot Singh)
+- Professor Portal (Aharnish Maheshbhai Solanki)
 - TA/Marker Portal (Dheeraj Bhat)
 - Discussion Forums (Shubham Chauhan)
 - Admin Portal (Shivam Lakhanpal)
@@ -35,10 +37,12 @@ The following are the essential features that were supposed to be developed by o
 
 Out of these features, some features are using hard-coded data, as mentioned by the professor. They are:
 
-1.
-2.
+1. Admin Dashboard
+2. Feedback
+3. Event Calendar
+4. Course Scheduler
 
-<ADD YOUR STATIC FEATURES IN THE ABOVE GIVEN LIST>
+< ADD YOUR STATIC FEATURES IN THE ABOVE GIVEN LIST >
 
 ## Login Details For Different Roles:
 
