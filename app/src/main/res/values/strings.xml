@@ -68,6 +68,8 @@
     <string name="post_job">Post</string>
     <string name="dalhousie_university">Dalhousie University</string>
     <string name="studentid_s">StudentID(s)</string>
+    <string name="date">Date</string>
+    <string name="time">Time</string>
     <string name="description">Description</string>
     <string name="name">Name</string>
     <string name="assignment_details">Assignment Details</string>
