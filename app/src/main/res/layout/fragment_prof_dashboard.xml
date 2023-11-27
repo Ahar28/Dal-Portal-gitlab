@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- fragment_prof_dashboard.xml -->
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -9,7 +8,6 @@
     android:orientation="vertical"
     tools:context=".ui.professorportal.ProfDashboardFragment">
 
-    <!-- Task 1 -->
     <androidx.cardview.widget.CardView
         android:id="@+id/taskCard1"
         android:layout_width="match_parent"
@@ -25,7 +23,6 @@
             android:layout_height="wrap_content"
             android:padding="16dp">
 
-            <!-- Task Description -->
             <TextView
                 android:id="@+id/taskdesc"
                 android:layout_width="wrap_content"
@@ -34,7 +31,6 @@
                 android:textSize="18sp"
                 android:textStyle="bold"/>
 
-            <!-- Indicator for Task -->
             <View
                 android:id="@+id/taskStatus"
                 android:layout_width="12dp"
@@ -43,11 +39,9 @@
                 android:layout_marginTop="2dp"
                 android:layout_below="@id/taskdesc"/>
 
-            <!-- Add additional views for other information -->
 
         </RelativeLayout>
     </androidx.cardview.widget.CardView>
 
-    <!-- Repeat similar layout for other tasks -->
 
 </LinearLayout>

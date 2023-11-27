@@ -99,7 +99,6 @@ class ProfessorOverviewDashboardFragment : Fragment() {
                 updateDashboardUI(tasks)
             }
             .addOnFailureListener { exception ->
-                // Handle failure
                 Log.e("Firestore", "Error getting documents: ", exception)
                 System.err.println("Error message : " + exception.message)
             }
@@ -107,16 +106,11 @@ class ProfessorOverviewDashboardFragment : Fragment() {
 
 
     private fun updateDashboardUI(tasks: List<TA_task>) {
-        // Calculate metrics based on tasks
-       // val metrics = calculateMetrics(tasks)
 
         // Calculate metrics based on tasks
         val statusMetrics = calculateStatusMetrics(tasks)
         val priorityMetrics = calculatePriorityMetrics(tasks)
 
-
-        // Update UI elements with the calculated metrics
-      //  displayMetricsOnUI(metrics)
         // Update UI elements with the calculated metrics
         displayStatusMetricsOnPieChart(statusMetrics)
         displayPriorityMetricsOnBarChart(priorityMetrics)

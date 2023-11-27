@@ -25,7 +25,7 @@ class ProfDashboardFragment : Fragment() {
         _binding = FragmentProfDashboardBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
-        // Initialize your form fields
+        // Initialize form fields
         val taskDescriptionTextView: TextView = binding.taskdesc
         val taskIndicator = binding.taskStatus
 
@@ -61,12 +61,11 @@ class ProfDashboardFragment : Fragment() {
                 updateUI(tasks)
             }
             .addOnFailureListener { exception ->
-                // Handle failure
+                System.err.println(exception)
             }
     }
 
     private fun updateUI(tasks: List<String>) {
-        // Example: Display tasks in TextView
         val taskDescriptionTextView: TextView = binding.taskdesc
         taskDescriptionTextView.text = tasks.joinToString("\n")
     }
