@@ -7,9 +7,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
+import com.example.dalportal.MainActivity
+import com.example.dalportal.R
 import com.example.dalportal.databinding.FragmentAssignmentDetailBinding
 import com.example.dalportal.ui.assignments.AssignmentViewModel
 import com.google.firebase.firestore.FirebaseFirestore
@@ -27,7 +31,10 @@ class AssignmentDetailFragment : Fragment() {
         // Request code for file picker
         private const val FILE_PICKER_REQUEST_CODE = 1
 
-        fun newInstance(assignmentName: String?, assignmentDeadline: String?): AssignmentDetailFragment {
+        fun newInstance(
+            assignmentName: String?,
+            assignmentDeadline: String?
+        ): AssignmentDetailFragment {
             val fragment = AssignmentDetailFragment()
             val args = Bundle()
             args.putString(ARG_ASSIGNMENT_NAME, assignmentName)
@@ -82,7 +89,13 @@ class AssignmentDetailFragment : Fragment() {
                 val studentId = getStudentIdFromAssignmentViewModel(assignmentName)
 
                 if (assignmentName != null && studentId != null) {
-                    val fileRef: StorageReference = storageRef.child("/$assignmentName/$studentId/$fileName")
+                    Toast.makeText(
+                        context,
+                        "Uploading file. It will take a few minutes",
+                        Toast.LENGTH_LONG
+                    ).show()
+                    val fileRef: StorageReference =
+                        storageRef.child("/$assignmentName/$studentId/$fileName")
                     fileRef.putFile(selectedFileUri!!)
                         .continueWithTask { uploadTask ->
                             if (!uploadTask.isSuccessful) {
@@ -172,7 +185,8 @@ class AssignmentDetailFragment : Fragment() {
 
     // Function to retrieve studentId from the AssignmentViewModel or any other source
     private fun getStudentIdFromAssignmentViewModel(assignmentName: String?): String? {
-        val assignmentViewModel = ViewModelProvider(requireActivity()).get(AssignmentViewModel::class.java)
+        val assignmentViewModel =
+            ViewModelProvider(requireActivity()).get(AssignmentViewModel::class.java)
         val assignments = assignmentViewModel.assignments.value
         val assignment = assignments?.find { it.name == assignmentName }
         return assignment?.studentId

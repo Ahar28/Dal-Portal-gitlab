@@ -26,7 +26,7 @@ class DashboardViewHolder(view: View) : RecyclerView.ViewHolder(view) {
     fun bind(item: String, onItemClicked: (String) -> Unit) {
         when (item) {
             "assignments_submit" -> {
-                dashButton.text = "Submit assignment"
+                dashButton.text = "View assignments"
                 dashLayout.setBackgroundResource(R.drawable.img_student_assignment)
             }
 
