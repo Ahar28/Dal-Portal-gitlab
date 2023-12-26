@@ -4,13 +4,13 @@ Our proposed mobile application seeks to revolutionize how TAs, markers, and stu
 
 ## Authors
 
-- [Taranjot Singh (tr548284@dal.ca)](https://git.cs.dal.ca/taranjots)
-- [Shivam Lakhanpal (sh475218@dal.ca)](https://git.cs.dal.ca/slakhanpal)
-- [Amanjot Singh (am854663@dal.ca)](https://git.cs.dal.ca/amanjots)
-- [Shubham Chauhan (shubhamchauhan@dal.ca)](https://git.cs.dal.ca/shubhamc)
-- [Aharnish Maheshbhai Solanki (ah910744@dal.ca)](https://git.cs.dal.ca/asolanki)
-- [Dheeraj Bhat (dh210086@dal.ca)](https://git.cs.dal.ca/dbhat)
-- [Tapan Patel (tapan.patel@dal.ca)](https://git.cs.dal.ca/tapan)
+- [Taranjot Singh]
+- [Shivam Lakhanpal]
+- [Amanjot Singh]
+- [Shubham Chauhan]
+- [Aharnish Maheshbhai Solanki]
+- [Dheeraj Bhat]
+- [Tapan Patel]
 
 ## Features
 
